@@ -518,7 +518,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
         query = _build_waystone_query(base, tier, mods)
         result = registry.trade.search_items(query)
         if result and result.get("result"):
-            ids = result["result"][:10]
+            ids = result["result"][:25]
             fetched = registry.trade.fetch_results(result["id"], ids)
             if fetched:
                 converter = registry.get_converter()
@@ -533,10 +533,10 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                         norm = converter.normalize_to_all(amount, currency)
                         if norm.get("chaos", 0) > 0:
                             prices_chaos.append(norm["chaos"])
-                if len(prices_chaos) >= 3:
+                if len(prices_chaos) >= 5:
                     prices_chaos.sort()
-                    idx = max(0, len(prices_chaos) // 5)
-                    realistic_price = prices_chaos[idx]
+                    sample = prices_chaos[3:20] if len(prices_chaos) >= 20 else prices_chaos
+                    realistic_price = sum(sample) / len(sample)
                     normalized = converter.from_exalted(
                         converter.to_exalted(realistic_price, "chaos") or 0
                     )
@@ -635,21 +635,24 @@ def _extract_tier(item: Dict) -> int:
 def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
     """Extract numeric values for the waystone's rolled mod filters.
 
-    Only the high-impact mods that drive price differences are extracted
-    (mirrors what EE2 uses for waystone pricing):
-        - map_packsize       : Pack Size (biggest price impact)
-        - map_magic_monsters  : Magic Monster Density
-        - map_iir             : Item Rarity
-    Skipped (low impact or non-filterable on trade2):
-        - map_revives         : Portals (usually 0, weak signal)
-        - map_rare_monsters   : Rare Monsters (less common)
-        - map_bonus           : Item Quantity (overlaps with waystone drop)
+    Maps waystone property text -> trade2 map_filters field names:
+        - "Pack Size"                -> map_packsize
+        - "Magic Monster Density"     -> map_magic_monsters
+        - "Rare Monster Density"      -> map_rare_monsters
+        - "Item Rarity"               -> map_iir
+        - "Waystone Drop Chance"      -> map_bonus (also "Item Quantity")
+        - "Revives Available"         -> map_revives
+    Monster Effectiveness and Monster Rarity are not trade2-filterable;
+    we still extract them for display purposes but don't include in the
+    trade2 query.
     """
     mod_map = {
         "Pack Size": "map_packsize",
         "Magic Monster Density": "map_magic_monsters",
         "Rare Monster Density": "map_rare_monsters",
         "Item Rarity": "map_iir",
+        "Waystone Drop Chance": "map_bonus",
+        "Revives Available": "map_revives",
     }
     found = {}
     raw_lines = item.get("raw_lines", [])
@@ -675,8 +678,9 @@ def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
 _HIGH_IMPACT_WAYSTONE_MODS = (
     "map_packsize",
     "map_magic_monsters",
-    "map_iir",
     "map_rare_monsters",
+    "map_iir",
+    "map_bonus",
 )
 
 
