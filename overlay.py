@@ -12,10 +12,9 @@ from PyQt5.QtGui import QColor, QCursor
 from PyQt5.QtWidgets import (QApplication, QLabel, QMenu, QSystemTrayIcon,
                               QWidget, QVBoxLayout, QPushButton)
 
-try:
-    from pynput import keyboard as pynput_keyboard
-except ImportError:
-    pynput_keyboard = None
+# pynput was previously imported here for a key listener; the
+# architecture is now polling-based via Pricer._poll(), so no key
+# listener is needed. pynput is no longer a runtime dependency.
 
 from cache import init_db
 from clipboard import get_clipboard_text_safe
@@ -98,40 +97,11 @@ class StatusWindow(QWidget):
         self.label.setStyleSheet("padding: 8px; font-size: 12px;")
         self.label.setWordWrap(True)
         layout.addWidget(self.label)
-        self.test_btn = QPushButton("Test Price Check")
-        self.test_btn.clicked.connect(self.test_fired)
-        layout.addWidget(self.test_btn)
         self.setLayout(layout)
         self.adjustSize()
         self.setFixedWidth(360)
         screen = QApplication.primaryScreen().geometry()
         self.move(screen.width() - self.width() - 20, 20)
-
-    def test_fired(self):
-        self.label.setText("Testing...")
-        QTimer.singleShot(100, lambda: self._do_test())
-
-    def _do_test(self):
-        text = get_clipboard_text_safe()
-        if not text:
-            self.label.setText("Test: clipboard EMPTY - copy an item first")
-            return
-        if "Rarity:" not in text:
-            preview = text.replace("\n", " | ")[:50]
-            self.label.setText(f"Test: no item (clipboard has: {preview})")
-            return
-        result = price_text(text)
-        if "error" in result and "normalized" not in result:
-            self.label.setText(f"Test: error - {result['error'][:60]}")
-            return
-        base = result.get("parsed_item", {}).get("base", "?")
-        n = result.get("normalized", {})
-        ex = n.get("exalted", 0)
-        if ex >= 1:
-            primary = f"{_fmt_currency(ex)}ex"
-        else:
-            primary = f"{_fmt_currency(n.get('chaos', 0))}c"
-        self.label.setText(f"Test OK: {base} = {primary}")
 
 
 class Pricer:
@@ -183,6 +153,11 @@ class Pricer:
         except Exception as e:
             import traceback
             print(f"[price] CRASH: {e}\n{traceback.format_exc()}", flush=True)
+            err_msg = f"PRICING FAILED\n{type(e).__name__}: {str(e)[:100]}"
+            with self._pending_lock:
+                if self._current_job == job:
+                    self._pending_show_text = (err_msg, None)
+                    self._pending_show_event.set()
         finally:
             self._busy = False
 
@@ -200,9 +175,6 @@ class Pricer:
 
 
 def main(hotkey: str = None):
-    if pynput_keyboard is None:
-        print("ERROR: pynput not installed.")
-        sys.exit(1)
     init_db()
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)

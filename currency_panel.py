@@ -133,24 +133,36 @@ class CurrencyRatesPanel(QWidget):
 
     def _refresh(self):
         try:
-            self._update_icons()
-            self._update_display()
+            all_items = self._fetch_all_currency_items()
+            self._update_icons(all_items)
+            self._update_display(all_items)
             from datetime import datetime
             self._update_label.setText(f"updated {datetime.now().strftime('%H:%M:%S')}")
         except Exception as e:
             self._update_label.setText(f"err: {str(e)[:30]}")
 
-    def _update_icons(self):
+    def _fetch_all_currency_items(self):
+        """Fetch all currency items in one pass, cached per refresh tick."""
+        all_items = []
         for page in range(1, 4):
             url = f"poe2/Leagues/{self._scout.league_encoded}/Currencies/ByCategory?Category=currency&Page={page}"
             data = self._scout._req(url)
             if not data:
                 break
-            for item in data.get("Items", []):
-                api_id = (item.get("ApiId") or "").lower()
-                icon_url = item.get("IconUrl")
-                if api_id in self._icons and icon_url and self._icons[api_id] is None:
-                    self._load_icon(api_id, icon_url)
+            items = data.get("Items", [])
+            if not items:
+                break
+            all_items.extend(items)
+        return all_items
+
+    def _update_icons(self, all_items=None):
+        if all_items is None:
+            all_items = self._fetch_all_currency_items()
+        for item in all_items:
+            api_id = (item.get("ApiId") or "").lower()
+            icon_url = item.get("IconUrl")
+            if api_id in self._icons and icon_url and self._icons[api_id] is None:
+                self._load_icon(api_id, icon_url)
 
     def _load_icon(self, api_id: str, url: str):
         try:
@@ -172,22 +184,24 @@ class CurrencyRatesPanel(QWidget):
         except Exception as e:
             print(f"[currency_panel] icon load fail {api_id}: {e}", flush=True)
 
-    def _update_display(self):
+    def _update_display(self, all_items=None):
+        if all_items is None:
+            all_items = self._fetch_all_currency_items()
         item_by_api = {}
-        for page in range(1, 4):
-            url = f"poe2/Leagues/{self._scout.league_encoded}/Currencies/ByCategory?Category=currency&Page={page}"
-            data = self._scout._req(url)
-            if not data:
-                break
-            for item in data.get("Items", []):
-                api = (item.get("ApiId") or "").lower()
-                if api in self._currency_keys:
-                    price = item.get("CurrentPrice", 0)
-                    if price > 0:
-                        item_by_api[api] = price
+        for item in all_items:
+            api = (item.get("ApiId") or "").lower()
+            if api in self._currency_keys:
+                price = item.get("CurrentPrice", 0)
+                if price > 0:
+                    item_by_api[api] = price
         refs = self._scout.fetch_reference_currencies()
+        if not refs:
+            self._update_label.setText("rates unavailable")
+            return
         chaos_per_ex = refs.get("chaos", 1)
         divine_per_ex = refs.get("divine", 1)
+        if chaos_per_ex <= 1 or divine_per_ex <= 1:
+            self._update_label.setText("rates incomplete")
         sorted_keys = sorted(
             [k for k in self._currency_keys if k in item_by_api],
             key=lambda k: item_by_api[k],
