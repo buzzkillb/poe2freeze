@@ -59,7 +59,9 @@ class PriceOverlay(QWidget):
 
     def show_at(self, pos: QPoint, text: str, duration_ms: int = 3500):
         if text == self._current_text and self.isVisible():
+            self.hide_timer.stop()
             self.hide_timer.start(duration_ms)
+            self.raise_()
             return
 
         self._current_text = text
