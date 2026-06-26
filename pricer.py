@@ -542,10 +542,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                             })
                 if listings:
                     listings.sort(key=lambda x: x["price_chaos"])
-                    realistic = [l for l in listings if l["price_chaos"] > 5.0]
-                    if not realistic:
-                        realistic = listings
-                    best = realistic[0]
+                    best = listings[0]
                     normalized = converter.from_exalted(best["exalted"])
                     cache_price(
                         key=cache_key,
@@ -712,8 +709,19 @@ def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
     """
     query = {
         "status": {"option": "online"},
+        "stats": [{"type": "and", "filters": []}],
         "filters": {
+            "type_filters": {
+                "filters": {
+                    "category": {"option": "map.waystone"}
+                }
+            },
             "map_filters": {"filters": {}},
+            "trade_filters": {
+                "filters": {
+                    "collapse": {"option": "true"}
+                }
+            }
         }
     }
     if tier:
@@ -728,36 +736,6 @@ def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
         query["filters"]["misc_filters"] = {
             "filters": {"corrupted": {"option": "true"}}
         }
-    return query
-
-
-def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
-    """Build a trade2 search body for a waystone with given mods.
-
-    Only sends the high-impact mods to trade2 so we don't get an
-    over-restrictive filter that returns zero listings. Also adds
-    trade_filters.collapse=true to dedupe multiple listings by the same
-    seller (avoid counting one farmer's 10 listings 10 times).
-    """
-    query = {
-        "status": {"option": "online"},
-        "filters": {
-            "map_filters": {"filters": {}},
-            "trade_filters": {
-                "filters": {
-                    "collapse": {"option": "true"},
-                }
-            }
-        }
-    }
-    if tier:
-        query["filters"]["map_filters"]["filters"]["map_tier"] = {
-            "min": tier, "max": tier
-        }
-    for field in _HIGH_IMPACT_WAYSTONE_MODS:
-        value = mods.get(field, 0)
-        if value > 0:
-            query["filters"]["map_filters"]["filters"][field] = {"min": value}
     return query
 
 def _waystone_cache_key(base: str, tier: int, mods: Dict[str, int]) -> str:
