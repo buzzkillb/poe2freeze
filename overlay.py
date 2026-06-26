@@ -12,10 +12,9 @@ from PyQt5.QtGui import QColor, QCursor
 from PyQt5.QtWidgets import (QApplication, QLabel, QMenu, QSystemTrayIcon,
                               QWidget, QVBoxLayout, QPushButton)
 
-try:
-    from pynput import keyboard as pynput_keyboard
-except ImportError:
-    pynput_keyboard = None
+# pynput was previously imported here for a key listener; the
+# architecture is now polling-based via Pricer._poll(), so no key
+# listener is needed. pynput is no longer a runtime dependency.
 
 from cache import init_db
 from clipboard import get_clipboard_text_safe
@@ -176,9 +175,6 @@ class Pricer:
 
 
 def main(hotkey: str = None):
-    if pynput_keyboard is None:
-        print("ERROR: pynput not installed.")
-        sys.exit(1)
     init_db()
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)

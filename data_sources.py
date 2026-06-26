@@ -474,12 +474,9 @@ class PriceConverter:
         return result
 
     def to_exalted(self, amount: float, currency_api_id: str) -> Optional[float]:
-        cur_lower = currency_api_id.lower()
+        cur_lower = currency_api_id.lower().strip()
         if cur_lower in self.ex_per_unit:
             return amount * self.ex_per_unit[cur_lower]
-        for api_id, ex_per in self.ex_per_unit.items():
-            if api_id in cur_lower or cur_lower in api_id:
-                return amount * ex_per
         return None
 
     def normalize_to_all(self, amount: float, currency_api_id: str) -> Dict[str, float]:
