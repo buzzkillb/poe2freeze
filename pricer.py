@@ -635,23 +635,21 @@ def _extract_tier(item: Dict) -> int:
 def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
     """Extract numeric values for the waystone's rolled mod filters.
 
-    These come from the property section at the top of the waystone
-    text. trade2's map_filters use these field names:
-        - map_packsize       : Pack Size
+    Only the high-impact mods that drive price differences are extracted
+    (mirrors what EE2 uses for waystone pricing):
+        - map_packsize       : Pack Size (biggest price impact)
         - map_magic_monsters  : Magic Monster Density
-        - map_rare_monsters   : Rare Monster Density
-        - map_bonus           : Waystone Drop Chance / Item Quantity
         - map_iir             : Item Rarity
-        - map_revives         : Portals
-        - map_gold            : Gold Find (not all waystones)
+    Skipped (low impact or non-filterable on trade2):
+        - map_revives         : Portals (usually 0, weak signal)
+        - map_rare_monsters   : Rare Monsters (less common)
+        - map_bonus           : Item Quantity (overlaps with waystone drop)
     """
     mod_map = {
-        "Revives Available": "map_revives",
-        "Item Rarity": "map_iir",
         "Pack Size": "map_packsize",
-        "Monster Rarity": "map_iir",   # overlap
-        "Monster Effectiveness": "map_bonus",  # too generic
-        "Waystone Drop Chance": "map_bonus",
+        "Magic Monster Density": "map_magic_monsters",
+        "Rare Monster Density": "map_rare_monsters",
+        "Item Rarity": "map_iir",
     }
     found = {}
     raw_lines = item.get("raw_lines", [])
@@ -672,8 +670,22 @@ def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
     return found
 
 
+# Mods that actually drive price differences for waystones — what
+# EE2 includes in the trade2 search body. Keep this list short:
+_HIGH_IMPACT_WAYSTONE_MODS = (
+    "map_packsize",
+    "map_magic_monsters",
+    "map_iir",
+    "map_rare_monsters",
+)
+
+
 def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
-    """Build a trade2 search body for a waystone with given mods."""
+    """Build a trade2 search body for a waystone with given mods.
+
+    Only sends the high-impact mods to trade2 so we don't get an
+    over-restrictive filter that returns zero listings.
+    """
     query = {
         "status": {"option": "online"},
         "filters": {
@@ -684,9 +696,8 @@ def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
         query["filters"]["map_filters"]["filters"]["map_tier"] = {
             "min": tier, "max": tier
         }
-    for field, value in mods.items():
-        if field in ("map_revives",):
-            continue
+    for field in _HIGH_IMPACT_WAYSTONE_MODS:
+        value = mods.get(field, 0)
         if value > 0:
             query["filters"]["map_filters"]["filters"][field] = {"min": value}
     return query
