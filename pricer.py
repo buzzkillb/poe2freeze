@@ -518,37 +518,43 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
         query = _build_waystone_query(base, tier, mods)
         result = registry.trade.search_items(query)
         if result and result.get("result"):
-            ids = result["result"][:25]
+            ids = result["result"][:6]
             fetched = registry.trade.fetch_results(result["id"], ids)
             if fetched:
                 converter = registry.get_converter()
-                prices_chaos = []
+                listings = []
                 for entry in fetched.get("result", []):
                     if not entry:
                         continue
-                    price_info = entry.get("listing", {}).get("price", {})
+                    p = entry.get("listing", {})
+                    price_info = p.get("price", {})
                     amount = price_info.get("amount", 0)
                     currency = price_info.get("currency", "")
                     if amount > 0 and currency:
                         norm = converter.normalize_to_all(amount, currency)
                         if norm.get("chaos", 0) > 0:
-                            prices_chaos.append(norm["chaos"])
-                if len(prices_chaos) >= 5:
-                    prices_chaos.sort()
-                    realistic_price = prices_chaos[len(prices_chaos) // 2]
-                    normalized = converter.from_exalted(
-                        converter.to_exalted(realistic_price, "chaos") or 0
-                    )
+                            listings.append({
+                                "price_chaos": norm["chaos"],
+                                "exalted": norm.get("exalted", 0),
+                                "account": p.get("account", {}).get("name", "?"),
+                                "amount": amount,
+                                "currency": currency,
+                            })
+                if listings:
+                    listings.sort(key=lambda x: x["price_chaos"])
+                    best = listings[0]
+                    normalized = converter.from_exalted(best["exalted"])
                     cache_price(
                         key=cache_key,
                         kind="waystone",
                         base=base,
                         name=name,
-                        chaos=realistic_price,
+                        chaos=best["price_chaos"],
                         divine=normalized.get("divine", 0),
                         exalted=normalized.get("exalted", 0),
-                        listing_count=len(prices_chaos),
-                        detail={"tier": tier, "mods": mods, "source": "trade2"},
+                        listing_count=len(listings),
+                        detail={"tier": tier, "mods": mods, "source": "trade2",
+                                "top_listing": f"{best['amount']} {best['currency']}"},
                         ttl_seconds=CACHE_TTL["default"],
                     )
                     return {
@@ -559,7 +565,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                         "normalized": normalized,
                         "cached": False,
                         "source": "trade2",
-                        "listing_count": len(prices_chaos),
+                        "listing_count": len(listings),
                         "corrupted": item.get("corrupted", False),
                     }
     sc_result = registry.get_waystone_price(base, tier)
@@ -678,6 +684,7 @@ def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
                     except ValueError:
                         pass
                 break
+    found["corrupted"] = bool(item.get("corrupted", False))
     return found
 
 
@@ -691,6 +698,41 @@ _HIGH_IMPACT_WAYSTONE_MODS = (
     "map_bonus",
     "map_revives",
 )
+
+
+def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
+    """Build a trade2 search body for a waystone with given mods.
+
+    Only sends the high-impact mods to trade2 so we don't get an
+    over-restrictive filter that returns zero listings. Also adds
+    trade_filters.collapse=true to dedupe multiple listings by the same
+    seller (avoid counting one farmer's 10 listings 10 times).
+    Includes the corrupted filter from the misc_filters block.
+    """
+    query = {
+        "status": {"option": "online"},
+        "filters": {
+            "map_filters": {"filters": {}},
+            "trade_filters": {
+                "filters": {
+                    "collapse": {"option": "true"},
+                }
+            }
+        }
+    }
+    if tier:
+        query["filters"]["map_filters"]["filters"]["map_tier"] = {
+            "min": tier, "max": tier
+        }
+    for field in _HIGH_IMPACT_WAYSTONE_MODS:
+        value = mods.get(field, 0)
+        if value > 0:
+            query["filters"]["map_filters"]["filters"][field] = {"min": value}
+    if mods.get("corrupted"):
+        query["filters"]["misc_filters"] = {
+            "filters": {"corrupted": {"option": "true"}}
+        }
+    return query
 
 
 def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
@@ -721,7 +763,6 @@ def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
         if value > 0:
             query["filters"]["map_filters"]["filters"][field] = {"min": value}
     return query
-
 
 def _waystone_cache_key(base: str, tier: int, mods: Dict[str, int]) -> str:
     """Stable cache key for waystone mod combinations."""
