@@ -87,7 +87,7 @@ def _normalize_currency_tag(name: str) -> str:
     name_lower = name.lower().strip()
     if name_lower in CURRENCY_TAGS:
         return CURRENCY_TAGS[name_lower]
-    for key, tag in CURRENCY_TAGS.items():
+    for key, tag in sorted(CURRENCY_TAGS.items(), key=lambda x: -len(x[0])):
         if key in name_lower:
             return tag
     return name_lower.replace(" ", "-").replace("'", "").replace(" orb", "")
@@ -99,7 +99,8 @@ def price_currency(item: Dict, registry: DataSourceRegistry) -> Dict:
     cached = find_price_by_name(name, "currency")
     if cached:
         converter = registry.get_converter()
-        normalized = converter.from_exalted(cached["chaos"] / max(converter.units_per_ex.get("exalted", 1), 1)) if cached["chaos"] else {}
+        ex_v = cached.get("exalted", 0) or 0
+        normalized = converter.from_exalted(ex_v) if ex_v else {}
         return {
             "kind": "currency",
             "name": name,
@@ -142,13 +143,11 @@ def price_divination_card(item: Dict, registry: DataSourceRegistry) -> Dict:
     cached = find_price_by_name(name, "divination_card")
     if cached:
         converter = registry.get_converter()
-        exalted_v = cached.get("exalted", 0)
-        if not exalted_v and cached.get("chaos"):
-            exalted_v = cached["chaos"] / max(converter.units_per_ex.get("chaos", 1), 1)
+        exalted_v = cached.get("exalted", 0) or 0
         return {
             "kind": "divination_card",
             "name": name,
-            "normalized": converter.from_exalted(exalted_v),
+            "normalized": converter.from_exalted(exalted_v) if exalted_v else {},
             "cached": True,
             "age_seconds": cached["age_seconds"],
             "source": "cache",
@@ -279,7 +278,8 @@ def price_rare(item: Dict, registry: DataSourceRegistry) -> Dict:
     result = registry.get_rare_price(trade_id, stat_filters, base, item_text) if trade_id else None
     if result and "realistic_chaos" in result:
         converter = registry.get_converter()
-        normalized = converter.from_exalted(result["realistic_chaos"] / converter.units_per_ex.get("chaos", 1))
+        ex_amount = converter.to_exalted(result["realistic_chaos"], "chaos") or 0
+        normalized = converter.from_exalted(ex_amount)
         cache_price(
             key=cache_key,
             kind="rare",
@@ -304,7 +304,8 @@ def price_rare(item: Dict, registry: DataSourceRegistry) -> Dict:
         }
     if result and "pred_chaos" in result:
         converter = registry.get_converter()
-        normalized = converter.from_exalted(result["pred_chaos"] / converter.units_per_ex.get("chaos", 1))
+        ex_amount = converter.to_exalted(result["pred_chaos"], "chaos") or 0
+        normalized = converter.from_exalted(ex_amount)
         return {
             "kind": "rare",
             "name": name,
@@ -368,10 +369,8 @@ def _get_base_type_average(base: str, registry: DataSourceRegistry) -> Optional[
 
 
 def _format_rare_result(cached: Dict, item: Dict, converter, from_cache: bool) -> Dict:
-    exalted = cached.get("exalted", 0)
+    exalted = cached.get("exalted", 0) or 0
     normalized = converter.from_exalted(exalted) if exalted else {}
-    if not normalized and cached.get("chaos"):
-        normalized = converter.from_exalted(cached["chaos"] / converter.units_per_ex.get("chaos", 1))
     return {
         "kind": "rare",
         "name": item.get("name", ""),
@@ -456,7 +455,7 @@ def price_gem(item: Dict, registry: DataSourceRegistry) -> Dict:
             "name": name,
             "level": level,
             "quality": quality,
-            "normalized": converter.from_exalted(cached["exalted"] or cached["chaos"] / max(converter.units_per_ex.get("chaos", 1), 1)),
+            "normalized": converter.from_exalted(cached.get("exalted", 0) or 0),
             "cached": True,
             "age_seconds": cached["age_seconds"],
             "corrupted": item.get("corrupted", False),
@@ -506,7 +505,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
             "kind": "waystone",
             "name": name,
             "tier": tier,
-            "normalized": converter.from_exalted(cached["exalted"] or cached["chaos"] / max(converter.units_per_ex.get("chaos", 1), 1)),
+            "normalized": converter.from_exalted(cached.get("exalted", 0) or 0),
             "cached": True,
             "age_seconds": cached["age_seconds"],
             "corrupted": item.get("corrupted", False),
@@ -591,7 +590,8 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
         }
     prices_chaos.sort()
     median = prices_chaos[len(prices_chaos) // 2]
-    normalized = converter.from_exalted(median / converter.units_per_ex.get("chaos", 1))
+    ex_amount = converter.to_exalted(median, "chaos") or 0
+    normalized = converter.from_exalted(ex_amount)
     cache_price(
         key=f"waystone:{name}",
         kind="waystone",

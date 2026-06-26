@@ -154,6 +154,11 @@ class Pricer:
         except Exception as e:
             import traceback
             print(f"[price] CRASH: {e}\n{traceback.format_exc()}", flush=True)
+            err_msg = f"PRICING FAILED\n{type(e).__name__}: {str(e)[:100]}"
+            with self._pending_lock:
+                if self._current_job == job:
+                    self._pending_show_text = (err_msg, None)
+                    self._pending_show_event.set()
         finally:
             self._busy = False
 

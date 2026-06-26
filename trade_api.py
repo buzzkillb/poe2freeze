@@ -31,6 +31,7 @@ def _request(
     path: str,
     body: Optional[Dict] = None,
     timeout: int = 15,
+    max_retries: int = 2,
 ) -> Tuple[Optional[Dict], Optional[str], int]:
     url = TRADE_BASE + path
     data = None
@@ -42,36 +43,37 @@ def _request(
         import json
         data = json.dumps(body).encode("utf-8")
         headers["Content-Type"] = "application/json"
-    req = urllib.request.Request(url, data=data, method=method, headers=headers)
-    _limiter.wait()
-    start = time.time()
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            status = resp.status
-            raw = resp.read()
+    for attempt in range(max_retries + 1):
+        req = urllib.request.Request(url, data=data, method=method, headers=headers)
+        _limiter.wait()
+        start = time.time()
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                status = resp.status
+                raw = resp.read()
+                latency = int((time.time() - start) * 1000)
+                log_request(path, status, latency)
+                if status == 429:
+                    retry_after = int(resp.headers.get("Retry-After", "5"))
+                    time.sleep(min(retry_after, 30))
+                    continue
+                try:
+                    import json
+                    return json.loads(raw), None, status
+                except Exception:
+                    return None, f"invalid json from {path}", status
+        except urllib.error.HTTPError as e:
             latency = int((time.time() - start) * 1000)
-            log_request(path, status, latency)
-            if status == 429:
-                retry_after = int(resp.headers.get("Retry-After", "5"))
+            log_request(path, e.code, latency)
+            body_text = e.read().decode("utf-8", errors="ignore")
+            if e.code == 429:
+                retry_after = int(e.headers.get("Retry-After", "5"))
                 time.sleep(min(retry_after, 30))
-                return _request(method, path, body, timeout)
-            try:
-                import json
-                return json.loads(raw), None, status
-            except Exception:
-                return None, f"invalid json from {path}", status
-    except urllib.error.HTTPError as e:
-        latency = int((time.time() - start) * 1000)
-        log_request(path, e.code, latency)
-        body_text = e.read().decode("utf-8", errors="ignore")
-        if e.code == 429:
-            retry_after = int(e.headers.get("Retry-After", "5"))
-            time.sleep(min(retry_after, 30))
-            return _request(method, path, body, timeout)
-        return None, f"HTTP {e.code}: {body_text[:200]}", e.code
-    except Exception as e:
-        latency = int((time.time() - start) * 1000)
-        log_request(path, 0, latency)
+                continue
+            return None, f"HTTP {e.code}: {body_text[:200]}", e.code
+        except Exception as e:
+            latency = int((time.time() - start) * 1000)
+            log_request(path, 0, latency)
         return None, str(e), 0
 
 

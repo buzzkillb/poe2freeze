@@ -186,8 +186,13 @@ class CurrencyRatesPanel(QWidget):
                     if price > 0:
                         item_by_api[api] = price
         refs = self._scout.fetch_reference_currencies()
+        if not refs:
+            self._update_label.setText("rates unavailable")
+            return
         chaos_per_ex = refs.get("chaos", 1)
         divine_per_ex = refs.get("divine", 1)
+        if chaos_per_ex <= 1 or divine_per_ex <= 1:
+            self._update_label.setText("rates incomplete")
         sorted_keys = sorted(
             [k for k in self._currency_keys if k in item_by_api],
             key=lambda k: item_by_api[k],
