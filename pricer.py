@@ -542,7 +542,10 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                             })
                 if listings:
                     listings.sort(key=lambda x: x["price_chaos"])
-                    best = listings[0]
+                    realistic = [l for l in listings if l["price_chaos"] > 5.0]
+                    if not realistic:
+                        realistic = listings
+                    best = realistic[0]
                     normalized = converter.from_exalted(best["exalted"])
                     cache_price(
                         key=cache_key,
@@ -704,20 +707,13 @@ def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
     """Build a trade2 search body for a waystone with given mods.
 
     Only sends the high-impact mods to trade2 so we don't get an
-    over-restrictive filter that returns zero listings. Also adds
-    trade_filters.collapse=true to dedupe multiple listings by the same
-    seller (avoid counting one farmer's 10 listings 10 times).
-    Includes the corrupted filter from the misc_filters block.
+    over-restrictive filter that returns zero listings. Includes the
+    corrupted filter from the misc_filters block.
     """
     query = {
         "status": {"option": "online"},
         "filters": {
             "map_filters": {"filters": {}},
-            "trade_filters": {
-                "filters": {
-                    "collapse": {"option": "true"},
-                }
-            }
         }
     }
     if tier:
