@@ -2,6 +2,7 @@
 Pricing engine. Routes items to the correct pricer based on type,
 uses DataSourceRegistry for multi-source pricing with normalized display.
 """
+import json
 import re
 import time
 from pathlib import Path
@@ -516,7 +517,11 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
         }
     if mods:
         query = _build_waystone_query(base, tier, mods)
+        print(f"[waystone] trade2 query: {json.dumps(query)[:300]}", flush=True)
         result = registry.trade.search_items(query)
+        total = result.get("total", 0) if result else 0
+        n_ids = len(result.get("result", [])) if result else 0
+        print(f"[waystone] trade2 returned {total} total, {n_ids} ids", flush=True)
         if result and result.get("result"):
             ids = result["result"][:6]
             fetched = registry.trade.fetch_results(result["id"], ids)
@@ -661,12 +666,12 @@ def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
     """
     mod_map = {
         "Waystone Tier: ": "map_tier",
-        "Waystone Packsize: ": "map_packsize",
-        "Waystone IIR: ": "map_iir",
+        "Pack Size: ": "map_packsize",
+        "Item Rarity: ": "map_iir",
         "Magic Monsters: ": "map_magic_monsters",
         "Rare Monsters: ": "map_rare_monsters",
         "Waystone Drop Chance: ": "map_bonus",
-        "Waystone Revives: ": "map_revives",
+        "Revives Available: ": "map_revives",
     }
     found = {}
     raw_lines = item.get("raw_lines", [])
@@ -684,7 +689,8 @@ def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
                     except ValueError:
                         pass
                 break
-    found["corrupted"] = bool(item.get("corrupted", False))
+    raw_text = "\n".join(raw_lines)
+    found["corrupted"] = "Corrupted" in raw_text and item.get("corrupted", False)
     return found
 
 
