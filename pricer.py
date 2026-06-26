@@ -497,122 +497,104 @@ def price_gem(item: Dict, registry: DataSourceRegistry) -> Dict:
 def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
     base = item.get("base", "")
     tier = _extract_tier(item)
+    mods = _extract_waystone_mods(item)
+    cache_key = _waystone_cache_key(base, tier, mods)
     name = f"{base} T{tier}" if tier else base
-    cached = find_price_by_name(name, "waystone")
+    cached = get_price(cache_key)
     if cached:
         converter = registry.get_converter()
         return {
             "kind": "waystone",
             "name": name,
             "tier": tier,
+            "mods": mods,
             "normalized": converter.from_exalted(cached.get("exalted", 0) or 0),
             "cached": True,
             "age_seconds": cached["age_seconds"],
+            "listing_count": cached.get("listing_count", 0),
             "corrupted": item.get("corrupted", False),
         }
-    result = registry.get_waystone_price(base, tier)
-    if result and result.get("current_price_exalted", 0) > 0:
-        normalized = result["normalized"]
+    if mods:
+        query = _build_waystone_query(base, tier, mods)
+        result = registry.trade.search_items(query)
+        if result and result.get("result"):
+            ids = result["result"][:10]
+            fetched = registry.trade.fetch_results(result["id"], ids)
+            if fetched:
+                converter = registry.get_converter()
+                prices_chaos = []
+                for entry in fetched.get("result", []):
+                    if not entry:
+                        continue
+                    price_info = entry.get("listing", {}).get("price", {})
+                    amount = price_info.get("amount", 0)
+                    currency = price_info.get("currency", "")
+                    if amount > 0 and currency:
+                        norm = converter.normalize_to_all(amount, currency)
+                        if norm.get("chaos", 0) > 0:
+                            prices_chaos.append(norm["chaos"])
+                if len(prices_chaos) >= 3:
+                    prices_chaos.sort()
+                    idx = max(0, len(prices_chaos) // 5)
+                    realistic_price = prices_chaos[idx]
+                    normalized = converter.from_exalted(
+                        converter.to_exalted(realistic_price, "chaos") or 0
+                    )
+                    cache_price(
+                        key=cache_key,
+                        kind="waystone",
+                        base=base,
+                        name=name,
+                        chaos=realistic_price,
+                        divine=normalized.get("divine", 0),
+                        exalted=normalized.get("exalted", 0),
+                        listing_count=len(prices_chaos),
+                        detail={"tier": tier, "mods": mods, "source": "trade2"},
+                        ttl_seconds=CACHE_TTL["default"],
+                    )
+                    return {
+                        "kind": "waystone",
+                        "name": name,
+                        "tier": tier,
+                        "mods": mods,
+                        "normalized": normalized,
+                        "cached": False,
+                        "source": "trade2",
+                        "listing_count": len(prices_chaos),
+                        "corrupted": item.get("corrupted", False),
+                    }
+    sc_result = registry.get_waystone_price(base, tier)
+    if sc_result and sc_result.get("current_price_exalted", 0) > 0:
+        normalized = sc_result["normalized"]
         cache_price(
-            key=f"waystone:{name}",
+            key=cache_key,
             kind="waystone",
             base=base,
             name=name,
             chaos=normalized.get("chaos", 0),
             divine=normalized.get("divine", 0),
             exalted=normalized.get("exalted", 0),
-            listing_count=result.get("current_quantity", 0),
-            detail={"tier": tier, "source": result["source"]},
+            listing_count=sc_result.get("current_quantity", 0),
+            detail={"tier": tier, "mods": mods, "source": sc_result["source"]},
             ttl_seconds=CACHE_TTL["default"],
         )
         return {
             "kind": "waystone",
             "name": name,
             "tier": tier,
+            "mods": mods,
             "normalized": normalized,
             "cached": False,
-            "source": result["source"],
-            "listing_count": result.get("current_quantity", 0),
+            "source": sc_result["source"],
+            "listing_count": sc_result.get("current_quantity", 0),
             "corrupted": item.get("corrupted", False),
         }
-    trade_id = _base_to_trade_id(base, item.get("item_class", ""))
-    if not trade_id:
-        return {
-            "kind": "waystone",
-            "name": name,
-            "tier": tier,
-            "error": f"no waystone pricing for '{base}' T{tier} â€” try Ctrl+D in EE2 for mod-aware price",
-        }
-    query = {
-        "status": {"option": "online"},
-        "name": base,
-        "filters": {
-            "map_filters": {"filters": {}}
-        },
-    }
-    if tier:
-        query["filters"]["map_filters"]["filters"]["map_tier"] = {"min": tier, "max": tier}
-    result = registry.trade.search_items(query)
-    if not result or not result.get("result"):
-        return {
-            "kind": "waystone",
-            "name": name,
-            "tier": tier,
-            "error": f"no trade listings for {base} T{tier} (mod-specific pricing not supported)",
-        }
-    ids = result["result"][:5]
-    fetched = registry.trade.fetch_results(result["id"], ids)
-    if not fetched:
-        return {
-            "kind": "waystone",
-            "name": name,
-            "tier": tier,
-            "error": "fetch failed (rate limit?)",
-        }
-    converter = registry.get_converter()
-    prices_chaos = []
-    for entry in fetched.get("result", []):
-        if not entry:
-            continue
-        price_info = entry.get("listing", {}).get("price", {})
-        amount = price_info.get("amount", 0)
-        currency = price_info.get("currency", "")
-        if amount > 0 and currency:
-            norm = converter.normalize_to_all(amount, currency)
-            if norm.get("chaos", 0) > 0:
-                prices_chaos.append(norm["chaos"])
-    if not prices_chaos:
-        return {
-            "kind": "waystone",
-            "name": name,
-            "tier": tier,
-            "error": "no prices in results",
-        }
-    prices_chaos.sort()
-    median = prices_chaos[len(prices_chaos) // 2]
-    ex_amount = converter.to_exalted(median, "chaos") or 0
-    normalized = converter.from_exalted(ex_amount)
-    cache_price(
-        key=f"waystone:{name}",
-        kind="waystone",
-        base=base,
-        name=name,
-        chaos=median,
-        divine=normalized.get("divine", 0),
-        exalted=normalized.get("exalted", 0),
-        listing_count=len(prices_chaos),
-        detail={"tier": tier, "source": "trade2"},
-        ttl_seconds=CACHE_TTL["default"],
-    )
     return {
         "kind": "waystone",
         "name": name,
         "tier": tier,
-        "normalized": normalized,
-        "cached": False,
-        "source": "trade2",
-        "listing_count": len(prices_chaos),
-        "corrupted": item.get("corrupted", False),
+        "mods": mods,
+        "error": f"no listings for {base} T{tier} (try EE2 Ctrl+D or wait for more listings)",
     }
 
 
@@ -648,6 +630,74 @@ def _extract_tier(item: Dict) -> int:
             if m:
                 return int(m.group(1))
     return 0
+
+
+def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
+    """Extract numeric values for the waystone's rolled mod filters.
+
+    These come from the property section at the top of the waystone
+    text. trade2's map_filters use these field names:
+        - map_packsize       : Pack Size
+        - map_magic_monsters  : Magic Monster Density
+        - map_rare_monsters   : Rare Monster Density
+        - map_bonus           : Waystone Drop Chance / Item Quantity
+        - map_iir             : Item Rarity
+        - map_revives         : Portals
+        - map_gold            : Gold Find (not all waystones)
+    """
+    mod_map = {
+        "Revives Available": "map_revives",
+        "Item Rarity": "map_iir",
+        "Pack Size": "map_packsize",
+        "Monster Rarity": "map_iir",   # overlap
+        "Monster Effectiveness": "map_bonus",  # too generic
+        "Waystone Drop Chance": "map_bonus",
+    }
+    found = {}
+    raw_lines = item.get("raw_lines", [])
+    for line in raw_lines:
+        s = line.strip()
+        if "(augmented)" in s or not s:
+            continue
+        for label, field in mod_map.items():
+            if s.startswith(label + ":"):
+                nums = re.findall(r"([+-]?\d+(?:\.\d+)?)", s)
+                if nums:
+                    try:
+                        val = int(round(float(nums[0])))
+                        found[field] = max(found.get(field, 0), val)
+                    except ValueError:
+                        pass
+                break
+    return found
+
+
+def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
+    """Build a trade2 search body for a waystone with given mods."""
+    query = {
+        "status": {"option": "online"},
+        "filters": {
+            "map_filters": {"filters": {}}
+        }
+    }
+    if tier:
+        query["filters"]["map_filters"]["filters"]["map_tier"] = {
+            "min": tier, "max": tier
+        }
+    for field, value in mods.items():
+        if field in ("map_revives",):
+            continue
+        if value > 0:
+            query["filters"]["map_filters"]["filters"][field] = {"min": value}
+    return query
+
+
+def _waystone_cache_key(base: str, tier: int, mods: Dict[str, int]) -> str:
+    """Stable cache key for waystone mod combinations."""
+    import hashlib
+    mod_str = "|".join(f"{k}={v}" for k, v in sorted(mods.items()))
+    raw = f"waystone:{base}:T{tier}:{mod_str}"
+    return hashlib.md5(raw.encode()).hexdigest()[:16]
 
 
 def price_text(text: str) -> Dict:
