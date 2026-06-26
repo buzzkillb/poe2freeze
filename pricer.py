@@ -535,8 +535,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                             prices_chaos.append(norm["chaos"])
                 if len(prices_chaos) >= 5:
                     prices_chaos.sort()
-                    sample = prices_chaos[3:20] if len(prices_chaos) >= 20 else prices_chaos
-                    realistic_price = sum(sample) / len(sample)
+                    realistic_price = prices_chaos[len(prices_chaos) // 2]
                     normalized = converter.from_exalted(
                         converter.to_exalted(realistic_price, "chaos") or 0
                     )
@@ -635,33 +634,42 @@ def _extract_tier(item: Dict) -> int:
 def _extract_waystone_mods(item: Dict) -> Dict[str, int]:
     """Extract numeric values for the waystone's rolled mod filters.
 
-    Maps waystone property text -> trade2 map_filters field names:
-        - "Pack Size"                -> map_packsize
-        - "Magic Monster Density"     -> map_magic_monsters
-        - "Rare Monster Density"      -> map_rare_monsters
-        - "Item Rarity"               -> map_iir
-        - "Waystone Drop Chance"      -> map_bonus (also "Item Quantity")
-        - "Revives Available"         -> map_revives
-    Monster Effectiveness and Monster Rarity are not trade2-filterable;
-    we still extract them for display purposes but don't include in the
-    trade2 query.
+    Maps waystone property text -> trade2 map_filters field names.
+    Source: data/client_strings.js (canonical labels) + EE2's
+    known-working trade2 fields.
+
+    Trade2-filterable (sent in query body):
+        "Waystone Tier: "      -> map_tier       (T1-T16)
+        "Waystone Packsize: "  -> map_packsize   (Pack Size)
+        "Waystone IIR: "       -> map_iir         (Item Rarity)
+        "Magic Monsters: "     -> map_magic_monsters
+        "Rare Monsters: "      -> map_rare_monsters
+        "Waystone Drop Chance: " -> map_bonus     (IIQ)
+        "Waystone Revives: "   -> map_revives     (Portals)
+
+    Display-only (no trade2 field exists):
+        "Monster Effectiveness: " — no `map_effectiveness` field
+        "Monster Rarity: "      — only on items, not waystones
+        "Waystone Experience: " — no field
+        "Waystone Gold: "       — no field
     """
     mod_map = {
-        "Pack Size": "map_packsize",
-        "Magic Monster Density": "map_magic_monsters",
-        "Rare Monster Density": "map_rare_monsters",
-        "Item Rarity": "map_iir",
-        "Waystone Drop Chance": "map_bonus",
-        "Revives Available": "map_revives",
+        "Waystone Tier: ": "map_tier",
+        "Waystone Packsize: ": "map_packsize",
+        "Waystone IIR: ": "map_iir",
+        "Magic Monsters: ": "map_magic_monsters",
+        "Rare Monsters: ": "map_rare_monsters",
+        "Waystone Drop Chance: ": "map_bonus",
+        "Waystone Revives: ": "map_revives",
     }
     found = {}
     raw_lines = item.get("raw_lines", [])
     for line in raw_lines:
         s = line.strip()
-        if "(augmented)" in s or not s:
+        if not s:
             continue
         for label, field in mod_map.items():
-            if s.startswith(label + ":"):
+            if s.startswith(label):
                 nums = re.findall(r"([+-]?\d+(?:\.\d+)?)", s)
                 if nums:
                     try:
@@ -681,6 +689,7 @@ _HIGH_IMPACT_WAYSTONE_MODS = (
     "map_rare_monsters",
     "map_iir",
     "map_bonus",
+    "map_revives",
 )
 
 
@@ -688,12 +697,19 @@ def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
     """Build a trade2 search body for a waystone with given mods.
 
     Only sends the high-impact mods to trade2 so we don't get an
-    over-restrictive filter that returns zero listings.
+    over-restrictive filter that returns zero listings. Also adds
+    trade_filters.collapse=true to dedupe multiple listings by the same
+    seller (avoid counting one farmer's 10 listings 10 times).
     """
     query = {
         "status": {"option": "online"},
         "filters": {
-            "map_filters": {"filters": {}}
+            "map_filters": {"filters": {}},
+            "trade_filters": {
+                "filters": {
+                    "collapse": {"option": "true"},
+                }
+            }
         }
     }
     if tier:
