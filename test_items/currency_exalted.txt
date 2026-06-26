@@ -1,0 +1,7 @@
+Item Class: Currency
+Rarity: Currency
+Exalted Orb
+--------
+Stack Size: 10/10
+--------
+Right click to remove from the stash.

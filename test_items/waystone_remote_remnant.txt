@@ -1,0 +1,31 @@
+Item Class: Waystones
+Rarity: Rare
+Remote Remnant
+Waystone (Tier 15)
+--------
+Revives Available: 0 (augmented)
+Item Rarity: +14% (augmented)
+Pack Size: +16% (augmented)
+Monster Rarity: +18% (augmented)
+Monster Effectiveness: +28% (augmented)
+Waystone Drop Chance: +90% (augmented)
+--------
+Item Level: 82
+--------
+{ Suffix Modifier "of Exposure" (Tier: 1) }
+-6(-8--6)% maximum Player Resistances
+{ Suffix Modifier "of the Prism" (Tier: 1) }
++30(30-34)% Monster Elemental Resistances
+{ Suffix Modifier "of Enduring" (Tier: 1) }
+Monsters are Armoured
+{ Suffix Modifier "of the Unwavering" (Tier: 1) }
+Monsters have 75(70-79)% increased Ailment Threshold
+Monsters have 68(60-69)% increased Stun Threshold
+{ Suffix Modifier "Flaming" (Tier: 1) }
+Area has patches of Ignited Ground
+{ Suffix Modifier "of Evasion" (Tier: 1) }
+Monsters are Evasive
+--------
+Can be used in a Map Device, allowing you to enter a Map. Waystones can only be used once.
+--------
+Corrupted

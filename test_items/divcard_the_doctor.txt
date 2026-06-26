@@ -1,0 +1,11 @@
+Item Class: Divination Card
+Rarity: Divination Card
+The Doctor
+--------
+Stack Size: 1/8
+--------
+{ 8x Rare Jewel Item Level: 100 }
+--------
+"Should I stay or should I go?"
+--------
+Right click to remove from the stash.

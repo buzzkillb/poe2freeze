@@ -1,0 +1,10 @@
+Item Class: Belts
+Rarity: Unique
+Mageblood
+Utility Belt
+--------
+Requires: Level 68
+--------
++50 to maximum Life (implicit)
+--------
+Corrupted

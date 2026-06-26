@@ -1,0 +1,2324 @@
+[
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyIdentification"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyAddModToMagic"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 20,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyUpgradeToMagic"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 50,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyUpgradeMagicToRare"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyAddModToRare"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyRerollRare"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 160,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyCorrupt"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 160,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyUpgradeToRare"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 200,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyModValues"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 800,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyUpgradeRandomly"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyRemoveMod"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyAddEquipmentSocket"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyDuplicate"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 25000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyAddSkillGemSocket3"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "CurrencySockets"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 200,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyAddSkillGemSocket4"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "CurrencySockets"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 600,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyAddSkillGemSocket5"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "CurrencySockets"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyUpgradeToMagicShard"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Shards"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 4,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyUpgradeMagicToRareShard"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Shards"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 12,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyAddEquipmentSocketShard"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Shards"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyUpgradeRandomlyShard"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Shards"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyArmourQuality"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "CurrencyQuality"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyWeaponQuality"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "CurrencyQuality"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 500,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyMagicQuality"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "CurrencyQuality"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 500,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyFlaskQuality"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "CurrencyQuality"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 750,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGemQuality"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Currency"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "CurrencyQuality"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyAfflictionShard"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 3,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/MapFragments/CurrencyAfflictionFragment"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyBreachShard"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 3,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/MapFragments/CurrencyBreachFragment"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/MapFragments/CurrencyRitualBossFragment"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Fragments"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "FragmentsRitual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Ultimatum/TrialmasterKey1"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Fragments"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "FragmentsUltimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 350,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Ultimatum/TrialmasterKey2"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Fragments"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "FragmentsUltimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 350,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Ultimatum/TrialmasterKey3"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Fragments"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "FragmentsUltimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 350,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion1"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion2"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 140,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion3"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 180,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion4"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 220,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion5"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 300,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion6"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 400,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion7"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 520,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion8"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 700,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion9"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 920,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/DistilledEmotion10"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Delirium"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "DeliriumInstill"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityLife"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityMana"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityDefences"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityAttribute"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 160,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityFire"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 260,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityCold"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 260,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityLightning"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 260,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityPhysical"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 360,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityAttack"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 560,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityCaster"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 560,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualityChaos"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 960,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyJewelleryQualitySpeed"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Breach"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "BreachCatalyst"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Expedition/ExpeditionVendorCurrencyFaction1"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Expedition/ExpeditionVendorCurrencyFaction2"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Expedition/ExpeditionVendorCurrencyFaction3"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Expedition/ExpeditionVendorCurrencyFaction4"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyRefreshExpedition"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Expedition"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 500,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceLife"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceMana"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceDefences"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceLightning"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceAttribute"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceFire"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceCold"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssencePhysical"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 140,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceAttack"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 160,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceCaster"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 160,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceChaos"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 180,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyEssenceSpeed"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 200,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceLife"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 600,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceMana"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 600,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceDefences"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 600,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceAttribute"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 660,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceFire"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 740,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceCold"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 740,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceLightning"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 740,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssencePhysical"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 820,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceAttack"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 900,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceCaster"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 900,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceChaos"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/CurrencyGreaterEssenceSpeed"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Essences"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "EssencesGreater"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneFire"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneCold"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneLightning"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneEnhance"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 250,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneLife"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 350,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneMana"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 350,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneAccuracy"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 350,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneLifeRecovery"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 450,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneManaRecovery"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 450,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/RuneStun"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Runes"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 500,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Pinnacle/PinnacleKey1"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Fragments"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "FragmentsPinnacle"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Pinnacle/PinnacleKey2"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Fragments"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "FragmentsPinnacle"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Pinnacle/PinnacleKey3"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Fragments"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "FragmentsPinnacle"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnAlchemyMaximumPrefixes"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnAlchemyMaximumSuffixes"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnRegalPrefix"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnRegalSuffix"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 120,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnLowLifeRecoverCharges"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnLowLifeFullyHeal"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 100,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnVaalRemoveDoNothingOutcome"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 260,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnDeathPreventExpLoss"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 260,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnExaltAddPrefixes"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 260,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnExaltAddSuffixes"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 260,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnAnnulRemoveTwoMods"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 920,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnChaosLowestLevelMod"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 920,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnChaosPrefix"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnChaosSuffix"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnAnnulRemovePrefixes"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnAnnulRemoveSuffixes"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/Currency/OmenOnExaltAddTwoMods"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ritual"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreElemental"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 500,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreChaos"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 500,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreBleed"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 500,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreMaxLife"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 850,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreMaxMana"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 850,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreEnlighten"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 850,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreIgnite"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 850,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreFreeze"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 850,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreShock"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 850,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreSpeed"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 850,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreCrit"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 850,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreStrength"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreDexterity"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreIntelligence"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  },
+  {
+    "Item": {
+      "TableName": "BaseItemTypes",
+      "Id": "Metadata/Items/SoulCores/SoulCoreLight"
+    },
+    "Category": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "SubCategory": {
+      "TableName": "CurrencyExchangeCategories",
+      "Id": "Ultimatum"
+    },
+    "Unk003": true,
+    "EnabledInChallengeLeague": true,
+    "GoldPurchaseFee": 1000,
+    "Unk006": false
+  }
+]

@@ -1,0 +1,14 @@
+Item Class: Two Hand Swords
+Rarity: Unique
+Temporalis
+Silk Robe
+--------
+Requires: Level 66, 154 Int
+--------
+Energy Shield: 357 (augmented)
+--------
++76 to maximum Energy Shield (implicit)
+--------
+Socketed Skills apply twice as much of their Cost (implicit)
+--------
+Corrupted
