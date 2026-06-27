@@ -547,7 +547,11 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                             })
                 if listings:
                     listings.sort(key=lambda x: x["price_chaos"])
-                    best = listings[0]
+                    real_listings = [l for l in listings if l["price_chaos"] >= 100.0]
+                    if real_listings:
+                        best = real_listings[0]
+                    else:
+                        best = listings[0]
                     normalized = converter.from_exalted(best["exalted"])
                     cache_price(
                         key=cache_key,
