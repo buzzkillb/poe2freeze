@@ -515,6 +515,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
     if cached:
         print(f"[waystone] cache HIT, price={cached.get('exalted')}ex", flush=True)
         converter = registry.get_converter()
+        stored = json.loads(cached.get("detail_json", "{}")).get("listings", [])
         return {
             "kind": "waystone",
             "name": name,
@@ -524,6 +525,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
             "cached": True,
             "age_seconds": cached["age_seconds"],
             "listing_count": cached.get("listing_count", 0),
+            "listings": stored,
             "corrupted": item.get("corrupted", False),
         }
     if mods:
@@ -567,7 +569,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                         divine=0,
                         exalted=listings[0]["price_exalted"],
                         listing_count=len(listings),
-                        detail={"tier": tier, "mods": mods, "source": "trade2"},
+                        detail={"tier": tier, "mods": mods, "source": "trade2", "listings": listings},
                         ttl_seconds=CACHE_TTL["default"],
                     )
                     return {
