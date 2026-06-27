@@ -728,14 +728,16 @@ def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
         "filters": {
             "type_filters": {
                 "filters": {
-                    "category": {"option": "map.waystone"}
+                    "category": {"option": "map.waystone"},
+                    "rarity": {"option": "rare"},
                 }
             },
             "map_filters": {"filters": {}},
             "trade_filters": {
-                "filters": {
-                    "collapse": {"option": "true"}
-                }
+                "filters": {}  # No collapse — website shows all listings
+            },
+            "misc_filters": {
+                "filters": {}
             }
         }
     }
