@@ -613,7 +613,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
         "name": name,
         "tier": tier,
         "mods": mods,
-        "error": f"no listings for {base} T{tier} (try EE2 Ctrl+D or wait for more listings)",
+        "error": f"no listings for {base} T{tier} (market may be quiet)",
     }
 
 
@@ -728,19 +728,16 @@ def _build_waystone_query(base: str, tier: int, mods: Dict[str, int]) -> Dict:
         "filters": {
             "type_filters": {
                 "filters": {
-                    "category": {"option": "map.waystone"},
-                    "rarity": {"option": "rare"},
+                    "category": {"option": "map.waystone"}
                 }
             },
             "map_filters": {"filters": {}},
-            "trade_filters": {
-                "filters": {}  # No collapse — website shows all listings
-            },
-            "misc_filters": {
-                "filters": {}
-            }
         }
     }
+    if mods.get("corrupted"):
+        query["filters"]["misc_filters"] = {
+            "filters": {"corrupted": {"option": "true"}}
+        }
     if tier:
         query["filters"]["map_filters"]["filters"]["map_tier"] = {
             "min": tier, "max": tier
