@@ -153,15 +153,14 @@ class RitualDetector:
         self._prices_fetched_at: float = 0.0
         self._last_scheduled_hour: int = -1
         self._chaos_per_ex: float = 1.0
+        print(f"[ritual] loading icons...", flush=True)
         self._load_icon_hashes()
+        print(f"[ritual] {len(self._icon_data)} icons loaded", flush=True)
         self._fetch_prices()
 
     def _load_icon_hashes(self):
         """Load icons and compute pHash for multi-tile fragment matching.
 
-        For 1x1 icons, pHash the whole icon. For multi-tile icons,
-        slice into 1x1 cell fragments, pHash each fragment. Fragments
-        compete against the 1x1 icons for best-match cell voting.
         """
         for icon_path in ICON_DIR.glob("*.png"):
             stem = icon_path.stem
@@ -175,40 +174,16 @@ class RitualDetector:
             target_w = SLOT_SIZE * cols
             target_h = SLOT_SIZE * rows
             fitted = icon_pil.resize((target_w, target_h), Image.LANCZOS)
-
-            if cols == 1 and rows == 1:
-                # 1x1 icon: pHash at standard size
-                pil = fitted.resize((128, 128), Image.LANCZOS)
-                self._icon_data[stem] = {
-                    "phash": imagehash.phash(pil, hash_size=16),
-                    "dhash": imagehash.dhash(pil, hash_size=16),
-                    "whash": imagehash.whash(pil, hash_size=16),
-                    "cols": 1, "rows": 1,
-                    "fragments": None,
-                }
-            else:
-                # Multi-tile: slice into fragments
-                fragments = {}
-                for fr in range(rows):
-                    for fc in range(cols):
-                        # Crop the fragment
-                        frag = fitted.crop((
-                            fc * SLOT_SIZE, fr * SLOT_SIZE,
-                            (fc + 1) * SLOT_SIZE, (fr + 1) * SLOT_SIZE,
-                        )).resize((128, 128), Image.LANCZOS)
-                        frag_key = f"{stem}__f{fr}_{fc}"
-                        fragments[frag_key] = {
-                            "phash": imagehash.phash(frag, hash_size=16),
-                            "dhash": imagehash.dhash(frag, hash_size=16),
-                            "whash": imagehash.whash(frag, hash_size=16),
-                            "parent": stem,
-                            "row": fr, "col": fc,
-                        }
-                self._icon_data[stem] = {
-                    "phash": None, "dhash": None, "whash": None,
-                    "cols": cols, "rows": rows,
-                    "fragments": fragments,
-                }
+            hash_w = 128 * cols
+            hash_h = 128 * rows
+            pil = fitted.resize((hash_w, hash_h), Image.LANCZOS)
+            self._icon_data[stem] = {
+                "phash": imagehash.phash(pil, hash_size=16),
+                "dhash": imagehash.dhash(pil, hash_size=16),
+                "whash": imagehash.whash(pil, hash_size=16),
+                "cols": cols,
+                "rows": rows,
+            }
 
     def _fetch_prices(self):
         """Fetch live prices + ReferenceCurrencies from poe2scout.
@@ -361,55 +336,35 @@ class RitualDetector:
         for name, data in self._icon_data.items():
             if data["cols"] != cols or data["rows"] != rows:
                 continue
-            if cols == 1 and rows == 1:
-                # Full pHash match for 1x1 (the proven approach)
-                try:
-                    pil = Image.fromarray(cv2.cvtColor(region, cv2.COLOR_BGR2RGB)).resize((128, 128), Image.LANCZOS)
-                except Exception:
-                    continue
-                phash = imagehash.phash(pil, hash_size=16)
-                dhash = imagehash.dhash(pil, hash_size=16)
-                whash = imagehash.whash(pil, hash_size=16)
-                score = (phash - data["phash"]) + (dhash - data["dhash"]) + (whash - data["whash"])
-                if score < best_score:
-                    second_score = best_score
-                    best_score = score
-                    best_name = name
-                elif score < second_score:
-                    second_score = score
-            else:
-                # Multi-tile: shape-based labeling. Count how many 1x1 cells
-                # pass individual brightness/variance checks. Require at least
-                # half to be "occupied" to avoid labeling empty regions.
-                ok_count = 0
-                # Multi-tile: require at least this fraction of cells to be occupied
-                fraction = 2/3 if (cols * rows) <= 4 else 0.60
-                need_count = max(1, int((cols * rows) * fraction))
-                for cr in range(rows):
-                    for cc in range(cols):
-                        cell = region[cr*SLOT_SIZE:(cr+1)*SLOT_SIZE, cc*SLOT_SIZE:(cc+1)*SLOT_SIZE]
-                        cg = cv2.cvtColor(cell, cv2.COLOR_BGR2GRAY)
-                        if float(cg.mean()) >= 16 and float(cg.std()) >= 12:
-                            ok_count += 1
-                if ok_count >= need_count:
-                    best_name = name
-                    best_score = 0
-                    second_score = 0
-                break
+            # pHash the full region against the icon (works for all shapes)
+            try:
+                hash_w = 128 * cols
+                hash_h = 128 * rows
+                pil = Image.fromarray(cv2.cvtColor(region, cv2.COLOR_BGR2RGB)).resize((hash_w, hash_h), Image.LANCZOS)
+            except Exception:
+                continue
+            phash = imagehash.phash(pil, hash_size=16)
+            dhash = imagehash.dhash(pil, hash_size=16)
+            whash = imagehash.whash(pil, hash_size=16)
+            score = (phash - data["phash"]) + (dhash - data["dhash"]) + (whash - data["whash"])
+            if score < best_score:
+                second_score = best_score
+                best_score = score
+                best_name = name
+            elif score < second_score:
+                second_score = score
 
         if best_name is None:
             return None
-        # For 1x1, require margin + absolute quality. For multi-tile (single icon), accept.
-        if cols == 1 and rows == 1:
-            if second_score < 9999:
-                # Require both absolute quality AND margin
-                if best_score > 280:
-                    return None  # too dissimilar even if relative margin is good
-                margin = second_score - best_score
-                if margin < MATCH_MARGIN_THRESHOLD:
-                    return None
-            else:
+        # Margin + absolute quality check for ALL shapes
+        if second_score < 9999:
+            if best_score > 300:
+                return None  # too dissimilar
+            margin = second_score - best_score
+            if margin < MATCH_MARGIN_THRESHOLD:
                 return None
+        else:
+            return None
         api_id = best_name.replace("unique_", "")
         price = self._prices.get(api_id, 0.0)
         return api_id, price, 1
@@ -431,7 +386,7 @@ class RitualDetector:
         enabled_shapes = []
         for sc, sr in [(1, 1), (2, 1), (1, 2), (2, 2), (2, 3), (2, 4), (1, 3), (1, 4)]:
             count = sum(1 for d in self._icon_data.values() if d["cols"] == sc and d["rows"] == sr)
-            if count >= 2 or (sc == 1 and sr == 1):  # 1x1 always, multi-tile needs competition
+            if count >= 2:  # all shapes now have enough competition
                 enabled_shapes.append((sc, sr))
         for row in range(SLOT_ROWS):
             for col in range(SLOT_COLS):
