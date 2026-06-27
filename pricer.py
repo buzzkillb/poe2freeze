@@ -623,10 +623,37 @@ def price_map(item: Dict, registry: DataSourceRegistry) -> Dict:
     return price_waystone(item, registry)
 
 
+def _extract_tablet_stats(item: Dict) -> List[Dict]:
+    """Extract tablet mod stats for trade2 query.
+
+    Tablets use the stats array (not map_filters like waystones).
+    Each matched mod gets a stat filter with the ACTUAL rolled value
+    as the max constraint (matches EE2 behavior).
+    """
+    from mod_matcher import match_mod
+    stats = []
+    for mod_text in item.get("explicit_mods", []):
+        m = match_mod(mod_text)
+        if not m:
+            continue
+        import re
+        match = re.search(r"^(\d+(?:\.\d+)?)", mod_text)
+        if not m.get("value"):
+            continue
+        rolled_value = int(m["value"])
+        stats.append({
+            "id": m["trade_id"],
+            "value": {"max": rolled_value},
+            "disabled": False,
+        })
+    return stats
+
+
 def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
     base = item.get("base", "")
     name = item.get("name", base)
-    cache_key = f"tablet:{base}:{hash(tuple(item.get('explicit_mods', [])))}"
+    stats = _extract_tablet_stats(item)
+    cache_key = f"tablet:{base}:{hash(tuple((s['id'], s['value']['min'], s['value']['max']) for s in stats))}"
     cached = get_price(cache_key)
     if cached:
         converter = registry.get_converter()
@@ -641,17 +668,21 @@ def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
             "listing_count": cached.get("listing_count", 0),
             "listings": stored,
         }
+
     query = {
         "status": {"option": "online"},
-        "stats": [{"type": "and", "filters": []}],
+        "stats": [{"type": "and", "filters": stats}] if stats else [{"type": "and", "filters": []}],
         "filters": {
             "type_filters": {
                 "filters": {
-                    "category": {"option": "map.tablet"}
+                    "category": {"option": "map.tablet"},
                 }
             },
         }
     }
+    if item.get("rarity", "").upper() == "RARE":
+        query["filters"]["type_filters"]["filters"]["rarity"] = {"option": "nonunique"}
+
     result = registry.trade.search_items(query)
     if result and result.get("result"):
         ids = result["result"][:10]
