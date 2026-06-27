@@ -368,13 +368,13 @@ class RitualDetector:
                 # half to be "occupied" to avoid labeling empty regions.
                 ok_count = 0
                 # Multi-tile: require at least this fraction of cells to be occupied
-                fraction = 3/4 if (cols * rows) <= 4 else 2/3
-                need_count = max(2, int((cols * rows) * fraction))
+                fraction = 2/3 if (cols * rows) <= 4 else 0.60
+                need_count = max(1, int((cols * rows) * fraction))
                 for cr in range(rows):
                     for cc in range(cols):
                         cell = region[cr*SLOT_SIZE:(cr+1)*SLOT_SIZE, cc*SLOT_SIZE:(cc+1)*SLOT_SIZE]
                         cg = cv2.cvtColor(cell, cv2.COLOR_BGR2GRAY)
-                        if float(cg.mean()) >= 15 and float(cg.std()) >= 12:
+                        if float(cg.mean()) >= 16 and float(cg.std()) >= 12:
                             ok_count += 1
                 if ok_count >= need_count:
                     best_name = name
@@ -420,9 +420,9 @@ class RitualDetector:
                         continue
                     region = screen[sy:sy+h, sx:sx+w]
                     gray = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
-                    if float(gray.mean()) < 18:
+                    if float(gray.mean()) < 16:
                         continue
-                    if float(gray.std()) < 16:
+                    if float(gray.std()) < 12:
                         continue
                     match = self.match_region(region, shape_cols, shape_rows)
                     if match is None:
