@@ -5,6 +5,11 @@ import re
 from typing import Dict, List, Optional, Tuple
 
 NUM_RE = re.compile(r"([+-]?\d+(?:\.\d+)?)")
+_MOD_HAS_IMPLICIT_TAG = re.compile(r"\(implicit\)\s*$", re.IGNORECASE)
+
+
+def _mod_has_implicit_tag(s: str) -> bool:
+    return _MOD_HAS_IMPLICIT_TAG.search(s) is not None
 
 
 def clean_text(s: str) -> str:
@@ -148,12 +153,14 @@ def _extract_mod_sections(lines: List[str]) -> Dict[str, List[str]]:
     current = None
     in_section = False
     saw_separator = 0
+    last_header = ""
     for line in lines:
         s = line.strip()
         if s == "--------":
             saw_separator += 1
             current = None
             in_section = True
+            last_header = ""
             continue
         if not in_section or not s:
             continue
@@ -234,13 +241,14 @@ def _extract_mod_sections(lines: List[str]) -> Dict[str, List[str]]:
         if s.startswith("Requires "):
             continue
         if s.startswith("{") and s.endswith("}"):
+            last_header = s
             continue
         if s.startswith("[") and s.endswith("]"):
             continue
         if s.startswith("Preview:"):
             break
         if current is None and saw_separator >= 2:
-            if _looks_like_implicit(s):
+            if _looks_like_implicit(s, last_header):
                 current = "implicit"
             else:
                 current = "explicit"
@@ -256,8 +264,55 @@ def _extract_mod_sections(lines: List[str]) -> Dict[str, List[str]]:
             sections[tag].append(s)
         else:
             sections[current].append(s)
+    sections["implicit"] = _join_multiline_implicit_mods(sections["implicit"])
     return sections
 
 
-def _looks_like_implicit(s: str) -> bool:
-    return False
+_IMPLICIT_CONTINUATION_TAIL = re.compile(
+    r"\s+(to a Map|to your Maps|in your Maps|in Map|in Area)$", re.IGNORECASE
+)
+
+
+def _join_multiline_implicit_mods(lines: List[str]) -> List[str]:
+    """Join multi-line implicit mods (tablets) into single strings.
+
+    Tablet implicits render as two lines, e.g.:
+        Adds Irradiated to a Map
+        10 uses remaining
+    match_mod expects the joined form with a literal '\\n' between them.
+    We join a tail-ending line with its immediate numeric/completion
+    follow-up. A pending line flushes as soon as we encounter a non-tail
+    line (single-line implicit mods never tail-match).
+    """
+    if len(lines) < 2:
+        return lines
+    out: List[str] = []
+    pending: Optional[str] = None
+    for s in lines:
+        if pending is not None:
+            out.append(pending + "\n" + s)
+            pending = None
+            continue
+        if _IMPLICIT_CONTINUATION_TAIL.search(s):
+            pending = s
+            continue
+        out.append(s)
+    if pending is not None:
+        out.append(pending)
+    return out
+
+
+def _looks_like_implicit(mod_line: str, last_header: str = "") -> bool:
+    """Detect whether a section is implicit.
+
+    Two signals:
+    1. The section header (e.g. "{ Implicit Modifier }") explicitly
+       names the section as implicit. Tablets and other PoE2 items use
+       this convention.
+    2. The mod text itself ends with "(implicit)" — used by weapons,
+       armour, jewellery, etc.
+    """
+    header_lower = (last_header or "").lower()
+    if "implicit" in header_lower and "explicit" not in header_lower:
+        return True
+    return _mod_has_implicit_tag(mod_line)

@@ -198,19 +198,6 @@ class Poe2ScoutSource:
                 "icon": best.get("IconUrl"),
                 "source": self.NAME,
             }
-        for cat in categories:
-            items = self.fetch_items_by_category(cat, endpoint="Uniques")
-            for item in items:
-                iname_full = (item.get("Name") or "").lower()
-                if iname_full == name_lower:
-                    return {
-                        "name": item.get("Name"),
-                        "base": item.get("Type"),
-                        "current_price_exalted": item.get("CurrentPrice", 0),
-                        "current_quantity": item.get("CurrentQuantity", 0),
-                        "icon": item.get("IconUrl"),
-                        "source": self.NAME,
-                    }
         return None
 
     def fetch_currency_price(self, currency_api_id: str) -> Optional[Dict]:
@@ -325,6 +312,8 @@ class OfficialTradeSource:
     def _req(self, method: str, path: str, body: Optional[Dict] = None) -> Tuple[Optional[Dict], int]:
         self._rate_limiter.wait()
         url = f"{self.BASE}{path}"
+        status = 0
+        data = None
         for attempt in range(2):
             if method == "POST":
                 data, err, status = http_post(url, body)
@@ -335,8 +324,10 @@ class OfficialTradeSource:
                         data = json.loads(raw)
                     except Exception:
                         data = None
+                        status = 0
                 else:
                     data = None
+                    status = 0
             if status == 429:
                 time.sleep(5)
                 continue

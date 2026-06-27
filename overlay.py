@@ -40,7 +40,7 @@ def _format_display(result: Dict) -> tuple:
     corrupted = parsed.get("corrupted", False) or result.get("corrupted", False)
     tier = result.get("tier", 0)
     gem_level = parsed.get("level", 0)
-    quality = result.get("quality", 0)
+    quality = parsed.get("quality", 0)
     source = result.get("source", "unknown")
     if not normalized:
         return f"{display_name} [{rarity}]\nno price data", QColor(180, 180, 180)

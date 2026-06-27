@@ -74,7 +74,8 @@ def _request(
         except Exception as e:
             latency = int((time.time() - start) * 1000)
             log_request(path, 0, latency)
-        return None, str(e), 0
+            return None, str(e), 0
+        return None, "exhausted retries", 0
 
 
 def exchange_search(have: List[str], want: List[str], league: str = None) -> Optional[Dict]:

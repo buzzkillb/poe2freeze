@@ -2,11 +2,9 @@
 Pricing engine. Routes items to the correct pricer based on type,
 uses DataSourceRegistry for multi-source pricing with normalized display.
 """
-import json
 import re
 import time
 from datetime import datetime, timezone
-import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -106,7 +104,7 @@ def _normalize_currency_tag(name: str) -> str:
 def price_currency(item: Dict, registry: DataSourceRegistry) -> Dict:
     name = item.get("base") or item.get("name", "")
     tag = _normalize_currency_tag(name)
-    cached = find_price_by_name(name, "currency")
+    cached = get_price(f"currency:{tag}")
     if cached:
         converter = registry.get_converter()
         ex_v = cached.get("exalted", 0) or 0
@@ -515,7 +513,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
     if cached:
         print(f"[waystone] cache HIT, price={cached.get('exalted')}ex", flush=True)
         converter = registry.get_converter()
-        stored = json.loads(cached.get("detail_json", "{}")).get("listings", [])
+        stored = cached.get("detail", {}).get("listings", [])
         return {
             "kind": "waystone",
             "name": name,
@@ -626,26 +624,25 @@ def price_map(item: Dict, registry: DataSourceRegistry) -> Dict:
 def _extract_tablet_stats(item: Dict) -> List[Dict]:
     """Extract tablet mod stats for trade2 query.
 
-    Tablets use the stats array (not map_filters like waystones).
-    Each matched mod gets a stat filter with the ACTUAL rolled value
-    as the max constraint (matches EE2 behavior).
+    Tablets use the stats array (not map_filters like waystones). The
+    implicit "Adds X to a Map / # uses remaining" carries the uses count
+    as an implicit stat, so we must scan both implicit_mods and
+    explicit_mods. Each matched mod becomes a stat filter whose min/max
+    bound matches the mod direction via build_query_stat_filter
+    (positive better -> min, negative better -> max).
     """
-    from mod_matcher import match_mod
+    from mod_matcher import build_query_stat_filter, match_mod
     stats = []
-    for mod_text in item.get("explicit_mods", []):
+    for mod_text in list(item.get("implicit_mods", [])) + list(item.get("explicit_mods", [])):
         m = match_mod(mod_text)
         if not m:
             continue
-        import re
-        match = re.search(r"^(\d+(?:\.\d+)?)", mod_text)
-        if not m.get("value"):
+        if m.get("trade_type") == "pseudo":
             continue
-        rolled_value = int(m["value"])
-        stats.append({
-            "id": m["trade_id"],
-            "value": {"max": rolled_value},
-            "disabled": False,
-        })
+        filt = build_query_stat_filter(m)
+        if filt is None:
+            continue
+        stats.append(filt)
     return stats
 
 
@@ -653,11 +650,16 @@ def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
     base = item.get("base", "")
     name = item.get("name", base)
     stats = _extract_tablet_stats(item)
-    cache_key = f"tablet:{base}:{hash(tuple((s['id'], s['value']['min'], s['value']['max']) for s in stats))}"
+    print(f"[tablet] {name}, base={base}, rarity={item.get('rarity')}, "
+          f"matched_stats={len(stats)}, "
+          f"implicit={item.get('implicit_mods', [])}, "
+          f"explicit={item.get('explicit_mods', [])}",
+          flush=True)
+    cache_key = f"tablet:{base}:{hash(tuple((s['id'], s['value'].get('min', 0), s['value'].get('max', 0)) for s in stats))}"
     cached = get_price(cache_key)
     if cached:
         converter = registry.get_converter()
-        stored = json.loads(cached.get("detail_json", "{}")).get("listings", [])
+        stored = cached.get("detail", {}).get("listings", [])
         return {
             "kind": "tablet",
             "name": name,
@@ -669,19 +671,74 @@ def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
             "listings": stored,
         }
 
-    query = {
-        "status": {"option": "online"},
-        "stats": [{"type": "and", "filters": stats}] if stats else [{"type": "and", "filters": []}],
-        "filters": {
-            "type_filters": {
-                "filters": {
-                    "category": {"option": "map.tablet"},
-                }
-            },
+    if not stats:
+        print(f"[tablet] {name}: no mods matched by mod_matcher; "
+              f"skipping trade2 (empty filter would return ALL tablets). "
+              f"Falling back to poe2scout.", flush=True)
+    else:
+        query = {
+            "status": {"option": "online"},
+            "stats": [{"type": "and", "filters": stats}],
+            "filters": {
+                "type_filters": {
+                    "filters": {
+                        "category": {"option": "map.tablet"},
+                    }
+                },
+            }
         }
-    }
-    if item.get("rarity", "").upper() == "RARE":
-        query["filters"]["type_filters"]["filters"]["rarity"] = {"option": "nonunique"}
+        if item.get("rarity", "").upper() == "RARE":
+            query["filters"]["type_filters"]["filters"]["rarity"] = {"option": "nonunique"}
+
+        print(f"[tablet] {name}: trade2 query stats={stats}", flush=True)
+        result = registry.trade.search_items(query)
+        if result and result.get("result"):
+            ids = result["result"][:10]
+            fetched = registry.trade.fetch_results(result["id"], ids)
+            if fetched:
+                converter = registry.get_converter()
+                listings = []
+                for entry in fetched.get("result", []):
+                    if not entry:
+                        continue
+                    p = entry.get("listing", {})
+                    price_info = p.get("price", {})
+                    amount = price_info.get("amount", 0)
+                    currency = price_info.get("currency", "")
+                    indexed = p.get("indexed", "")
+                    if amount > 0 and currency:
+                        norm = converter.normalize_to_all(amount, currency)
+                        if norm.get("chaos", 0) > 0:
+                            listings.append({
+                                "price_exalted": norm.get("exalted", 0),
+                                "amount": amount,
+                                "currency": currency,
+                                "indexed": indexed,
+                                "time_ago": _time_ago(indexed) if indexed else "",
+                            })
+                if listings:
+                    cache_price(
+                        key=cache_key,
+                        kind="tablet",
+                        base=base,
+                        name=name,
+                        chaos=listings[0]["price_exalted"],
+                        divine=0,
+                        exalted=listings[0]["price_exalted"],
+                        listing_count=len(listings),
+                        detail={"source": "trade2", "listings": listings},
+                        ttl_seconds=CACHE_TTL["default"],
+                    )
+                    return {
+                        "kind": "tablet",
+                        "name": name,
+                        "base": base,
+                        "normalized": converter.from_exalted(listings[0]["price_exalted"]),
+                        "cached": False,
+                        "source": "trade2",
+                        "listing_count": len(listings),
+                        "listings": listings,
+                    }
 
     result = registry.trade.search_items(query)
     if result and result.get("result"):

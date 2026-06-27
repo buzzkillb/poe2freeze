@@ -71,7 +71,7 @@ class CurrencyRatesPanel(QWidget):
         self._main_layout.setContentsMargins(20, 16, 20, 16)
         self._main_layout.setSpacing(6)
 
-        self._title = QLabel("Currency Exchange")
+        self._title = QLabel(f"Currency — {league}")
         self._title.setStyleSheet(self._title_style())
         self._title.setAlignment(Qt.AlignCenter)
         self._main_layout.addWidget(self._title)
@@ -202,6 +202,7 @@ class CurrencyRatesPanel(QWidget):
         divine_per_ex = refs.get("divine", 1)
         if chaos_per_ex <= 1 or divine_per_ex <= 1:
             self._update_label.setText("rates incomplete")
+            return
         sorted_keys = sorted(
             [k for k in self._currency_keys if k in item_by_api],
             key=lambda k: item_by_api[k],

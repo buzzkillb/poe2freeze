@@ -74,10 +74,6 @@ def cache_price(
 ):
     if detail is None:
         detail = {}
-    if exalted is None and chaos is not None:
-        exalted = chaos
-    if exalted is None and divine is not None:
-        exalted = divine
     now = int(time.time())
     expires = now + ttl_seconds
     detail_json = _safe_json(detail)
