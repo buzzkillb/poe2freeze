@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import time
 import urllib.request
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -32,9 +33,15 @@ TPL_DIR = DATA_DIR / "ritual_templates"
 # poe2scout API base
 POE2SCOUT_BASE = "https://poe2scout.com/api"
 
-# Price cache TTL in seconds. Prices on poe2scout fluctuate;
-# 30 minutes is a reasonable balance.
+# Price cache TTL in seconds. poe2scout updates roughly every 2 hours;
+# 30 minutes is a fallback for cases where we miss the scheduled refresh.
 PRICE_CACHE_TTL = 30 * 60
+
+# Scheduled refresh: HH:01:00 every hour, in a 30-second window.
+# Assumption: poe2scout pushes a full update at the top of each hour,
+# so refreshing 1 minute after catches both HH:00 and HH:02 cycles.
+SCHEDULED_REFRESH_MINUTE = 1
+SCHEDULED_REFRESH_WINDOW_SECS = 30
 
 # Slot grid calibration (from user's 1502x1440 screenshot).
 # These are pixel offsets relative to the offer-button anchor's top-left corner.
@@ -133,6 +140,7 @@ class RitualDetector:
         self._icon_data: Dict[str, Dict] = {}
         self._prices: Dict[str, float] = {}
         self._prices_fetched_at: float = 0.0
+        self._last_scheduled_hour: int = -1
         self._chaos_per_ex: float = 1.0
         self._load_icon_hashes()
         self._fetch_prices()
@@ -222,6 +230,24 @@ class RitualDetector:
 
     def refresh_prices_if_stale(self):
         """Refresh prices if cache is older than PRICE_CACHE_TTL."""
+        if time.time() - self._prices_fetched_at > PRICE_CACHE_TTL:
+            self._fetch_prices()
+
+    def refresh_prices_if_scheduled(self):
+        """Refresh prices if we're within the scheduled HH:01:00 window
+        and we haven't already refreshed this hour. Falls back to TTL check
+        so we still update if the scheduler misses (e.g., app was idle).
+        """
+        now = datetime.now()
+        # Scheduled window check
+        if (now.minute == SCHEDULED_REFRESH_MINUTE
+                and now.second < SCHEDULED_REFRESH_WINDOW_SECS
+                and now.hour != self._last_scheduled_hour):
+            self._last_scheduled_hour = now.hour
+            print(f"[ritual] scheduled refresh at {now.strftime('%H:%M:%S')}", flush=True)
+            self._fetch_prices()
+            return
+        # TTL fallback
         if time.time() - self._prices_fetched_at > PRICE_CACHE_TTL:
             self._fetch_prices()
 
@@ -323,6 +349,9 @@ class RitualWatcher:
         self.overlay.clear()
 
     def _tick(self):
+        # Refresh prices if scheduled (HH:01:00) or TTL exceeded.
+        self.detector.refresh_prices_if_scheduled()
+
         try:
             screen = self._screen_capture()
         except Exception as e:
