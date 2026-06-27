@@ -630,6 +630,7 @@ def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
     cached = get_price(cache_key)
     if cached:
         converter = registry.get_converter()
+        stored = json.loads(cached.get("detail_json", "{}")).get("listings", [])
         return {
             "kind": "tablet",
             "name": name,
@@ -638,6 +639,7 @@ def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
             "cached": True,
             "age_seconds": cached["age_seconds"],
             "listing_count": cached.get("listing_count", 0),
+            "listings": stored,
         }
     query = {
         "status": {"option": "online"},
@@ -685,7 +687,7 @@ def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
                     divine=0,
                     exalted=listings[0]["price_exalted"],
                     listing_count=len(listings),
-                    detail={"source": "trade2"},
+                    detail={"source": "trade2", "listings": listings},
                     ttl_seconds=CACHE_TTL["default"],
                 )
                 return {
