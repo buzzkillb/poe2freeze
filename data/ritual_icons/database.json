@@ -507,6 +507,17 @@
       "price_exalted": 1.0,
       "quantity": 0,
       "icon_local": "unique_sanguis-heroum.png"
+    },
+    {
+      "ItemId": 192,
+      "Name": "The Hollow Mask",
+      "apiId": "the-hollow-mask",
+      "CategoryApiId": "armour",
+      "IconUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQXJtb3Vycy9IZWxtZXRzL1VuaXF1ZXMvTWFza09mVGhlSG9sbG93IiwidyI6MiwiaCI6Miwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/9da92fc685/MaskOfTheHollow.png",
+      "filename": "MaskOfTheHollow.webp",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "icon_local": "unique_the-hollow-mask.png"
     }
   ]
 }
