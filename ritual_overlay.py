@@ -1,9 +1,9 @@
 """
-Ritual overlay — hybrid pHash + template matching.
+Ritual overlay — cell-grid decomposition + size-bucketed template matching.
 
-pHash quickly narrows 494 icons to 3 candidates per cell.
-cv2.matchTemplate verifies the best match on the small cell region.
-Runs in ~15ms per frame on CPU.
+Phase 1: Build 12x10 cell-occupancy mask using integral image (2ms)
+Phase 2: Connected components on the 12x10 mask -> item regions in cell units
+Phase 3: For each region, matchTemplate against icons in its size bucket
 """
 from __future__ import annotations
 
@@ -12,8 +12,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-import cv2, imagehash, numpy as np
-from PIL import Image
+import cv2, numpy as np
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QColor, QFont, QFontMetrics, QPainter, QPen, QBrush
 from PyQt5.QtWidgets import QWidget
@@ -22,12 +21,18 @@ DATA_DIR = Path(__file__).parent / "data"
 ICON_DIR = DATA_DIR / "ritual_icons"
 TPL_DIR = DATA_DIR / "ritual_templates"
 POE2SCOUT_BASE = "https://poe2scout.com/api"
-PRICE_CACHE_TTL = 30 * 60; SCHEDULED_REFRESH_MINUTE = 1; SCHEDULED_REFRESH_WINDOW_SECS = 30
+PRICE_CACHE_TTL = 30 * 60
+SCHEDULED_REFRESH_MINUTE = 1
+SCHEDULED_REFRESH_WINDOW_SECS = 30
 
-SLOT_SIZE = 105; SLOT_COLS = 12; SLOT_ROWS = 10
+SLOT_SIZE = 105
+SLOT_COLS = 12
+SLOT_ROWS = 10
 ANCHOR_MATCH_THRESHOLD = 0.85
-TMPL_PER_TICK = 999          # batch all icons in one scan (~1-2s blocking, but finds all)
-MAX_HITS = 15                  # max price labels on overlay
+MATCH_THRESHOLD = 0.45
+CELL_MEAN_THRESHOLD = 25  # cell is "occupied" if mean brightness > this
+NMS_RADIUS = 35
+MAX_HITS = 15
 
 
 class RitualPriceOverlay(QWidget):
@@ -68,8 +73,8 @@ class RitualDetector:
         self._offer_template = None
         op = TPL_DIR / "offer_button.png"
         if op.exists(): self._offer_template = cv2.imread(str(op))
-
         self._icon_data: Dict[str, Dict] = {}
+        self._icon_buckets: Dict[Tuple[int, int], List[str]] = {}
         self._prices: Dict[str, float] = {}
         self._prices_fetched_at = 0.0
         self._last_scheduled_hour = -1
@@ -77,35 +82,26 @@ class RitualDetector:
         self._load_icons()
         self._fetch_prices()
 
-    # -----------------------------------------------------------------
     def _load_icons(self):
-        """Load icons: pHash + BGR template for every shape."""
+        """Load icons as BGR + bucket by shape (cols, rows)."""
         for p in ICON_DIR.glob("*.png"):
             stem = p.stem
-            img = Image.open(p).convert("RGB")
-            iw, ih = img.size
+            img = cv2.imread(str(p), cv2.IMREAD_COLOR)
+            if img is None: continue
+            ih, iw = img.shape[:2]
             cols = min(3, max(1, round(iw / SLOT_SIZE)))
             rows = min(4, max(1, round(ih / SLOT_SIZE)))
-
             target_w = SLOT_SIZE * cols
             target_h = SLOT_SIZE * rows
-            fitted = img.resize((target_w, target_h), Image.LANCZOS)
-
-            # pHash (used for fast pre-filter)
-            ph_pil = fitted.resize((128 * cols, 128 * rows), Image.LANCZOS)
+            fitted = cv2.resize(img, (target_w, target_h), interpolation=cv2.INTER_AREA)
             self._icon_data[stem] = {
-                "phash":  imagehash.phash(ph_pil, hash_size=16),
-                "dhash":  imagehash.dhash(ph_pil, hash_size=16),
-                "cols":   cols, "rows": rows,
-                "icon":   cv2.cvtColor(np.array(fitted), cv2.COLOR_RGB2BGR),
+                "icon": fitted,
+                "cols": cols, "rows": rows,
             }
-        shapes = set((d["cols"], d["rows"]) for d in self._icon_data.values())
-        common = {(1, 1), (2, 1), (2, 2), (2, 3), (2, 4)}  # most common in game
-        self._shapes = sorted((s for s in shapes if s in common and
-            sum(1 for d in self._icon_data.values() if d["cols"] == s[0] and d["rows"] == s[1]) >= 2 and
-            s[0] <= SLOT_COLS and s[1] <= SLOT_ROWS),
-            key=lambda s: -(s[0] * s[1]))
-        print(f"[ritual] {len(self._icon_data)} icons, shapes={self._shapes}", flush=True)
+            self._icon_buckets.setdefault((cols, rows), []).append(stem)
+        print(f"[ritual] {len(self._icon_data)} icons, "
+              f"buckets={ {k: len(v) for k, v in sorted(self._icon_buckets.items())} }",
+              flush=True)
 
     def _fetch_prices(self):
         league_enc = urllib.parse.quote(self.league, safe="")
@@ -163,48 +159,105 @@ class RitualDetector:
         return None
 
     # -----------------------------------------------------------------
-    def _phash_candidates(self, region, sc, sr):
-        """NOT USED — kept for reference. Direct matchTemplate is more reliable."""
-        return []
+    def _cell_mask(self, screen, anchor):
+        """Build 12x10 boolean mask of occupied cells using integral image.
+        Each cell is 105x105. Returns (mask[H][W], gray_image) where
+        mask[r][c] = True if cell (r,c) is occupied (mean brightness > threshold)."""
+        ax, ay = anchor
+        gray = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
+        # Crop just the grid area
+        x0 = max(0, ax); y0 = max(0, ay)
+        x1 = min(screen.shape[1], ax + SLOT_SIZE * SLOT_COLS)
+        y1 = min(screen.shape[0], ay + SLOT_SIZE * SLOT_ROWS)
+        if x1 <= x0 or y1 <= y0:
+            return None, None, x0, y0
+        grid_gray = gray[y0:y1, x0:x1]
+        # Integral image: sum over each cell = integral[y0,y1,x0,x1] lookup
+        integral = cv2.integral(grid_gray)
+        mask = np.zeros((SLOT_ROWS, SLOT_COLS), dtype=bool)
+        for r in range(SLOT_ROWS):
+            for c in range(SLOT_COLS):
+                y_top = r * SLOT_SIZE; y_bot = y_top + SLOT_SIZE
+                x_left = c * SLOT_SIZE; x_right = x_left + SLOT_SIZE
+                if y_bot > grid_gray.shape[0] or x_right > grid_gray.shape[1]:
+                    continue
+                mean = (integral[y_bot, x_right] - integral[y_top, x_right]
+                        - integral[y_bot, x_left] + integral[y_top, x_left]) / (SLOT_SIZE * SLOT_SIZE)
+                if mean > CELL_MEAN_THRESHOLD:
+                    mask[r, c] = True
+        return mask, grid_gray, x0, y0
+
+    def _components_from_mask(self, mask):
+        """4-connected components capped at 2x6 (largest real item shape).
+        Oversized components (e.g. column of stacked 1x1 items) are split
+        into individual 1x1 cells."""
+        MAX_W, MAX_H = 2, 6
+        visited = np.zeros_like(mask, dtype=bool)
+        comps = []
+        for r in range(mask.shape[0]):
+            for c in range(mask.shape[1]):
+                if not mask[r, c] or visited[r, c]: continue
+                stack = [(r, c)]; cells = []
+                while stack:
+                    cr, cc = stack.pop()
+                    if cr < 0 or cr >= mask.shape[0] or cc < 0 or cc >= mask.shape[1]: continue
+                    if visited[cr, cc] or not mask[cr, cc]: continue
+                    visited[cr, cc] = True; cells.append((cr, cc))
+                    stack.extend([(cr+1,cc),(cr-1,cc),(cr,cc+1),(cr,cc-1)])
+                if not cells: continue
+                rs = [x[0] for x in cells]; cs = [x[1] for x in cells]
+                w = max(cs) - min(cs) + 1; h = max(rs) - min(rs) + 1
+                if w > MAX_W or h > MAX_H:
+                    # Split into individual 1x1 cells
+                    for cr, cc in cells:
+                        comps.append((cr, cc, 1, 1, {(cr, cc)}))
+                else:
+                    comps.append((min(rs), min(cs), w, h, set(cells)))
+        return comps
 
     def scan(self, screen, anchor):
-        """Direct matchTemplate on the inner half of the grid ROI (where items appear).
-        Returns a dict of stable hits that are added to the existing display."""
+        """Phase 1: cell mask to find occupied shapes.
+        Phase 2: matchTemplate on full grid ROI, but only for icons of detected shapes."""
         if anchor is None: return []
+        mask, grid_gray, gx, gy = self._cell_mask(screen, anchor)
+        if mask is None: return []
+        comps = self._components_from_mask(mask)
+        if not comps: return []
+
+        # Collect unique shapes from components
+        detected_shapes = set((w, h) for r, c, w, h, _ in comps)
+        # Gather all icon names matching detected shapes
+        icons_to_try = []
+        for shape in detected_shapes:
+            icons_to_try.extend(self._icon_buckets.get(shape, []))
+        if not icons_to_try: return []
+
+        # Full grid ROI for matchTemplate (allows best alignment)
         ax, ay = anchor
-        # Focus on columns 0-2 (sacrifice items) and columns 9-11 (receive items)
-        # Rows 0-7 (visible part). This is ~4/6 of the grid area but still finds all items.
-        inner_x1 = ax + 0
-        inner_y1 = ay
-        inner_x2 = min(screen.shape[1], ax + SLOT_SIZE * 3)  # sacrifice side
-        # Also add receive side
-        rcv_x1 = max(0, ax + SLOT_SIZE * (SLOT_COLS - 3))
-        rcv_y1 = ay
-        rcv_x2 = screen.shape[1]
-        rcv_y2 = min(screen.shape[0], ay + SLOT_SIZE * SLOT_ROWS)
-        # Just use the full grid ROI for simplicity
         x1 = max(0, ax - 5); y1 = max(0, ay - 5)
         x2 = min(screen.shape[1], ax + SLOT_SIZE * SLOT_COLS + 5)
         y2 = min(screen.shape[0], ay + SLOT_SIZE * SLOT_ROWS + 5)
-        if x2 <= x1 or y2 <= y1: return []
         roi = screen[y1:y2, x1:x2]
 
         candidates = []
-        for name, d in self._icon_data.items():
-            tpl = d["icon"]; th, tw = tpl.shape[:2]
+        for name in icons_to_try:
+            tpl = self._icon_data[name]["icon"]
+            th, tw = tpl.shape[:2]
             if th > roi.shape[0] or tw > roi.shape[1]: continue
             result = cv2.matchTemplate(roi, tpl, cv2.TM_CCOEFF_NORMED)
             _, score, _, loc = cv2.minMaxLoc(result)
-            if score < 0.50: continue
+            if score < MATCH_THRESHOLD: continue
             api_id = name.replace("unique_", "")
             price = self._prices.get(api_id, 0.0)
-            cx, cy = x1 + loc[0] + tw // 2, y1 + loc[1] + th // 2
+            cx = x1 + loc[0] + tw // 2
+            cy = y1 + loc[1] + th // 2
             candidates.append((cx, cy, tw, th, api_id, price, float(score)))
 
+        # NMS: prefer higher score * area
         candidates.sort(key=lambda c: -(c[6] * c[2] * c[3]))
         hits = []
         for cx, cy, tw, th, name, price, score in candidates:
-            if any(abs(cx - h[0]) < 35 and abs(cy - h[1]) < 35 for h in hits): continue
+            if any(abs(cx - h[0]) < NMS_RADIUS and abs(cy - h[1]) < NMS_RADIUS for h in hits): continue
             hits.append((cx, cy, name, price))
             if len(hits) >= MAX_HITS: break
         return hits
