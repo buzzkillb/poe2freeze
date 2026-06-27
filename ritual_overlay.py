@@ -42,20 +42,20 @@ PRICE_CACHE_TTL = 30 * 60
 # Grid slot 0,0 origin is at (157, 337) -> delta from anchor = (-43, -1073).
 GRID_OFFSET_FROM_ANCHOR = (-43, -1073)
 SLOT_SIZE = 105
-SLOT_COLS = 12
-SLOT_ROWS = 10
+SLOT_COLS = 11
+SLOT_ROWS = 8
 
 # pHash match threshold: minimum margin (top1 - top2) to accept a slot match.
 MATCH_MARGIN_THRESHOLD = 8
 
 # Empty-slot filter: skip slots whose mean brightness is below this.
-# Dark altar/candle areas average ~10-20; real item slots with blue
-# background + icon average ~50-100+.
-EMPTY_SLOT_BRIGHTNESS = 28
+# Empty grid squares (dark quatrefoil pattern) average ~9-15; real item
+# slots with blue background + bright icon average ~22-100.
+EMPTY_SLOT_BRIGHTNESS = 22
 
 # Empty-slot variance filter: skip slots whose grayscale std is below this.
-# Empty quatrefoil patterns have low variance (~10); real icons have ~25+.
-EMPTY_SLOT_VARIANCE = 20
+# Empty quatrefoil patterns have low variance (~10); real icons have ~24+.
+EMPTY_SLOT_VARIANCE = 22
 
 # Anchor match threshold: minimum score to consider ritual UI present.
 ANCHOR_MATCH_THRESHOLD = 0.85
@@ -192,6 +192,29 @@ class RitualDetector:
                             normalized = raw
                         self._prices[api_id] = normalized
                         fetched += 1
+
+            # Also fetch unique items so prices for things like Igniferis, Birthright
+            # Buckle etc. are populated. The Items endpoint returns CurrentPrice in
+            # exalts already (these are unique items, priced in ex).
+            try:
+                items_url = f"{POE2SCOUT_BASE}/poe2/Leagues/{league_enc}/Items?perPage=2000"
+                req = urllib.request.Request(items_url, headers={"User-Agent": "mypoeapp/1.0"})
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    items = json.loads(resp.read())
+                # Build api_id from Name (lowercase, hyphens)
+                def name_to_api_id(name: str) -> str:
+                    if not name:
+                        return ""
+                    return name.lower().replace("'", "").replace(" ", "-")
+                for it in items:
+                    name = it.get("Name") or ""
+                    api_id = name_to_api_id(name)
+                    if api_id and it.get("CurrentPrice") is not None and api_id not in self._prices:
+                        self._prices[api_id] = float(it["CurrentPrice"])
+                        fetched += 1
+            except Exception as e:
+                print(f"[ritual] items fetch failed: {e}", flush=True)
+
             self._prices_fetched_at = time.time()
             print(f"[ritual] fetched {fetched} prices (chaos/ex={self._chaos_per_ex:.2f})", flush=True)
         except Exception as e:
