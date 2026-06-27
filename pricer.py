@@ -42,6 +42,13 @@ def identify_item(item: Dict) -> str:
     if item["rarity_tag"] == "unique":
         return "unique"
     if item["rarity_tag"] == "rare":
+        cls = (item.get("item_class") or "").lower()
+        if "waystone" in cls:
+            return "waystone"
+        if "tablet" in cls:
+            return "tablet"
+        if "map" in cls:
+            return "map"
         return "rare"
     if item["rarity_tag"] == "magic":
         return "magic"
@@ -501,8 +508,10 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
     mods = _extract_waystone_mods(item)
     cache_key = _waystone_cache_key(base, tier, mods)
     name = f"{base} T{tier}" if tier else base
+    print(f"[waystone] {name}, mods={mods}, cache_key={cache_key[:16]}", flush=True)
     cached = get_price(cache_key)
     if cached:
+        print(f"[waystone] cache HIT, price={cached.get('exalted')}ex", flush=True)
         converter = registry.get_converter()
         return {
             "kind": "waystone",
@@ -547,11 +556,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                             })
                 if listings:
                     listings.sort(key=lambda x: x["price_chaos"])
-                    real_listings = [l for l in listings if l["price_chaos"] >= 100.0]
-                    if real_listings:
-                        best = real_listings[0]
-                    else:
-                        best = listings[0]
+                    best = listings[0]
                     normalized = converter.from_exalted(best["exalted"])
                     cache_price(
                         key=cache_key,
