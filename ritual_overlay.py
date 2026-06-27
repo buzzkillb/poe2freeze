@@ -40,7 +40,13 @@ SLOT_ROWS = 10
 MATCH_MARGIN_THRESHOLD = 8
 
 # Empty-slot filter: skip slots whose mean brightness is below this.
-EMPTY_SLOT_BRIGHTNESS = 14
+# Dark altar/candle areas average ~10-20; real item slots with blue
+# background + icon average ~50-100+.
+EMPTY_SLOT_BRIGHTNESS = 28
+
+# Empty-slot variance filter: skip slots whose grayscale std is below this.
+# Empty quatrefoil patterns have low variance (~10); real icons have ~25+.
+EMPTY_SLOT_VARIANCE = 20
 
 # Anchor match threshold: minimum score to consider ritual UI present.
 ANCHOR_MATCH_THRESHOLD = 0.85
@@ -90,8 +96,9 @@ class RitualPriceOverlay(QWidget):
             label_text = _format_price(price)
             tw = fm.horizontalAdvance(label_text) + 14
             th = fm.height() + 6
+            # Center the label directly on the icon (overlapping it).
             lx = int(cx - tw / 2)
-            ly = int(cy + SLOT_SIZE / 2 + 4)
+            ly = int(cy - th / 2)
             painter.setPen(Qt.NoPen)
             painter.setBrush(QBrush(self.PO2_BG))
             painter.drawRoundedRect(lx, ly, tw, th, 4, 4)
@@ -197,6 +204,8 @@ class RitualDetector:
                 slot = screen[sy:sy+SLOT_SIZE, sx:sx+SLOT_SIZE]
                 gray = cv2.cvtColor(slot, cv2.COLOR_BGR2GRAY)
                 if float(gray.mean()) < EMPTY_SLOT_BRIGHTNESS:
+                    continue
+                if float(gray.std()) < EMPTY_SLOT_VARIANCE:
                     continue
                 match = self.match_slot(slot)
                 if match is None:
