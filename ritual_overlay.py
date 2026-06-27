@@ -1,327 +1,411 @@
 """
-Ritual overlay — cell-grid decomposition + size-bucketed template matching.
+Ritual overlay — automatic icon matching from poe2scout database.
 
-Phase 1: Build 12x10 cell-occupancy mask using integral image (2ms)
-Phase 2: Connected components on the 12x10 mask -> item regions in cell units
-Phase 3: For each region, matchTemplate against icons in its size bucket
+No OCR. No user interaction. Detects items in ritual grid automatically
+via combined template + color matching against downloaded icon database.
 """
 from __future__ import annotations
 
-import json, time, urllib.request
+import json, time, urllib.parse, urllib.request
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import cv2, numpy as np
+
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QColor, QFont, QFontMetrics, QPainter, QPen, QBrush
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QApplication
 
 DATA_DIR = Path(__file__).parent / "data"
-ICON_DIR = DATA_DIR / "ritual_icons"
 TPL_DIR = DATA_DIR / "ritual_templates"
+ICONS_DIR = DATA_DIR / "unique_icons" / "icons"
+DB_PATH = DATA_DIR / "unique_icons" / "database.json"
 POE2SCOUT_BASE = "https://poe2scout.com/api"
-PRICE_CACHE_TTL = 30 * 60
-SCHEDULED_REFRESH_MINUTE = 1
-SCHEDULED_REFRESH_WINDOW_SECS = 30
 
+ANCHOR_THRESH = 0.55
 SLOT_SIZE = 105
 SLOT_COLS = 12
 SLOT_ROWS = 10
-ANCHOR_MATCH_THRESHOLD = 0.85
-MATCH_THRESHOLD = 0.45
-CELL_MEAN_THRESHOLD = 25  # cell is "occupied" if mean brightness > this
-NMS_RADIUS = 35
-MAX_HITS = 15
+MATCH_THRESH = 0.40
 
 
 class RitualPriceOverlay(QWidget):
-    PO2_GOLD_BRIGHT = QColor(255, 210, 130)
-    PO2_BG = QColor(15, 12, 8, 220)
+    PO2_GOLD = QColor(255, 210, 130)
+    PO2_BG = QColor(15, 12, 8, 230)
 
     def __init__(self):
         super().__init__()
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
-                            | Qt.Tool | Qt.WindowTransparentForInput)
+        self.setWindowFlags(
+            Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
+            | Qt.Tool | Qt.WindowTransparentForInput,
+        )
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setAttribute(Qt.WA_NoSystemBackground)
-        self.setGeometry(0, 0, 8000, 8000)
+        screen = QApplication.primaryScreen()
+        if screen:
+            self.setGeometry(screen.geometry())
+        else:
+            self.setGeometry(0, 0, 1920, 1080)
         self._hits: List[Tuple[int, int, str, float]] = []
         self.hide()
 
-    def set_hits(self, hits): self._hits = hits; self.show() if hits else None; self.update()
-    def clear(self): self._hits = []; self.hide()
+    def set_hits(self, hits):
+        self._hits = hits
+        if hits:
+            self.show()
+            self.raise_()
+            self.update()
+        else:
+            self.hide()
+
+    def clear(self):
+        self._hits = []
+        self.hide()
+        self.update()
 
     def paintEvent(self, event):
-        if not self._hits: return
-        painter = QPainter(self); painter.setRenderHint(QPainter.Antialiasing)
-        font = QFont("Serif", 13, QFont.Bold); painter.setFont(font); fm = QFontMetrics(font)
-        for cx, cy, _n, p in self._hits:
-            txt = _fmt(p); tw = fm.horizontalAdvance(txt) + 14; th = fm.height() + 6
-            lx, ly = int(cx - tw / 2), int(cy - th / 2)
-            painter.setPen(Qt.NoPen); painter.setBrush(QBrush(self.PO2_BG))
+        if not self._hits:
+            return
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)
+        font = QFont("Serif", 14, QFont.Bold)
+        painter.setFont(font)
+        fm = QFontMetrics(font)
+        for cx, cy, name, price in self._hits:
+            txt = _fmt(price)
+            if not txt:
+                continue
+            tw = fm.horizontalAdvance(txt) + 14
+            th = fm.height() + 8
+            lx = int(cx - tw / 2)
+            ly = int(cy - th / 2)
+            painter.setPen(Qt.NoPen)
+            painter.setBrush(QBrush(self.PO2_BG))
             painter.drawRoundedRect(lx, ly, tw, th, 4, 4)
-            painter.setPen(QPen(self.PO2_GOLD_BRIGHT, 1))
-            painter.drawText(lx + 7, ly + fm.ascent() + 3, txt)
+            painter.setPen(QPen(self.PO2_GOLD, 1))
+            painter.drawText(lx + 7, ly + fm.ascent() + 4, txt)
 
 
 class RitualDetector:
-
-    def __init__(self, league: str = "Runes of Aldur"):
+    def __init__(self, league="Runes of Aldur"):
         self.league = league
-        self._anchor_template = cv2.imread(str(TPL_DIR / "favours_header.png"))
-        self._offer_template = None
-        op = TPL_DIR / "offer_button.png"
-        if op.exists(): self._offer_template = cv2.imread(str(op))
-        self._icon_data: Dict[str, Dict] = {}
-        self._icon_buckets: Dict[Tuple[int, int], List[str]] = {}
-        self._prices: Dict[str, float] = {}
-        self._prices_fetched_at = 0.0
-        self._last_scheduled_hour = -1
-        self._chaos_per_ex = 1.0
+
+        # Anchor templates
+        t = cv2.imread(str(TPL_DIR / "favours_header.png"))
+        self._anchor_tpl = t
+        if t is not None:
+            self._anchor_tpl_h, self._anchor_tpl_w = t.shape[:2]
+
+        # Icon database for matching
+        self._icons: Dict[str, dict] = {}
         self._load_icons()
+
+        # Prices
+        self._prices: Dict[str, float] = {}
+        self._chaos_per_ex = 1.0
         self._fetch_prices()
 
+        # Cached anchor for reliability
+        self._cached_anchor: Optional[Tuple[int, int]] = None
+
     def _load_icons(self):
-        """Load icons as BGR + bucket by shape (cols, rows)."""
-        for p in ICON_DIR.glob("*.png"):
-            stem = p.stem
-            img = cv2.imread(str(p), cv2.IMREAD_COLOR)
-            if img is None: continue
-            ih, iw = img.shape[:2]
-            cols = min(3, max(1, round(iw / SLOT_SIZE)))
-            rows = min(4, max(1, round(ih / SLOT_SIZE)))
-            target_w = SLOT_SIZE * cols
-            target_h = SLOT_SIZE * rows
-            fitted = cv2.resize(img, (target_w, target_h), interpolation=cv2.INTER_AREA)
-            self._icon_data[stem] = {
-                "icon": fitted,
-                "cols": cols, "rows": rows,
-            }
-            self._icon_buckets.setdefault((cols, rows), []).append(stem)
-        print(f"[ritual] {len(self._icon_data)} icons, "
-              f"buckets={ {k: len(v) for k, v in sorted(self._icon_buckets.items())} }",
-              flush=True)
+        if not DB_PATH.exists():
+            return
+        with open(DB_PATH) as f:
+            items = json.load(f).get("items", [])
+        icon_list = []
+        for item in items:
+            name = item.get("name") or item.get("apiId") or ""
+            icon_rel = item.get("iconLocal", "")
+            if not icon_rel:
+                continue
+            if not name:
+                fname = Path(icon_rel).stem
+                name = fname.replace("-", " ").replace("_", " ")
+            path = ICONS_DIR / Path(icon_rel).name
+            if not path.exists():
+                continue
+            img = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
+            if img is None:
+                continue
+            if img.shape[-1] == 4:
+                b, g, r, a = cv2.split(img)
+                m = (a > 40).astype(np.uint8) * 255
+                fg = cv2.merge([b, g, r])
+                bg = np.full(img.shape[:2] + (3,), (12, 10, 8), dtype=np.uint8)
+                comp = fg.copy()
+                comp[m == 0] = bg[m == 0]
+                img = comp
+            h, wi = img.shape[:2]
+            icon_list.append({
+                "name": name,
+                "img": img,
+                "gray": cv2.cvtColor(img, cv2.COLOR_BGR2GRAY),
+                "price": item.get("currentPrice", 0),
+                "aspect": float(wi) / h if h > 0 else 1.0,
+                "area": h * wi,
+            })
+        self._icons = icon_list
+        print(f"[ritual] Loaded {len(self._icons)} icon templates", flush=True)
 
     def _fetch_prices(self):
-        league_enc = urllib.parse.quote(self.league, safe="")
+        le = urllib.parse.quote(self.league, safe="")
         try:
-            r = urllib.request.Request(f"{POE2SCOUT_BASE}/poe2/Leagues/{league_enc}/ReferenceCurrencies",
-                                       headers={"User-Agent": "mypoeapp/1.0"})
+            r = urllib.request.Request(
+                f"{POE2SCOUT_BASE}/poe2/Leagues/{le}/ReferenceCurrencies",
+                headers={"User-Agent": "mypoeapp/1.0"},
+            )
             with urllib.request.urlopen(r, timeout=15) as resp:
                 for e in json.loads(resp.read()):
                     if e.get("ApiId") == "chaos":
                         self._chaos_per_ex = float(e.get("RelativePrice", 1.0))
-        except Exception as e: print(f"[ritual] ref fail {e}", flush=True)
+        except Exception:
+            pass
+
         fetched = 0
         try:
             for page in range(1, 5):
-                u = f"{POE2SCOUT_BASE}/poe2/Leagues/{league_enc}/Currencies/ByCategory?Category=ritual&Page={page}"
+                u = f"{POE2SCOUT_BASE}/poe2/Leagues/{le}/Currencies/ByCategory?Category=ritual&Page={page}"
                 r = urllib.request.Request(u, headers={"User-Agent": "mypoeapp/1.0"})
                 with urllib.request.urlopen(r, timeout=15) as resp:
                     for it in json.loads(resp.read()).get("Items", []):
                         aid = it.get("ApiId")
                         if aid and it.get("CurrentPrice") is not None:
                             raw = float(it["CurrentPrice"])
-                            if raw >= 10 and self._chaos_per_ex > 1: raw /= self._chaos_per_ex
-                            self._prices[aid] = raw; fetched += 1
-            r = urllib.request.Request(f"{POE2SCOUT_BASE}/poe2/Leagues/{league_enc}/Items?perPage=2000",
-                                       headers={"User-Agent": "mypoeapp/1.0"})
+                            if raw >= 10 and self._chaos_per_ex > 1:
+                                raw /= self._chaos_per_ex
+                            self._prices[aid] = raw
+                            fetched += 1
+            r = urllib.request.Request(
+                f"{POE2SCOUT_BASE}/poe2/Leagues/{le}/Items?perPage=2000",
+                headers={"User-Agent": "mypoeapp/1.0"},
+            )
             with urllib.request.urlopen(r, timeout=15) as resp:
                 for it in json.loads(resp.read()):
                     n = it.get("Name") or ""
                     aid = n.lower().replace("'", "").replace(" ", "-")
                     if aid and it.get("CurrentPrice") is not None and aid not in self._prices:
-                        self._prices[aid] = float(it["CurrentPrice"]); fetched += 1
-        except Exception as e: print(f"[ritual] price fail {e}", flush=True)
-        self._prices_fetched_at = time.time()
+                        raw = float(it["CurrentPrice"])
+                        if raw >= 10 and self._chaos_per_ex > 1:
+                            raw /= self._chaos_per_ex
+                        self._prices[aid] = raw
+                        fetched += 1
+        except Exception as e:
+            print(f"[ritual] Price fetch error: {e}", flush=True)
         print(f"[ritual] {fetched} prices (c/ex={self._chaos_per_ex:.2f})", flush=True)
 
-    def refresh_prices_if_scheduled(self):
-        now = datetime.now()
-        if (now.minute == SCHEDULED_REFRESH_MINUTE and now.second < SCHEDULED_REFRESH_WINDOW_SECS
-                and now.hour != self._last_scheduled_hour):
-            self._last_scheduled_hour = now.hour; self._fetch_prices()
-        elif time.time() - self._prices_fetched_at > PRICE_CACHE_TTL:
-            self._fetch_prices()
-
     def find_anchor(self, screen):
-        if screen is None: return None
+        """Find ritual grid top-left corner. Uses template matching + known offsets for 4K."""
+        if screen is None:
+            return None
         h, w = screen.shape[:2]
-        if self._offer_template is not None and h >= self._offer_template.shape[0] and w >= self._offer_template.shape[1]:
-            r = cv2.matchTemplate(screen, self._offer_template, cv2.TM_CCOEFF_NORMED)
-            _, v, _, loc = cv2.minMaxLoc(r)
-            if v >= ANCHOR_MATCH_THRESHOLD: return (loc[0] + 62, loc[1] - 1180)
-        if h >= self._anchor_template.shape[0] and w >= self._anchor_template.shape[1]:
-            r = cv2.matchTemplate(screen, self._anchor_template, cv2.TM_CCOEFF_NORMED)
-            _, v, _, loc = cv2.minMaxLoc(r)
-            if v >= ANCHOR_MATCH_THRESHOLD: return (loc[0] - 315, loc[1] + 288)
+
+        # For 4K (3840x2160), the grid has been consistently at (453, 682)
+        # Try known position first with verification
+        for ax, ay in [(453, 682), (400, 680), (350, 680)]:
+            if ax < 0 or ay < 0 or ax + 200 >= w or ay + 300 >= h:
+                continue
+            check = screen[ay : ay + 300, ax : ax + 200]
+            gray = cv2.cvtColor(check, cv2.COLOR_BGR2GRAY)
+            # A grid with items should have some bright spots
+            if gray.mean() > 20:
+                return (ax, ay)
+
+        # Template-based fallback
+        if self._anchor_tpl is not None:
+            th, tw = self._anchor_tpl.shape[:2]
+            if h >= th and w >= tw:
+                r = cv2.matchTemplate(screen, self._anchor_tpl, cv2.TM_CCOEFF_NORMED)
+                _, v, _, loc = cv2.minMaxLoc(r)
+                if v >= ANCHOR_THRESH:
+                    ax = loc[0] - 315
+                    ay = loc[1] + 288
+                    if 0 <= ax < w - 100 and 0 <= ay < h - 100:
+                        return (ax, ay)
+
         return None
 
-    # -----------------------------------------------------------------
-    def _cell_mask(self, screen, anchor):
-        """Build 12x10 boolean mask of occupied cells using integral image.
-        Each cell is 105x105. Returns (mask[H][W], gray_image) where
-        mask[r][c] = True if cell (r,c) is occupied (mean brightness > threshold)."""
+    def find_occupied_slots(self, screen, anchor):
         ax, ay = anchor
         gray = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
-        # Crop just the grid area
-        x0 = max(0, ax); y0 = max(0, ay)
-        x1 = min(screen.shape[1], ax + SLOT_SIZE * SLOT_COLS)
-        y1 = min(screen.shape[0], ay + SLOT_SIZE * SLOT_ROWS)
-        if x1 <= x0 or y1 <= y0:
-            return None, None, x0, y0
-        grid_gray = gray[y0:y1, x0:x1]
-        # Integral image: sum over each cell = integral[y0,y1,x0,x1] lookup
-        integral = cv2.integral(grid_gray)
-        mask = np.zeros((SLOT_ROWS, SLOT_COLS), dtype=bool)
-        for r in range(SLOT_ROWS):
-            for c in range(SLOT_COLS):
-                y_top = r * SLOT_SIZE; y_bot = y_top + SLOT_SIZE
-                x_left = c * SLOT_SIZE; x_right = x_left + SLOT_SIZE
-                if y_bot > grid_gray.shape[0] or x_right > grid_gray.shape[1]:
+        slots = []
+        for row in range(SLOT_ROWS):
+            for col in range(SLOT_COLS):
+                x = ax + col * SLOT_SIZE + 5
+                y = ay + row * SLOT_SIZE + 5
+                w = min(95, screen.shape[1] - x)
+                h = min(95, screen.shape[0] - y)
+                if w < 10 or h < 10:
                     continue
-                mean = (integral[y_bot, x_right] - integral[y_top, x_right]
-                        - integral[y_bot, x_left] + integral[y_top, x_left]) / (SLOT_SIZE * SLOT_SIZE)
-                if mean > CELL_MEAN_THRESHOLD:
-                    mask[r, c] = True
-        return mask, grid_gray, x0, y0
+                crop = gray[y : y + h, x : x + w]
+                if crop.size > 0 and crop.mean() > 22:
+                    cx = ax + col * SLOT_SIZE + SLOT_SIZE // 2
+                    cy = ay + row * SLOT_SIZE + SLOT_SIZE // 2
+                    slots.append((row, col, cx, cy))
+        return slots
 
-    def _components_from_mask(self, mask):
-        """4-connected components capped at 2x6 (largest real item shape).
-        Oversized components (e.g. column of stacked 1x1 items) are split
-        into individual 1x1 cells."""
-        MAX_W, MAX_H = 2, 6
-        visited = np.zeros_like(mask, dtype=bool)
-        comps = []
-        for r in range(mask.shape[0]):
-            for c in range(mask.shape[1]):
-                if not mask[r, c] or visited[r, c]: continue
-                stack = [(r, c)]; cells = []
-                while stack:
-                    cr, cc = stack.pop()
-                    if cr < 0 or cr >= mask.shape[0] or cc < 0 or cc >= mask.shape[1]: continue
-                    if visited[cr, cc] or not mask[cr, cc]: continue
-                    visited[cr, cc] = True; cells.append((cr, cc))
-                    stack.extend([(cr+1,cc),(cr-1,cc),(cr,cc+1),(cr,cc-1)])
-                if not cells: continue
-                rs = [x[0] for x in cells]; cs = [x[1] for x in cells]
-                w = max(cs) - min(cs) + 1; h = max(rs) - min(rs) + 1
-                if w > MAX_W or h > MAX_H:
-                    # Split into individual 1x1 cells
-                    for cr, cc in cells:
-                        comps.append((cr, cc, 1, 1, {(cr, cc)}))
-                else:
-                    comps.append((min(rs), min(cs), w, h, set(cells)))
-        return comps
-
-    def scan(self, screen, anchor):
-        """Phase 1: cell mask to find occupied shapes.
-        Phase 2: matchTemplate on full grid ROI, but only for icons of detected shapes."""
-        if anchor is None: return []
-        mask, grid_gray, gx, gy = self._cell_mask(screen, anchor)
-        if mask is None: return []
-        comps = self._components_from_mask(mask)
-        if not comps: return []
-
-        # Collect unique shapes from components
-        detected_shapes = set((w, h) for r, c, w, h, _ in comps)
-        # Gather all icon names matching detected shapes
-        icons_to_try = []
-        for shape in detected_shapes:
-            icons_to_try.extend(self._icon_buckets.get(shape, []))
-        if not icons_to_try: return []
-
-        # Full grid ROI for matchTemplate (allows best alignment)
+    def match_slot(self, screen, anchor, row, col):
+        """Match one slot against icon database. Returns (name, score, price)."""
         ax, ay = anchor
-        x1 = max(0, ax - 5); y1 = max(0, ay - 5)
-        x2 = min(screen.shape[1], ax + SLOT_SIZE * SLOT_COLS + 5)
-        y2 = min(screen.shape[0], ay + SLOT_SIZE * SLOT_ROWS + 5)
-        roi = screen[y1:y2, x1:x2]
+        x = ax + col * SLOT_SIZE + 5
+        y = ay + row * SLOT_SIZE + 5
+        crop = screen[y : y + 95, x : x + 95]
+        cg = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
+        _, mask = cv2.threshold(cg, 30, 255, cv2.THRESH_BINARY)
+        if np.count_nonzero(mask) < 100:
+            return None, 0, 0
 
-        candidates = []
-        for name in icons_to_try:
-            tpl = self._icon_data[name]["icon"]
-            th, tw = tpl.shape[:2]
-            if th > roi.shape[0] or tw > roi.shape[1]: continue
-            result = cv2.matchTemplate(roi, tpl, cv2.TM_CCOEFF_NORMED)
-            _, score, _, loc = cv2.minMaxLoc(result)
-            if score < MATCH_THRESHOLD: continue
-            api_id = name.replace("unique_", "")
-            price = self._prices.get(api_id, 0.0)
-            cx = x1 + loc[0] + tw // 2
-            cy = y1 + loc[1] + th // 2
-            candidates.append((cx, cy, tw, th, api_id, price, float(score)))
+        # Compute item shape for size bucketing
+        ys, xs = np.where(mask > 0)
+        item_h = ys.max() - ys.min() + 1 if len(ys) > 0 else 95
+        item_w = xs.max() - xs.min() + 1 if len(xs) > 0 else 95
+        item_aspect = float(item_w) / item_h if item_h > 0 else 1.0
+        item_area = item_w * item_h
 
-        # NMS: prefer higher score * area
-        candidates.sort(key=lambda c: -(c[6] * c[2] * c[3]))
-        hits = []
-        for cx, cy, tw, th, name, price, score in candidates:
-            if any(abs(cx - h[0]) < NMS_RADIUS and abs(cy - h[1]) < NMS_RADIUS for h in hits): continue
-            hits.append((cx, cy, name, price))
-            if len(hits) >= MAX_HITS: break
-        return hits
+        best_name, best_score, best_price = None, 0.0, 0.0
+        second_score = 0.0
+        for data in self._icons:
+            # Fast size filter
+            ar_diff = abs(data["aspect"] - item_aspect)
+            if ar_diff > 1.5:
+                continue
+            area_ratio = data["area"] / max(item_area, 1)
+            if area_ratio < 0.3 or area_ratio > 3.0:
+                continue
+
+            ig = cv2.resize(data["gray"], (cg.shape[1], cg.shape[0]))
+            tm = cv2.matchTemplate(cg, ig, cv2.TM_CCOEFF_NORMED)[0][0]
+
+            sm = crop.copy()
+            sm[mask == 0] = [0, 0, 0]
+            im = cv2.resize(data["img"], (crop.shape[1], crop.shape[0]))
+            im[mask == 0] = [0, 0, 0]
+            cs = max(
+                0,
+                1.0
+                - np.linalg.norm(
+                    np.array(cv2.mean(sm, mask=mask)[:3])
+                    - np.array(cv2.mean(im, mask=mask)[:3])
+                )
+                / 255,
+            )
+            score = tm * 0.5 + cs * 0.5
+            if score > best_score:
+                second_score = best_score
+                best_score = score
+                best_name = data["name"]
+                best_price = data["price"]
+            elif score > second_score:
+                second_score = score
+
+        accept = False
+        if best_name and best_score >= MATCH_THRESH:
+            accept = True
+        elif best_name and best_score >= 0.35 and (best_score - second_score) > 0.03:
+            # Close match with clear winner — accept below threshold
+            accept = True
+
+        if accept:
+            price = best_price
+            api_id = best_name.lower().replace(" ", "-").replace("'", "")
+            if api_id in self._prices:
+                price = self._prices[api_id]
+            elif price > 0 and price >= 10 and self._chaos_per_ex > 1:
+                price /= self._chaos_per_ex
+            return best_name, best_score, price
+        return None, best_score, 0
+
+    def match_all_slots(self, screen, anchor, slot_keys):
+        """Match all occupied slots. Returns list of (cx, cy, name, price)."""
+        results = []
+        for row, col, cx, cy in slot_keys:
+            name, score, price = self.match_slot(screen, anchor, row, col)
+            if name:
+                results.append((cx, cy, name, price))
+        return results
 
 
 class RitualWatcher:
-    STABILITY = 2; LINGER = 3
+    TICK_MS = 2000  # Match every 2 seconds
 
-    def __init__(self, overlay, detector, refresh_seconds=1.0):
-        self.overlay = overlay; self.detector = detector
-        self._timer = None; self._cap = _build_screen_capture()
-        self._last_present = False
-        self._stable: Dict[Tuple[int, int], Tuple[Tuple, int, int]] = {}
+    def __init__(self, overlay, detector):
+        self.overlay = overlay
+        self.detector = detector
+        self._timer = QTimer()
+        self._timer.timeout.connect(self._tick)
+        self._cap = _build_capture()
+        self._last_hash = 0
+        self._menu_open = False
 
     def start(self):
-        if self._timer: return
-        self._timer = QTimer(); self._timer.timeout.connect(self._tick); self._timer.start(1000)
+        self._timer.start(self.TICK_MS)
 
     def stop(self):
-        if self._timer: self._timer.stop(); self._timer = None
-        self.overlay.clear(); self._stable.clear()
+        self._timer.stop()
+        self.overlay.clear()
 
     def _tick(self):
-        self.detector.refresh_prices_if_scheduled()
-        try: screen = self._cap()
-        except Exception as e: print(f"[ritual] cap fail: {e}", flush=True); return
+        try:
+            screen = self._cap()
+        except Exception:
+            return
+
         anchor = self.detector.find_anchor(screen)
         if anchor is None:
-            if self._last_present: self.overlay.clear()
-            self._last_present = False; return
-        raw = self.detector.scan(screen, anchor)
-        cur = {}
-        for cx, cy, n, p in raw: cur[(cx // 60, cy // 60)] = (cx, cy, n, p)
-        ns = {}
-        for k, m in cur.items():
-            old = self._stable.get(k)
-            ns[k] = (m, old[1] + 1, 0) if (old and old[0] == m) else (m, 1, 0)
-        for k, (m, hc, mc) in self._stable.items():
-            if k not in cur:
-                nm = mc + 1
-                if nm <= self.LINGER: ns[k] = (m, hc, nm)
-        self._stable = ns
-        out = [m for (m, hc, _) in self._stable.values() if hc >= self.STABLE]
-        self.overlay.set_hits(out)
-        self._last_present = True
-        if out:
-            s = ", ".join(f"{n}={p:.1f}x" for _, _, n, p in out)
-            print(f"[ritual] {len(out)} hits: {s}", flush=True)
+            if self._menu_open:
+                self.overlay.clear()
+                self._menu_open = False
+            return
+
+        self._menu_open = True
+
+        slots = self.detector.find_occupied_slots(screen, anchor)
+        h = hash(tuple(sorted((r, c) for r, c, _, _ in slots)))
+
+        if h != self._last_hash:
+            self._last_hash = h
+            t0 = time.time()
+            hits = self.detector.match_all_slots(screen, anchor, slots)
+            print(
+                f"[ritual] {len(hits)}/{len(slots)} items matched in {time.time()-t0:.1f}s",
+                flush=True,
+            )
+            self.overlay.set_hits(hits)
 
 
-def _fmt(price: float) -> str:
-    if price >= 1000: return f"{price/1000:.1f}kx"
-    if price >= 10: return f"{price:.0f}x"
-    if price >= 1: return f"{price:.1f}x"
-    if price >= 0.01: return f"{price:.2f}x"
-    return f"{price:.3f}x"
+def _fmt(price):
+    if price <= 0:
+        return ""
+    if price >= 1000:
+        return f"{price/1000:.1f}kx"
+    if price >= 10:
+        return f"{price:.0f}c"
+    if price >= 1:
+        return f"{price:.1f}c"
+    if price >= 0.01:
+        return f"{price:.2f}c"
+    return f"{price:.3f}c"
 
 
-def _build_screen_capture():
+def _build_capture():
     try:
-        import mss; sct = mss.mss()
-        def capture(): return cv2.cvtColor(np.array(sct.grab(sct.monitors[1])), cv2.COLOR_BGRA2BGR)
-        return capture
+        import mss
+
+        sct = mss.mss()
+
+        def cap():
+            return cv2.cvtColor(
+                np.array(sct.grab(sct.monitors[1])), cv2.COLOR_BGRA2BGR
+            )
+
+        return cap
     except ImportError:
         from PIL import ImageGrab
-        def capture(): return cv2.cvtColor(np.array(ImageGrab.grab()), cv2.COLOR_RGB2BGR)
-        return capture
+
+        def cap():
+            return cv2.cvtColor(
+                np.array(ImageGrab.grab()), cv2.COLOR_RGB2BGR
+            )
+
+        return cap

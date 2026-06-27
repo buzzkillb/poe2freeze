@@ -210,15 +210,25 @@ def main(hotkey: str = None):
 
     ritual_overlay_w = None
     ritual_watcher = None
-    try:
-        from ritual_overlay import RitualPriceOverlay, RitualDetector, RitualWatcher
-        ritual_detector = RitualDetector(LEAGUE)
-        ritual_overlay_w = RitualPriceOverlay()
-        ritual_watcher = RitualWatcher(ritual_overlay_w, ritual_detector, refresh_seconds=1.0)
-        ritual_watcher.start()
-        print(f"[overlay] ritual watcher armed", flush=True)
-    except Exception as e:
-        print(f"[overlay] ritual watcher disabled: {e}", flush=True)
+
+    def _start_ritual_watcher():
+        global ritual_overlay_w, ritual_watcher
+        try:
+            from ritual_overlay import RitualPriceOverlay, RitualDetector, RitualWatcher
+            print("[overlay] importing ritual detector...", flush=True)
+            ritual_detector = RitualDetector(LEAGUE)
+            print("[overlay] ritual detector ready", flush=True)
+            ritual_overlay_w = RitualPriceOverlay()
+            ritual_watcher = RitualWatcher(ritual_overlay_w, ritual_detector)
+            ritual_watcher.start()
+            print(f"[overlay] ritual watcher armed (hover+OCR)", flush=True)
+        except Exception as e:
+            import traceback
+            print(f"[overlay] ritual watcher disabled: {e}", flush=True)
+            print(traceback.format_exc(), flush=True)
+
+    # Defer the ritual watcher initialization to allow other libraries to settle
+    QTimer.singleShot(2000, _start_ritual_watcher)
 
     if QSystemTrayIcon.isSystemTrayAvailable():
         try:
