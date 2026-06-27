@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import cv2
+import imagehash
 import numpy as np
 from PIL import Image
 
@@ -160,31 +161,58 @@ class RitualDetector:
         self._fetch_prices()
 
     def _load_icon_hashes(self):
-        """Load icons for template matching against the in-game slot.
+        """Load icons and compute pHash for multi-tile fragment matching.
 
-        Each icon is resized to the slot-grid size (cols*SLOT_SIZE x
-        rows*SLOT_SIZE) and stored as a BGR numpy array. cv2.matchTemplate
-        uses these directly to find each icon in the screenshot.
+        For 1x1 icons, pHash the whole icon. For multi-tile icons,
+        slice into 1x1 cell fragments, pHash each fragment. Fragments
+        compete against the 1x1 icons for best-match cell voting.
         """
         for icon_path in ICON_DIR.glob("*.png"):
+            stem = icon_path.stem
             icon_pil = Image.open(icon_path).convert("RGB")
             iw, ih = icon_pil.size
             cols = max(1, round(iw / SLOT_SIZE))
             rows = max(1, round(ih / SLOT_SIZE))
             cols = min(cols, 3)
             rows = min(rows, 4)
-            # Resize to slot-grid size for direct template matching
+
             target_w = SLOT_SIZE * cols
             target_h = SLOT_SIZE * rows
-            icon_resized = icon_pil.resize((target_w, target_h), Image.LANCZOS)
-            icon_bgr = cv2.cvtColor(np.array(icon_resized), cv2.COLOR_RGB2BGR)
-            self._icon_data[icon_path.stem] = {
-                "icon": icon_bgr,
-                "iw": iw,
-                "ih": ih,
-                "cols": cols,
-                "rows": rows,
-            }
+            fitted = icon_pil.resize((target_w, target_h), Image.LANCZOS)
+
+            if cols == 1 and rows == 1:
+                # 1x1 icon: pHash at standard size
+                pil = fitted.resize((128, 128), Image.LANCZOS)
+                self._icon_data[stem] = {
+                    "phash": imagehash.phash(pil, hash_size=16),
+                    "dhash": imagehash.dhash(pil, hash_size=16),
+                    "whash": imagehash.whash(pil, hash_size=16),
+                    "cols": 1, "rows": 1,
+                    "fragments": None,
+                }
+            else:
+                # Multi-tile: slice into fragments
+                fragments = {}
+                for fr in range(rows):
+                    for fc in range(cols):
+                        # Crop the fragment
+                        frag = fitted.crop((
+                            fc * SLOT_SIZE, fr * SLOT_SIZE,
+                            (fc + 1) * SLOT_SIZE, (fr + 1) * SLOT_SIZE,
+                        )).resize((128, 128), Image.LANCZOS)
+                        frag_key = f"{stem}__f{fr}_{fc}"
+                        fragments[frag_key] = {
+                            "phash": imagehash.phash(frag, hash_size=16),
+                            "dhash": imagehash.dhash(frag, hash_size=16),
+                            "whash": imagehash.whash(frag, hash_size=16),
+                            "parent": stem,
+                            "row": fr, "col": fc,
+                        }
+                self._icon_data[stem] = {
+                    "phash": None, "dhash": None, "whash": None,
+                    "cols": cols, "rows": rows,
+                    "fragments": fragments,
+                }
 
     def _fetch_prices(self):
         """Fetch live prices + ReferenceCurrencies from poe2scout.
@@ -295,11 +323,14 @@ class RitualDetector:
             return max_loc
         return None
 
-    def match_region(self, region_img: np.ndarray, cols: int, rows: int) -> Optional[Tuple[str, float, float]]:
-        """Template-match a region of given shape against icons of the same shape.
+    def match_region(self, region_img: np.ndarray, cols: int, rows: int) -> Optional[Tuple[str, float, int]]:
+        """Label a multi-tile region by its shape.
 
-        Returns (api_id, price, score) or None. Score is cv2.matchTemplate's
-        TM_CCOEFF_NORMED output (0..1, higher is better).
+        Since we have limited multi-tile icons (one per shape), we label
+        occupied regions by (cols x rows). As the database grows, we can
+        switch to fragment-based pHash voting.
+
+        Returns (api_id, price, margin) or None.
         """
         if region_img is None:
             return None
@@ -308,32 +339,62 @@ class RitualDetector:
         if region_img.shape[0] < target_h or region_img.shape[1] < target_w:
             return None
         region = region_img[:target_h, :target_w]
-        best_name, best_score = None, -1.0
-        second_score = -1.0
+        # Check if region matches any icon of this shape
+        best_name = None
+        best_score = 9999
+        second_score = 9999
         for name, data in self._icon_data.items():
             if data["cols"] != cols or data["rows"] != rows:
                 continue
-            template = data["icon"]
-            if template.shape[:2] != (target_h, target_w):
-                continue
-            result = cv2.matchTemplate(region, template, cv2.TM_CCOEFF_NORMED)
-            _, score, _, _ = cv2.minMaxLoc(result)
-            if score > best_score:
-                second_score = best_score
-                best_score = score
-                best_name = name
-            elif score > second_score:
-                second_score = score
-        if best_name is None or best_score < 0:
+            if cols == 1 and rows == 1:
+                # Full pHash match for 1x1 (the proven approach)
+                try:
+                    pil = Image.fromarray(cv2.cvtColor(region, cv2.COLOR_BGR2RGB)).resize((128, 128), Image.LANCZOS)
+                except Exception:
+                    continue
+                phash = imagehash.phash(pil, hash_size=16)
+                dhash = imagehash.dhash(pil, hash_size=16)
+                whash = imagehash.whash(pil, hash_size=16)
+                score = (phash - data["phash"]) + (dhash - data["dhash"]) + (whash - data["whash"])
+                if score < best_score:
+                    second_score = best_score
+                    best_score = score
+                    best_name = name
+                elif score < second_score:
+                    second_score = score
+            else:
+                # Multi-tile: shape-based labeling. Count how many 1x1 cells
+                # pass individual brightness/variance checks. Require at least
+                # half to be "occupied" to avoid labeling empty regions.
+                ok_count = 0
+                # Multi-tile: require at least this fraction of cells to be occupied
+                fraction = 3/4 if (cols * rows) <= 4 else 2/3
+                need_count = max(2, int((cols * rows) * fraction))
+                for cr in range(rows):
+                    for cc in range(cols):
+                        cell = region[cr*SLOT_SIZE:(cr+1)*SLOT_SIZE, cc*SLOT_SIZE:(cc+1)*SLOT_SIZE]
+                        cg = cv2.cvtColor(cell, cv2.COLOR_BGR2GRAY)
+                        if float(cg.mean()) >= 15 and float(cg.std()) >= 12:
+                            ok_count += 1
+                if ok_count >= need_count:
+                    best_name = name
+                    best_score = 0
+                    second_score = 0
+                break
+
+        if best_name is None:
             return None
-        threshold = 0.45
-        if best_score < threshold:
-            return None
-        if second_score > 0 and (best_score - second_score) < 0.02:
-            return None
+        # For 1x1, require margin. For multi-tile (single icon), accept.
+        if cols == 1 and rows == 1:
+            if second_score < 9999:
+                margin = second_score - best_score
+                if margin < 2:
+                    return None
+            else:
+                return None
         api_id = best_name.replace("unique_", "")
         price = self._prices.get(api_id, 0.0)
-        return api_id, price, float(best_score)
+        return api_id, price, 1
 
     def find_all_items(self, screen: np.ndarray, anchor: Tuple[int, int]) -> List[Tuple[int, int, int, int, str, float]]:
         """For each icon in the database, pHash-match against the
@@ -358,6 +419,11 @@ class RitualDetector:
                     if sx + w > screen.shape[1] or sy + h > screen.shape[0]:
                         continue
                     region = screen[sy:sy+h, sx:sx+w]
+                    gray = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
+                    if float(gray.mean()) < 18:
+                        continue
+                    if float(gray.std()) < 16:
+                        continue
                     match = self.match_region(region, shape_cols, shape_rows)
                     if match is None:
                         continue
