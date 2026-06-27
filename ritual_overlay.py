@@ -26,9 +26,9 @@ PRICE_CACHE_TTL = 30 * 60; SCHEDULED_REFRESH_MINUTE = 1; SCHEDULED_REFRESH_WINDO
 
 SLOT_SIZE = 105; SLOT_COLS = 12; SLOT_ROWS = 10
 ANCHOR_MATCH_THRESHOLD = 0.85
-MATCH_THRESHOLD = 0.55        # matchTemplate verify
-BRIGHTNESS_THRESHOLD = 22     # cell occupied?
-VARIANCE_THRESHOLD = 16
+MATCH_THRESHOLD = 0.30        # matchTemplate verify
+BRIGHTNESS_THRESHOLD = 28     # cell occupied?
+VARIANCE_THRESHOLD = 18
 PHASH_CANDIDATES = 3          # top-N from pHash for template verification
 
 
