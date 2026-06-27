@@ -98,14 +98,15 @@ class RitualDetector:
             self._icon_data[stem] = {
                 "phash":  imagehash.phash(ph_pil, hash_size=16),
                 "dhash":  imagehash.dhash(ph_pil, hash_size=16),
-                "whash":  imagehash.whash(ph_pil, hash_size=16),
                 "cols":   cols, "rows": rows,
                 "icon":   cv2.cvtColor(np.array(fitted), cv2.COLOR_RGB2BGR),
             }
         shapes = set((d["cols"], d["rows"]) for d in self._icon_data.values())
-        self._shapes = sorted(s for s in shapes if sum(1 for d in self._icon_data.values()
-                              if d["cols"] == s[0] and d["rows"] == s[1]) >= 2)
-        self._shapes.sort(key=lambda s: -(s[0] * s[1]))  # largest first
+        common = {(1, 1), (2, 1), (2, 2), (2, 3), (2, 4)}  # most common in game
+        self._shapes = sorted((s for s in shapes if s in common and
+            sum(1 for d in self._icon_data.values() if d["cols"] == s[0] and d["rows"] == s[1]) >= 2 and
+            s[0] <= SLOT_COLS and s[1] <= SLOT_ROWS),
+            key=lambda s: -(s[0] * s[1]))
         print(f"[ritual] {len(self._icon_data)} icons, shapes={self._shapes}", flush=True)
 
     def _fetch_prices(self):
@@ -177,14 +178,13 @@ class RitualDetector:
             return []
         ph = imagehash.phash(pil, hash_size=16)
         dh = imagehash.dhash(pil, hash_size=16)
-        wh = imagehash.whash(pil, hash_size=16)
         dists = []
         for name, d in self._icon_data.items():
             if d["cols"] != sc or d["rows"] != sr: continue
-            dist = (ph - d["phash"]) + (dh - d["dhash"]) + (wh - d["whash"])
+            dist = (ph - d["phash"]) + (dh - d["dhash"])
             dists.append((name, dist))
         dists.sort(key=lambda x: x[1])
-        return dists[:PHASH_CANDIDATES]
+        return [(n, d) for n, d in dists[:PHASH_CANDIDATES] if d < 350]
 
     def scan(self, screen, anchor):
         """Hybrid: pHash pre-filter → matchTemplate verify → NMS."""
