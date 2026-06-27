@@ -55,11 +55,7 @@ SLOT_SIZE = 105
 SLOT_COLS = 12
 SLOT_ROWS = 10
 
-# pHash match threshold: minimum margin (top1 - top2) to accept a slot match.
-# Multi-tile matches (2x1, 2x2 etc) need a bigger margin because they have
-# more pixels of "stuff" that could randomly match.
-MATCH_MARGIN_THRESHOLD = 2
-MATCH_MARGIN_THRESHOLD_MULTI = 2
+MATCH_MARGIN_THRESHOLD = 8
 
 # Empty-slot filter: skip slots whose mean brightness is below this.
 # Empty grid squares (dark quatrefoil pattern) average ~9-15; real item
@@ -312,15 +308,34 @@ class RitualDetector:
             self._fetch_prices()
 
     def find_anchor(self, screen: np.ndarray) -> Optional[Tuple[int, int]]:
-        if self._anchor_template is None or screen is None:
+        """Find the ritual UI and return the grid (0,0) top-left pixel coords.
+
+        Uses the offer button as the primary anchor (always at the bottom of
+        the ritual), then derives the grid origin from a known offset.
+        Falls back to FAVOURS header if offer button isn't found.
+        """
+        if screen is None:
             return None
-        if screen.shape[0] < self._anchor_template.shape[0] or \
-           screen.shape[1] < self._anchor_template.shape[1]:
-            return None
-        result = cv2.matchTemplate(screen, self._anchor_template, cv2.TM_CCOEFF_NORMED)
-        _, max_val, _, max_loc = cv2.minMaxLoc(result)
-        if max_val >= ANCHOR_MATCH_THRESHOLD:
-            return max_loc
+        ow, oh = screen.shape[1], screen.shape[0]
+        # Try offer button first: at the bottom of the ritual grid
+        if self._offer_template is not None:
+            if oh >= self._offer_template.shape[0] and ow >= self._offer_template.shape[1]:
+                result = cv2.matchTemplate(screen, self._offer_template, cv2.TM_CCOEFF_NORMED)
+                _, max_val, _, max_loc = cv2.minMaxLoc(result)
+                if max_val >= ANCHOR_MATCH_THRESHOLD:
+                    # Offer button found. The grid is above it, offset
+                    # proportionally to screen width. Original calibration:
+                    # screen 1645w, offer at x=223, grid at x=285 → grid_x = offer_x + 62
+                    # screen 1645w, offer at y=1473, grid at y=293 → grid_y = offer_y - 1180
+                    offer_x, offer_y = max_loc
+                    return (offer_x + 62, offer_y - 1180)
+        # Fallback: FAVOURS header
+        if self._anchor_template is not None:
+            if oh >= self._anchor_template.shape[0] and ow >= self._anchor_template.shape[1]:
+                result = cv2.matchTemplate(screen, self._anchor_template, cv2.TM_CCOEFF_NORMED)
+                _, max_val, _, max_loc = cv2.minMaxLoc(result)
+                if max_val >= ANCHOR_MATCH_THRESHOLD:
+                    return (max_loc[0] - 315, max_loc[1] + 288)
         return None
 
     def match_region(self, region_img: np.ndarray, cols: int, rows: int) -> Optional[Tuple[str, float, int]]:
@@ -384,11 +399,14 @@ class RitualDetector:
 
         if best_name is None:
             return None
-        # For 1x1, require margin. For multi-tile (single icon), accept.
+        # For 1x1, require margin + absolute quality. For multi-tile (single icon), accept.
         if cols == 1 and rows == 1:
             if second_score < 9999:
+                # Require both absolute quality AND margin
+                if best_score > 280:
+                    return None  # too dissimilar even if relative margin is good
                 margin = second_score - best_score
-                if margin < 2:
+                if margin < MATCH_MARGIN_THRESHOLD:
                     return None
             else:
                 return None
@@ -405,24 +423,30 @@ class RitualDetector:
         """
         if anchor is None:
             return []
-        ax, ay = anchor
-        ox, oy = GRID_OFFSET_FROM_ANCHOR
+        ax, ay = anchor  # anchor is now the grid (0,0) origin
 
         candidates = []
+        # Only include shapes that have at least 2 icons in the database.
+        # Shapes with 1 icon produce false positive floods.
+        enabled_shapes = []
+        for sc, sr in [(1, 1), (2, 1), (1, 2), (2, 2), (2, 3), (2, 4), (1, 3), (1, 4)]:
+            count = sum(1 for d in self._icon_data.values() if d["cols"] == sc and d["rows"] == sr)
+            if count >= 2 or (sc == 1 and sr == 1):  # 1x1 always, multi-tile needs competition
+                enabled_shapes.append((sc, sr))
         for row in range(SLOT_ROWS):
             for col in range(SLOT_COLS):
-                for shape_cols, shape_rows in [(1, 1), (2, 1), (1, 2), (2, 2), (2, 3), (2, 4), (1, 3), (1, 4)]:
-                    sx = ax + ox + col * SLOT_SIZE
-                    sy = ay + oy + row * SLOT_SIZE
+                for shape_cols, shape_rows in enabled_shapes:
+                    sx = ax + col * SLOT_SIZE
+                    sy = ay + row * SLOT_SIZE
                     w = SLOT_SIZE * shape_cols
                     h = SLOT_SIZE * shape_rows
                     if sx + w > screen.shape[1] or sy + h > screen.shape[0]:
                         continue
                     region = screen[sy:sy+h, sx:sx+w]
                     gray = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
-                    if float(gray.mean()) < 16:
+                    if float(gray.mean()) < 25:
                         continue
-                    if float(gray.std()) < 12:
+                    if float(gray.std()) < 15:
                         continue
                     match = self.match_region(region, shape_cols, shape_rows)
                     if match is None:
@@ -441,8 +465,8 @@ class RitualDetector:
             if slots & consumed:
                 continue
             consumed |= slots
-            cx = ax + ox + (col + sc / 2) * SLOT_SIZE
-            cy = ay + oy + (row + sr / 2) * SLOT_SIZE
+            cx = ax + (col + sc / 2) * SLOT_SIZE
+            cy = ay + (row + sr / 2) * SLOT_SIZE
             hits.append((row, col, int(cx), int(cy), api_id, price))
         return hits
 
@@ -504,8 +528,12 @@ class RitualWatcher:
             if self._last_present:
                 self.overlay.clear()
                 self._last_present = False
-                self._stable.clear()
             return
+        if not hasattr(self, '_debug_count'):
+            self._debug_count = 0
+        self._debug_count += 1
+        if self._debug_count == 1 or self._debug_count % 15 == 0:
+            print(f"[ritual] anchor ok at {anchor}, screen={screen.shape[:2]}", flush=True)
 
         raw_hits = self.detector.scan_slots(screen, anchor)
         # Build map of current frame's matches by (row, col)
