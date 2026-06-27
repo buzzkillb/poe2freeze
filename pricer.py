@@ -5,6 +5,8 @@ uses DataSourceRegistry for multi-source pricing with normalized display.
 import json
 import re
 import time
+from datetime import datetime, timezone
+import time
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -526,13 +528,11 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
         }
     if mods:
         query = _build_waystone_query(base, tier, mods)
-        print(f"[waystone] trade2 query: {json.dumps(query)[:300]}", flush=True)
         result = registry.trade.search_items(query)
         total = result.get("total", 0) if result else 0
         n_ids = len(result.get("result", [])) if result else 0
-        print(f"[waystone] trade2 returned {total} total, {n_ids} ids", flush=True)
         if result and result.get("result"):
-            ids = result["result"][:6]
+            ids = result["result"][:10]
             fetched = registry.trade.fetch_results(result["id"], ids)
             if fetched:
                 converter = registry.get_converter()
@@ -544,31 +544,30 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                     price_info = p.get("price", {})
                     amount = price_info.get("amount", 0)
                     currency = price_info.get("currency", "")
+                    indexed = p.get("indexed", "")
+                    account = p.get("account", {}).get("name", "?")
                     if amount > 0 and currency:
                         norm = converter.normalize_to_all(amount, currency)
                         if norm.get("chaos", 0) > 0:
                             listings.append({
-                                "price_chaos": norm["chaos"],
-                                "exalted": norm.get("exalted", 0),
-                                "account": p.get("account", {}).get("name", "?"),
+                                "price_exalted": norm.get("exalted", 0),
                                 "amount": amount,
                                 "currency": currency,
+                                "account": account,
+                                "indexed": indexed,
+                                "time_ago": _time_ago(indexed) if indexed else "",
                             })
                 if listings:
-                    listings.sort(key=lambda x: x["price_chaos"])
-                    best = listings[0]
-                    normalized = converter.from_exalted(best["exalted"])
                     cache_price(
                         key=cache_key,
                         kind="waystone",
                         base=base,
                         name=name,
-                        chaos=best["price_chaos"],
-                        divine=normalized.get("divine", 0),
-                        exalted=normalized.get("exalted", 0),
+                        chaos=listings[0]["price_exalted"],
+                        divine=0,
+                        exalted=listings[0]["price_exalted"],
                         listing_count=len(listings),
-                        detail={"tier": tier, "mods": mods, "source": "trade2",
-                                "top_listing": f"{best['amount']} {best['currency']}"},
+                        detail={"tier": tier, "mods": mods, "source": "trade2"},
                         ttl_seconds=CACHE_TTL["default"],
                     )
                     return {
@@ -576,10 +575,11 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                         "name": name,
                         "tier": tier,
                         "mods": mods,
-                        "normalized": normalized,
+                        "normalized": converter.from_exalted(listings[0]["price_exalted"]),
                         "cached": False,
                         "source": "trade2",
                         "listing_count": len(listings),
+                        "listings": listings,
                         "corrupted": item.get("corrupted", False),
                     }
     sc_result = registry.get_waystone_price(base, tier)
@@ -776,3 +776,16 @@ def price_text(text: str) -> Dict:
         "quality": item.get("quality", 0),
     }
     return result
+
+
+def _time_ago(iso_str: str) -> str:
+    t = datetime.fromisoformat(iso_str.replace("Z", "+00:00"))
+    delta = datetime.now(timezone.utc) - t
+    seconds = delta.total_seconds()
+    if seconds < 3600:
+        return f"{int(seconds / 60)}m"
+    if seconds < 86400:
+        return f"{int(seconds / 3600)}h"
+    if seconds < 604800:
+        return f"{int(seconds / 86400)}d"
+    return f"{int(seconds / 604800)}w"

@@ -60,6 +60,13 @@ def _format_display(result: Dict) -> tuple:
         parts.append(f"L{gem_level}/Q{quality}")
     parts.append(f"{_fmt_currency(exalted)}ex  ({_fmt_currency(chaos)}c / {_fmt_currency(divine)}d)")
     parts.append(f"n={count} {age_str}{cache_marker} [{source}]")
+    listings = result.get("listings", [])
+    if listings:
+        parts.append("---")
+        for i, l in enumerate(listings[:10]):
+            px = _fmt_currency(l["price_exalted"])
+            rel = l.get("time_ago", "?")
+            parts.append(f"  {i+1}. {px}ex ({l['amount']} {l['currency']}) {rel}")
     text = "\n".join(parts)
     if exalted >= 100:
         color = QColor(255, 75, 75)
