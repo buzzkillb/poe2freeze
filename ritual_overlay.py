@@ -343,8 +343,8 @@ class RitualDetector:
         price = self._prices.get(api_id, 0.0)
         return api_id, price, margin
 
-    def scan_slots(self, screen: np.ndarray, anchor: Tuple[int, int]) -> List[Tuple[int, int, str, float]]:
-        """Sweep slot grid; return list of (center_x, center_y, name, price).
+    def scan_slots(self, screen: np.ndarray, anchor: Tuple[int, int]) -> List[Tuple[int, int, int, int, str, float]]:
+        """Sweep slot grid; return list of (row, col, center_x, center_y, name, price).
 
         Items can be 1x1, 2x1 (wide), 1x2 (tall), 2x2, 2x3, 2x4, etc.
         We try matching every (row, col) anchor at every shape, but only
@@ -384,7 +384,7 @@ class RitualDetector:
         # Sort by area desc, then margin desc
         candidates.sort(key=lambda c: (-(c[2] * c[3]), -c[6]))
         consumed = set()
-        hits: List[Tuple[int, int, str, float]] = []
+        hits: List[Tuple[int, int, int, int, str, float]] = []
         for row, col, sc, sr, api_id, price, margin in candidates:
             slots = set()
             for r in range(row, row + sr):
@@ -395,12 +395,22 @@ class RitualDetector:
             consumed |= slots
             cx = ax + ox + (col + sc / 2) * SLOT_SIZE
             cy = ay + oy + (row + sr / 2) * SLOT_SIZE
-            hits.append((int(cx), int(cy), api_id, price))
+            hits.append((row, col, int(cx), int(cy), api_id, price))
         return hits
 
 
 class RitualWatcher:
-    """Periodically captures the screen, detects ritual UI, and updates the overlay."""
+    """Periodically captures the screen, detects ritual UI, and updates the overlay.
+
+    Stability: each match slot has a "confidence counter" that increments
+    on consecutive matches and resets on misses. Only slots with count >=
+    STABILITY_THRESHOLD are shown. When a slot stops matching, it lingers
+    for LINGER_FRAMES more frames before disappearing. This stops the
+    "bouncing" caused by pHash scores hovering around the threshold.
+    """
+
+    STABILITY_THRESHOLD = 2   # require N consecutive matches before showing
+    LINGER_FRAMES = 3         # keep showing for N frames after last match
 
     def __init__(self, overlay: RitualPriceOverlay, detector: RitualDetector,
                  refresh_seconds: float = 1.0):
@@ -410,6 +420,8 @@ class RitualWatcher:
         self._timer: Optional[QTimer] = None
         self._screen_capture = _build_screen_capture()
         self._last_present = False
+        # Stability tracking: key = (row, col), value = (match_tuple, hit_count, miss_count)
+        self._stable: Dict[Tuple[int, int], Tuple[Tuple, int, int]] = {}
 
     def start(self):
         if self._timer is not None:
@@ -424,6 +436,7 @@ class RitualWatcher:
             self._timer.stop()
             self._timer = None
         self.overlay.clear()
+        self._stable.clear()
 
     def _tick(self):
         # Refresh prices if scheduled (HH:01:00) or TTL exceeded.
@@ -439,13 +452,45 @@ class RitualWatcher:
             if self._last_present:
                 self.overlay.clear()
                 self._last_present = False
+                self._stable.clear()
             return
-        hits = self.detector.scan_slots(screen, anchor)
-        self.overlay.set_hits(hits)
+
+        raw_hits = self.detector.scan_slots(screen, anchor)
+        # Build map of current frame's matches by (row, col)
+        current: Dict[Tuple[int, int], Tuple] = {}
+        for row, col, cx, cy, name, price in raw_hits:
+            current[(row, col)] = (cx, cy, name, price)
+
+        # Update stability counters
+        new_stable: Dict[Tuple[int, int], Tuple[Tuple, int, int]] = {}
+        for key, match in current.items():
+            old = self._stable.get(key)
+            if old and old[0] == match:
+                # Same match as before - increment hit count
+                new_stable[key] = (match, old[1] + 1, 0)
+            else:
+                # New or changed match - start counter
+                new_stable[key] = (match, 1, 0)
+        # Carry over old matches that aren't in current (might be lingering)
+        for key, (match, hit_count, miss_count) in self._stable.items():
+            if key not in current:
+                new_miss = miss_count + 1
+                if new_miss <= self.LINGER_FRAMES:
+                    new_stable[key] = (match, hit_count, new_miss)
+
+        self._stable = new_stable
+
+        # Only display matches that hit the stability threshold
+        stable_hits = []
+        for key, (match, hit_count, _) in self._stable.items():
+            if hit_count >= self.STABILITY_THRESHOLD:
+                stable_hits.append(match)
+
+        self.overlay.set_hits(stable_hits)
         self._last_present = True
-        if hits:
-            summary = ", ".join(f"{n}={p:.1f}x" for _, _, n, p in hits)
-            print(f"[ritual] {len(hits)} hits: {summary}", flush=True)
+        if stable_hits:
+            summary = ", ".join(f"{n}={p:.1f}x" for _, _, n, p in stable_hits)
+            print(f"[ritual] {len(stable_hits)} stable hits: {summary}", flush=True)
 
 
 def _format_price(price: float) -> str:
