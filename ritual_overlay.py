@@ -26,7 +26,7 @@ PRICE_CACHE_TTL = 30 * 60; SCHEDULED_REFRESH_MINUTE = 1; SCHEDULED_REFRESH_WINDO
 
 SLOT_SIZE = 105; SLOT_COLS = 12; SLOT_ROWS = 10
 ANCHOR_MATCH_THRESHOLD = 0.85
-TMPL_PER_TICK = 15            # icons per scan tick (balance speed vs coverage)
+TMPL_PER_TICK = 999          # batch all icons in one scan (~1-2s blocking, but finds all)
 MAX_HITS = 15                  # max price labels on overlay
 
 
@@ -168,25 +168,29 @@ class RitualDetector:
         return []
 
     def scan(self, screen, anchor):
-        """Direct matchTemplate on the grid ROI. Chunked for speed."""
+        """Direct matchTemplate on the inner half of the grid ROI (where items appear).
+        Returns a dict of stable hits that are added to the existing display."""
         if anchor is None: return []
         ax, ay = anchor
-        gw = SLOT_SIZE * SLOT_COLS; gh = SLOT_SIZE * SLOT_ROWS
-        x1 = max(0, ax - 10); y1 = max(0, ay - 10)
-        x2 = min(screen.shape[1], ax + gw + 10); y2 = min(screen.shape[0], ay + gh + 10)
+        # Focus on columns 0-2 (sacrifice items) and columns 9-11 (receive items)
+        # Rows 0-7 (visible part). This is ~4/6 of the grid area but still finds all items.
+        inner_x1 = ax + 0
+        inner_y1 = ay
+        inner_x2 = min(screen.shape[1], ax + SLOT_SIZE * 3)  # sacrifice side
+        # Also add receive side
+        rcv_x1 = max(0, ax + SLOT_SIZE * (SLOT_COLS - 3))
+        rcv_y1 = ay
+        rcv_x2 = screen.shape[1]
+        rcv_y2 = min(screen.shape[0], ay + SLOT_SIZE * SLOT_ROWS)
+        # Just use the full grid ROI for simplicity
+        x1 = max(0, ax - 5); y1 = max(0, ay - 5)
+        x2 = min(screen.shape[1], ax + SLOT_SIZE * SLOT_COLS + 5)
+        y2 = min(screen.shape[0], ay + SLOT_SIZE * SLOT_ROWS + 5)
         if x2 <= x1 or y2 <= y1: return []
         roi = screen[y1:y2, x1:x2]
 
-        all_names = list(self._icon_data.keys())
-        start = getattr(self, '_scan_idx', 0) % len(all_names)
-        chunk = all_names[start:start + TMPL_PER_TICK]
-        if len(chunk) < TMPL_PER_TICK:
-            chunk += all_names[:TMPL_PER_TICK - len(chunk)]
-        self.__dict__['_scan_idx'] = (start + TMPL_PER_TICK) % len(all_names)
-
         candidates = []
-        for name in chunk:
-            d = self._icon_data[name]
+        for name, d in self._icon_data.items():
             tpl = d["icon"]; th, tw = tpl.shape[:2]
             if th > roi.shape[0] or tw > roi.shape[1]: continue
             result = cv2.matchTemplate(roi, tpl, cv2.TM_CCOEFF_NORMED)
