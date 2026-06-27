@@ -18,7 +18,6 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import cv2
-import imagehash
 import numpy as np
 from PIL import Image
 
@@ -45,14 +44,15 @@ SCHEDULED_REFRESH_WINDOW_SECS = 30
 # Below this we don't consider a match.
 ICON_MATCH_THRESHOLD = 0.55
 
-# Slot grid calibration (from user's 1502x1440 screenshot).
-# These are pixel offsets relative to the offer-button anchor's top-left corner.
-# Anchor (offer_button.png) top-left is at (200, 1410).
-# Grid slot 0,0 origin is at (157, 337) -> delta from anchor = (-43, -1073).
-GRID_OFFSET_FROM_ANCHOR = (-43, -1073)
+# Slot grid calibration (from user's 1645x1443 screenshot).
+# Anchor: FAVOURS header template (favours_header.png).
+# Anchor top-left: (600, 5) in the user's screen.
+# Grid slot 0,0 origin is at (285, 293) -> delta from anchor = (-315, 288).
+# Grid is 10 rows x 12 cols, each cell 105px.
+GRID_OFFSET_FROM_ANCHOR = (-315, 288)
 SLOT_SIZE = 105
-SLOT_COLS = 11
-SLOT_ROWS = 8
+SLOT_COLS = 12
+SLOT_ROWS = 10
 
 # pHash match threshold: minimum margin (top1 - top2) to accept a slot match.
 # Multi-tile matches (2x1, 2x2 etc) need a bigger margin because they have
@@ -141,10 +141,15 @@ class RitualDetector:
     def __init__(self, league: str = "Runes of Aldur"):
         self.league = league
 
-        anchor_path = TPL_DIR / "offer_button.png"
-        if not anchor_path.exists():
-            raise FileNotFoundError(f"Anchor template missing: {anchor_path}")
-        self._anchor_template = cv2.imread(str(anchor_path))
+        favours_path = TPL_DIR / "favours_header.png"
+        if not favours_path.exists():
+            raise FileNotFoundError(f"FAVOURS anchor template missing: {favours_path}")
+        self._anchor_template = cv2.imread(str(favours_path))
+        # Fallback: also keep the offer button for detecting if ritual UI is open
+        self._offer_template = None
+        offer_path = TPL_DIR / "offer_button.png"
+        if offer_path.exists():
+            self._offer_template = cv2.imread(str(offer_path))
 
         self._icon_data: Dict[str, Dict] = {}
         self._prices: Dict[str, float] = {}
@@ -155,29 +160,26 @@ class RitualDetector:
         self._fetch_prices()
 
     def _load_icon_hashes(self):
-        """Load icons for pHash-based matching.
+        """Load icons for template matching against the in-game slot.
 
-        Each icon is stored as an RGBA PIL image plus its derived pHash
-        (computed after alpha-compositing onto a dark blue background to
-        approximate the in-game slot look).
+        Each icon is resized to the slot-grid size (cols*SLOT_SIZE x
+        rows*SLOT_SIZE) and stored as a BGR numpy array. cv2.matchTemplate
+        uses these directly to find each icon in the screenshot.
         """
         for icon_path in ICON_DIR.glob("*.png"):
             icon_pil = Image.open(icon_path).convert("RGB")
             iw, ih = icon_pil.size
-            # Tile shape from aspect ratio
             cols = max(1, round(iw / SLOT_SIZE))
             rows = max(1, round(ih / SLOT_SIZE))
             cols = min(cols, 3)
             rows = min(rows, 4)
-            # Store the icon (raw RGB) and a hash for matching
-            target_w = 128 * cols
-            target_h = 128 * rows
-            fitted = icon_pil.resize((target_w, target_h), Image.LANCZOS)
+            # Resize to slot-grid size for direct template matching
+            target_w = SLOT_SIZE * cols
+            target_h = SLOT_SIZE * rows
+            icon_resized = icon_pil.resize((target_w, target_h), Image.LANCZOS)
+            icon_bgr = cv2.cvtColor(np.array(icon_resized), cv2.COLOR_RGB2BGR)
             self._icon_data[icon_path.stem] = {
-                "pil": icon_pil,
-                "phash": imagehash.phash(fitted, hash_size=16),
-                "dhash": imagehash.dhash(fitted, hash_size=16),
-                "whash": imagehash.whash(fitted, hash_size=16),
+                "icon": icon_bgr,
                 "iw": iw,
                 "ih": ih,
                 "cols": cols,
@@ -293,6 +295,46 @@ class RitualDetector:
             return max_loc
         return None
 
+    def match_region(self, region_img: np.ndarray, cols: int, rows: int) -> Optional[Tuple[str, float, float]]:
+        """Template-match a region of given shape against icons of the same shape.
+
+        Returns (api_id, price, score) or None. Score is cv2.matchTemplate's
+        TM_CCOEFF_NORMED output (0..1, higher is better).
+        """
+        if region_img is None:
+            return None
+        target_w = SLOT_SIZE * cols
+        target_h = SLOT_SIZE * rows
+        if region_img.shape[0] < target_h or region_img.shape[1] < target_w:
+            return None
+        region = region_img[:target_h, :target_w]
+        best_name, best_score = None, -1.0
+        second_score = -1.0
+        for name, data in self._icon_data.items():
+            if data["cols"] != cols or data["rows"] != rows:
+                continue
+            template = data["icon"]
+            if template.shape[:2] != (target_h, target_w):
+                continue
+            result = cv2.matchTemplate(region, template, cv2.TM_CCOEFF_NORMED)
+            _, score, _, _ = cv2.minMaxLoc(result)
+            if score > best_score:
+                second_score = best_score
+                best_score = score
+                best_name = name
+            elif score > second_score:
+                second_score = score
+        if best_name is None or best_score < 0:
+            return None
+        threshold = 0.45
+        if best_score < threshold:
+            return None
+        if second_score > 0 and (best_score - second_score) < 0.02:
+            return None
+        api_id = best_name.replace("unique_", "")
+        price = self._prices.get(api_id, 0.0)
+        return api_id, price, float(best_score)
+
     def find_all_items(self, screen: np.ndarray, anchor: Tuple[int, int]) -> List[Tuple[int, int, int, int, str, float]]:
         """For each icon in the database, pHash-match against the
         pre-defined slot grid in the ritual area.
@@ -316,21 +358,16 @@ class RitualDetector:
                     if sx + w > screen.shape[1] or sy + h > screen.shape[0]:
                         continue
                     region = screen[sy:sy+h, sx:sx+w]
-                    gray = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
-                    if float(gray.mean()) < EMPTY_SLOT_BRIGHTNESS:
-                        continue
-                    if float(gray.std()) < EMPTY_SLOT_VARIANCE:
-                        continue
                     match = self.match_region(region, shape_cols, shape_rows)
                     if match is None:
                         continue
-                    api_id, price, margin = match
-                    candidates.append((row, col, shape_cols, shape_rows, api_id, price, margin))
+                    api_id, price, score = match
+                    candidates.append((row, col, shape_cols, shape_rows, api_id, price, score))
 
         candidates.sort(key=lambda c: (-(c[2] * c[3]), -c[6]))
         consumed = set()
         hits: List[Tuple[int, int, int, int, str, float]] = []
-        for row, col, sc, sr, api_id, price, margin in candidates:
+        for row, col, sc, sr, api_id, price, score in candidates:
             slots = set()
             for r in range(row, row + sr):
                 for c in range(col, col + sc):
@@ -342,56 +379,6 @@ class RitualDetector:
             cy = ay + oy + (row + sr / 2) * SLOT_SIZE
             hits.append((row, col, int(cx), int(cy), api_id, price))
         return hits
-
-    def match_region(self, region_img: np.ndarray, cols: int, rows: int) -> Optional[Tuple[str, float, int]]:
-        """pHash match a region of given shape against icons of the same shape.
-
-        We crop a 75% inner region (skipping the gold border and a bit of
-        the blue background) so the hash matches the icon's content rather
-        than the slot chrome.
-        """
-        if region_img is None:
-            return None
-        # Crop inner region to focus on icon content
-        h, w = region_img.shape[:2]
-        # Crop 12% from each side - the gold border is about 5%, plus a bit of
-        # margin to ignore the blue background.
-        margin_x = int(w * 0.12)
-        margin_y = int(h * 0.12)
-        inner = region_img[margin_y:h-margin_y, margin_x:w-margin_x]
-        target_w = 128 * cols
-        target_h = 128 * rows
-        try:
-            pil = Image.fromarray(cv2.cvtColor(inner, cv2.COLOR_BGR2RGB)).resize((target_w, target_h), Image.LANCZOS)
-        except Exception:
-            return None
-        phash = imagehash.phash(pil, hash_size=16)
-        dhash = imagehash.dhash(pil, hash_size=16)
-        whash = imagehash.whash(pil, hash_size=16)
-        best_name, best_total = None, None
-        second_total = None
-        for name, data in self._icon_data.items():
-            if data["cols"] != cols or data["rows"] != rows:
-                continue
-            p_dist = phash - data["phash"]
-            d_dist = dhash - data["dhash"]
-            w_dist = whash - data["whash"]
-            total = p_dist + d_dist + w_dist
-            if best_total is None or total < best_total:
-                second_total = best_total
-                best_total = total
-                best_name = name
-            elif second_total is None or total < second_total:
-                second_total = total
-        if best_name is None or best_total is None or second_total is None:
-            return None
-        margin = second_total - best_total
-        threshold = MATCH_MARGIN_THRESHOLD if (cols == 1 and rows == 1) else MATCH_MARGIN_THRESHOLD_MULTI
-        if margin < threshold:
-            return None
-        api_id = best_name.replace("unique_", "")
-        price = self._prices.get(api_id, 0.0)
-        return api_id, price, margin
 
     def scan_slots(self, screen: np.ndarray, anchor: Tuple[int, int]) -> List[Tuple[int, int, int, int, str, float]]:
         """Compatibility shim - delegates to find_all_items."""
