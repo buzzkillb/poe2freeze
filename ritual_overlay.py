@@ -37,9 +37,9 @@ SLOT_SIZE = 105
 SLOT_COLS = 12
 SLOT_ROWS = 10
 ANCHOR_MATCH_THRESHOLD = 0.85
-MATCH_MARGIN = 8   # pHash: best must beat 2nd-best by this much
-BRIGHTNESS_THRESHOLD = 22
-VARIANCE_THRESHOLD = 16
+MATCH_MARGIN = 12  # pHash: best must beat 2nd-best by this much
+BRIGHTNESS_THRESHOLD = 28
+VARIANCE_THRESHOLD = 20
 
 
 class RitualPriceOverlay(QWidget):
@@ -92,7 +92,7 @@ class RitualDetector:
 
     # -----------------------------------------------------------------
     def _load_icons(self):
-        """Load icon pHash — only 1x1 items (omens, idols, charms)."""
+        """Load icon pHash — only 1x1 ritual items (omens, idols). Skip unique_ icons."""
         for p in ICON_DIR.glob("*.png"):
             stem = p.stem
             img = Image.open(p).convert("RGB")
@@ -100,7 +100,7 @@ class RitualDetector:
             cols = min(3, max(1, round(iw / SLOT_SIZE)))
             rows = min(4, max(1, round(ih / SLOT_SIZE)))
             if cols != 1 or rows != 1:
-                continue  # skip multi-tile for now
+                continue
             fitted = img.resize((SLOT_SIZE, SLOT_SIZE), Image.LANCZOS).resize((128, 128), Image.LANCZOS)
             self._icon_data[stem] = {
                 "phash": imagehash.phash(fitted, hash_size=16),
@@ -206,7 +206,7 @@ class RitualDetector:
                 if best_name is None or second_dist is None:
                     continue
                 margin = second_dist - best_dist
-                if best_dist > 280 or margin < MATCH_MARGIN:
+                if best_dist > 260 or margin < MATCH_MARGIN:
                     continue
 
                 api_id = best_name.replace("unique_", "")
