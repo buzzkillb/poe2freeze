@@ -529,11 +529,6 @@ class RitualWatcher:
                 self.overlay.clear()
                 self._last_present = False
             return
-        if not hasattr(self, '_debug_count'):
-            self._debug_count = 0
-        self._debug_count += 1
-        if self._debug_count == 1 or self._debug_count % 15 == 0:
-            print(f"[ritual] anchor ok at {anchor}, screen={screen.shape[:2]}", flush=True)
 
         raw_hits = self.detector.scan_slots(screen, anchor)
         # Build map of current frame's matches by (row, col)
