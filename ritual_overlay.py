@@ -53,7 +53,10 @@ SLOT_COLS = 11
 SLOT_ROWS = 8
 
 # pHash match threshold: minimum margin (top1 - top2) to accept a slot match.
+# Multi-tile matches (2x1, 2x2 etc) need a bigger margin because they have
+# more pixels of "stuff" that could randomly match.
 MATCH_MARGIN_THRESHOLD = 8
+MATCH_MARGIN_THRESHOLD_MULTI = 18
 
 # Empty-slot filter: skip slots whose mean brightness is below this.
 # Empty grid squares (dark quatrefoil pattern) average ~9-15; real item
@@ -146,12 +149,44 @@ class RitualDetector:
         self._fetch_prices()
 
     def _load_icon_hashes(self):
+        """Load icon hashes grouped by tile shape (cols x rows).
+
+        Icon aspect ratio determines its shape. For example:
+          108x108  -> 1x1 (square)
+          212x108  -> 2x1 (wide)
+          212x420  -> 2x4 (very tall shield)
+        We render the icon into a synthetic tile-region the same shape, then
+        pHash it. At match time we extract the same-shaped region from the
+        screenshot and pHash-match against the right group.
+        """
         for icon_path in ICON_DIR.glob("*.png"):
-            icon_pil = Image.open(icon_path).convert("RGB").resize((128, 128), Image.LANCZOS)
+            icon_pil = Image.open(icon_path).convert("RGB")
+            iw, ih = icon_pil.size
+            # Determine tile shape from aspect ratio. The base slot is
+            # SLOT_SIZE x SLOT_SIZE pixels; a 2-wide tile is 2*SLOT_SIZE.
+            # Compute cols/rows as the closest integers to (iw/SLOT_SIZE)
+            # and (ih/SLOT_SIZE).
+            cols = max(1, round(iw / SLOT_SIZE))
+            rows = max(1, round(ih / SLOT_SIZE))
+            # Sanity clamp
+            cols = min(cols, 3)
+            rows = min(rows, 4)
+            # Render the icon into a (cols*SLOT_SIZE) x (rows*SLOT_SIZE) region
+            target_w = SLOT_SIZE * cols
+            target_h = SLOT_SIZE * rows
+            fitted = icon_pil.resize((target_w, target_h), Image.LANCZOS)
+            # pHash for matching
+            hash_target_w = 128 * cols
+            hash_target_h = 128 * rows
+            pil_for_hash = fitted.resize((hash_target_w, hash_target_h), Image.LANCZOS)
             self._icon_data[icon_path.stem] = {
-                "phash": imagehash.phash(icon_pil, hash_size=16),
-                "dhash": imagehash.dhash(icon_pil, hash_size=16),
-                "whash": imagehash.whash(icon_pil, hash_size=16),
+                "phash": imagehash.phash(pil_for_hash, hash_size=16),
+                "dhash": imagehash.dhash(pil_for_hash, hash_size=16),
+                "whash": imagehash.whash(pil_for_hash, hash_size=16),
+                "cols": cols,
+                "rows": rows,
+                "iw": iw,
+                "ih": ih,
             }
 
     def _fetch_prices(self):
@@ -263,17 +298,30 @@ class RitualDetector:
             return max_loc
         return None
 
-    def match_slot(self, slot_img: np.ndarray) -> Optional[Tuple[str, float, int]]:
-        """Match a cropped slot via pHash. Returns (api_id, price, margin) or None."""
-        if slot_img is None or slot_img.shape[0] < SLOT_SIZE or slot_img.shape[1] < SLOT_SIZE:
+    def match_region(self, region_img: np.ndarray, cols: int, rows: int) -> Optional[Tuple[str, float, int]]:
+        """Match a multi-tile region. Returns (api_id, price, margin) or None."""
+        if region_img is None:
             return None
-        pil = Image.fromarray(cv2.cvtColor(slot_img, cv2.COLOR_BGR2RGB)).resize((128, 128), Image.LANCZOS)
+        target_w = SLOT_SIZE * cols
+        target_h = SLOT_SIZE * rows
+        if region_img.shape[0] < target_h or region_img.shape[1] < target_w:
+            return None
+        # Crop to exact region size
+        region = region_img[:target_h, :target_w]
+        # Compute hashes
+        pil = Image.fromarray(cv2.cvtColor(region, cv2.COLOR_BGR2RGB))
+        hash_target_w = 128 * cols
+        hash_target_h = 128 * rows
+        pil = pil.resize((hash_target_w, hash_target_h), Image.LANCZOS)
         phash = imagehash.phash(pil, hash_size=16)
         dhash = imagehash.dhash(pil, hash_size=16)
         whash = imagehash.whash(pil, hash_size=16)
+        # Match against icons with this exact shape
         best_name, best_total = None, None
         second_total = None
         for name, data in self._icon_data.items():
+            if data["cols"] != cols or data["rows"] != rows:
+                continue
             p_dist = phash - data["phash"]
             d_dist = dhash - data["dhash"]
             w_dist = whash - data["whash"]
@@ -287,38 +335,67 @@ class RitualDetector:
         if best_name is None or best_total is None or second_total is None:
             return None
         margin = second_total - best_total
-        if margin < MATCH_MARGIN_THRESHOLD:
+        # Multi-tile matches need a higher margin threshold.
+        threshold = MATCH_MARGIN_THRESHOLD if (cols == 1 and rows == 1) else MATCH_MARGIN_THRESHOLD_MULTI
+        if margin < threshold:
             return None
         api_id = best_name.replace("unique_", "")
         price = self._prices.get(api_id, 0.0)
         return api_id, price, margin
 
     def scan_slots(self, screen: np.ndarray, anchor: Tuple[int, int]) -> List[Tuple[int, int, str, float]]:
-        """Sweep slot grid; return list of (center_x, center_y, name, price)."""
+        """Sweep slot grid; return list of (center_x, center_y, name, price).
+
+        Items can be 1x1, 2x1 (wide), 1x2 (tall), 2x2, 2x3, 2x4, etc.
+        We try matching every (row, col) anchor at every shape, but only
+        place a multi-tile match if no smaller match consumes the same slots.
+        """
         if anchor is None:
             return []
         ax, ay = anchor
         ox, oy = GRID_OFFSET_FROM_ANCHOR
-        hits: List[Tuple[int, int, str, float]] = []
+
+        # Collect all shape candidates: list of (row, col, cols, rows, api_id, price, margin)
+        candidates = []
         for row in range(SLOT_ROWS):
             for col in range(SLOT_COLS):
-                sx = ax + ox + col * SLOT_SIZE
-                sy = ay + oy + row * SLOT_SIZE
-                if sx < 0 or sy < 0 or sx + SLOT_SIZE > screen.shape[1] or sy + SLOT_SIZE > screen.shape[0]:
-                    continue
-                slot = screen[sy:sy+SLOT_SIZE, sx:sx+SLOT_SIZE]
-                gray = cv2.cvtColor(slot, cv2.COLOR_BGR2GRAY)
-                if float(gray.mean()) < EMPTY_SLOT_BRIGHTNESS:
-                    continue
-                if float(gray.std()) < EMPTY_SLOT_VARIANCE:
-                    continue
-                match = self.match_slot(slot)
-                if match is None:
-                    continue
-                api_id, price, _margin = match
-                cx = sx + SLOT_SIZE // 2
-                cy = sy + SLOT_SIZE // 2
-                hits.append((cx, cy, api_id, price))
+                for shape_cols, shape_rows in [(1, 1), (2, 1), (1, 2), (2, 2), (2, 3), (2, 4), (1, 3), (1, 4)]:
+                    sx = ax + ox + col * SLOT_SIZE
+                    sy = ay + oy + row * SLOT_SIZE
+                    w = SLOT_SIZE * shape_cols
+                    h = SLOT_SIZE * shape_rows
+                    if sx + w > screen.shape[1] or sy + h > screen.shape[0]:
+                        continue
+                    region = screen[sy:sy+h, sx:sx+w]
+                    # Brightness/variance check on the full region
+                    gray = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
+                    if float(gray.mean()) < EMPTY_SLOT_BRIGHTNESS:
+                        continue
+                    if float(gray.std()) < EMPTY_SLOT_VARIANCE:
+                        continue
+                    match = self.match_region(region, shape_cols, shape_rows)
+                    if match is None:
+                        continue
+                    api_id, price, margin = match
+                    candidates.append((row, col, shape_cols, shape_rows, api_id, price, margin))
+
+        # Non-max suppression: prefer larger matches, suppress smaller matches
+        # whose slots are consumed by a larger one.
+        # Sort by area desc, then margin desc
+        candidates.sort(key=lambda c: (-(c[2] * c[3]), -c[6]))
+        consumed = set()
+        hits: List[Tuple[int, int, str, float]] = []
+        for row, col, sc, sr, api_id, price, margin in candidates:
+            slots = set()
+            for r in range(row, row + sr):
+                for c in range(col, col + sc):
+                    slots.add((r, c))
+            if slots & consumed:
+                continue
+            consumed |= slots
+            cx = ax + ox + (col + sc / 2) * SLOT_SIZE
+            cy = ay + oy + (row + sr / 2) * SLOT_SIZE
+            hits.append((int(cx), int(cy), api_id, price))
         return hits
 
 
