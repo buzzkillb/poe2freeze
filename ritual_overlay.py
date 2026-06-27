@@ -11,6 +11,8 @@ see them so price overlays would not be useful.
 from __future__ import annotations
 
 import json
+import time
+import urllib.request
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -26,6 +28,13 @@ from PyQt5.QtWidgets import QWidget
 DATA_DIR = Path(__file__).parent / "data"
 ICON_DIR = DATA_DIR / "ritual_icons"
 TPL_DIR = DATA_DIR / "ritual_templates"
+
+# poe2scout API base
+POE2SCOUT_BASE = "https://poe2scout.com/api"
+
+# Price cache TTL in seconds. Prices on poe2scout fluctuate;
+# 30 minutes is a reasonable balance.
+PRICE_CACHE_TTL = 30 * 60
 
 # Slot grid calibration (from user's 1502x1440 screenshot).
 # These are pixel offsets relative to the offer-button anchor's top-left corner.
@@ -107,7 +116,11 @@ class RitualPriceOverlay(QWidget):
 
 
 class RitualDetector:
-    """Detects ritual UI, sweeps the slot grid, matches icons by pHash."""
+    """Detects ritual UI, sweeps the slot grid, matches icons by pHash.
+
+    Prices are fetched live from poe2scout and cached in memory for
+    PRICE_CACHE_TTL seconds (default 30 min).
+    """
 
     def __init__(self, league: str = "Runes of Aldur"):
         self.league = league
@@ -119,25 +132,12 @@ class RitualDetector:
 
         self._icon_data: Dict[str, Dict] = {}
         self._prices: Dict[str, float] = {}
-        self._load_database()
+        self._prices_fetched_at: float = 0.0
+        self._chaos_per_ex: float = 1.0
+        self._load_icon_hashes()
+        self._fetch_prices()
 
-    def _load_database(self):
-        db_path = ICON_DIR / "database.json"
-        if not db_path.exists():
-            raise FileNotFoundError(f"Icon database missing: {db_path}")
-        with open(db_path) as f:
-            db = json.load(f)
-        for item in db.get("items", []):
-            api_id = item.get("apiId")
-            price = item.get("price_exalted", 0)
-            if api_id and price is not None:
-                self._prices[api_id] = price
-        for item in db.get("uniques", []):
-            api_id = item.get("apiId")
-            price = item.get("price_exalted", 0)
-            if api_id and price is not None:
-                self._prices[api_id] = price
-
+    def _load_icon_hashes(self):
         for icon_path in ICON_DIR.glob("*.png"):
             icon_pil = Image.open(icon_path).convert("RGB").resize((128, 128), Image.LANCZOS)
             self._icon_data[icon_path.stem] = {
@@ -145,6 +145,62 @@ class RitualDetector:
                 "dhash": imagehash.dhash(icon_pil, hash_size=16),
                 "whash": imagehash.whash(icon_pil, hash_size=16),
             }
+
+    def _fetch_prices(self):
+        """Fetch live prices + ReferenceCurrencies from poe2scout.
+
+        Normalizes all prices to exalts. poe2scout returns CurrentPrice in
+        different units (chaos vs exalts) based on size. Threshold: if the
+        raw value is >= 10, we treat it as chaos and divide by chaos_per_ex.
+        """
+        league_enc = urllib.parse.quote(self.league, safe="")
+        # First: fetch the chaos_per_ex ratio so we can normalize prices.
+        # The endpoint returns a list of {ApiId, RelativePrice} objects.
+        try:
+            ref_url = f"{POE2SCOUT_BASE}/poe2/Leagues/{league_enc}/ReferenceCurrencies"
+            req = urllib.request.Request(ref_url, headers={"User-Agent": "mypoeapp/1.0"})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                ref = json.loads(resp.read())
+            for entry in ref:
+                if entry.get("ApiId") == "chaos":
+                    self._chaos_per_ex = float(entry.get("RelativePrice", 1.0))
+                    break
+        except Exception as e:
+            print(f"[ritual] reference fetch failed: {e}", flush=True)
+
+        # Now fetch ritual category prices (paginated).
+        try:
+            fetched = 0
+            for page in range(1, 5):
+                url = f"{POE2SCOUT_BASE}/poe2/Leagues/{league_enc}/Currencies/ByCategory?Category=ritual&Page={page}"
+                req = urllib.request.Request(url, headers={"User-Agent": "mypoeapp/1.0"})
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    data = json.loads(resp.read())
+                page_items = data.get("Items", [])
+                if not page_items:
+                    break
+                for item in page_items:
+                    api_id = item.get("ApiId")
+                    if api_id and item.get("CurrentPrice") is not None:
+                        raw = float(item["CurrentPrice"])
+                        # Normalize to exalts. poe2scout's web app uses raw value
+                        # as-is when small (< ~10), then displays in chaos for larger.
+                        # Since we always show in exalts, divide chaos amounts.
+                        if raw >= 10 and self._chaos_per_ex > 1:
+                            normalized = raw / self._chaos_per_ex
+                        else:
+                            normalized = raw
+                        self._prices[api_id] = normalized
+                        fetched += 1
+            self._prices_fetched_at = time.time()
+            print(f"[ritual] fetched {fetched} prices (chaos/ex={self._chaos_per_ex:.2f})", flush=True)
+        except Exception as e:
+            print(f"[ritual] price fetch failed: {e}", flush=True)
+
+    def refresh_prices_if_stale(self):
+        """Refresh prices if cache is older than PRICE_CACHE_TTL."""
+        if time.time() - self._prices_fetched_at > PRICE_CACHE_TTL:
+            self._fetch_prices()
 
     def find_anchor(self, screen: np.ndarray) -> Optional[Tuple[int, int]]:
         if self._anchor_template is None or screen is None:
