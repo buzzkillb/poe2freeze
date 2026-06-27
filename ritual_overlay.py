@@ -26,10 +26,8 @@ PRICE_CACHE_TTL = 30 * 60; SCHEDULED_REFRESH_MINUTE = 1; SCHEDULED_REFRESH_WINDO
 
 SLOT_SIZE = 105; SLOT_COLS = 12; SLOT_ROWS = 10
 ANCHOR_MATCH_THRESHOLD = 0.85
-MATCH_THRESHOLD = 0.30        # matchTemplate verify
-BRIGHTNESS_THRESHOLD = 28     # cell occupied?
-VARIANCE_THRESHOLD = 18
-PHASH_CANDIDATES = 3          # top-N from pHash for template verification
+TMPL_PER_TICK = 15            # icons per scan tick (balance speed vs coverage)
+MAX_HITS = 15                  # max price labels on overlay
 
 
 class RitualPriceOverlay(QWidget):
@@ -166,72 +164,45 @@ class RitualDetector:
 
     # -----------------------------------------------------------------
     def _phash_candidates(self, region, sc, sr):
-        """Return top-N icon names by pHash distance for a region of given shape."""
-        try:
-            if sc == 1 and sr == 1:
-                pil = Image.fromarray(cv2.cvtColor(region, cv2.COLOR_BGR2RGB)).resize((128, 128), Image.LANCZOS)
-            else:
-                mw = int(sc * SLOT_SIZE * 0.15); mh = int(sr * SLOT_SIZE * 0.15)
-                inner = region[mh:sr * SLOT_SIZE - mh, mw:sc * SLOT_SIZE - mw]
-                pil = Image.fromarray(cv2.cvtColor(inner, cv2.COLOR_BGR2RGB)).resize((128 * sc, 128 * sr), Image.LANCZOS)
-        except Exception:
-            return []
-        ph = imagehash.phash(pil, hash_size=16)
-        dh = imagehash.dhash(pil, hash_size=16)
-        dists = []
-        for name, d in self._icon_data.items():
-            if d["cols"] != sc or d["rows"] != sr: continue
-            dist = (ph - d["phash"]) + (dh - d["dhash"])
-            dists.append((name, dist))
-        dists.sort(key=lambda x: x[1])
-        return [(n, d) for n, d in dists[:PHASH_CANDIDATES] if d < 350]
+        """NOT USED — kept for reference. Direct matchTemplate is more reliable."""
+        return []
 
     def scan(self, screen, anchor):
-        """Hybrid: pHash pre-filter → matchTemplate verify → NMS."""
+        """Direct matchTemplate on the grid ROI. Chunked for speed."""
         if anchor is None: return []
+        ax, ay = anchor
+        gw = SLOT_SIZE * SLOT_COLS; gh = SLOT_SIZE * SLOT_ROWS
+        x1 = max(0, ax - 10); y1 = max(0, ay - 10)
+        x2 = min(screen.shape[1], ax + gw + 10); y2 = min(screen.shape[0], ay + gh + 10)
+        if x2 <= x1 or y2 <= y1: return []
+        roi = screen[y1:y2, x1:x2]
+
+        all_names = list(self._icon_data.keys())
+        start = getattr(self, '_scan_idx', 0) % len(all_names)
+        chunk = all_names[start:start + TMPL_PER_TICK]
+        if len(chunk) < TMPL_PER_TICK:
+            chunk += all_names[:TMPL_PER_TICK - len(chunk)]
+        self.__dict__['_scan_idx'] = (start + TMPL_PER_TICK) % len(all_names)
+
         candidates = []
-        for row in range(SLOT_ROWS):
-            for col in range(SLOT_COLS):
-                for sc, sr in self._shapes:
-                    sx = anchor[0] + col * SLOT_SIZE; sy = anchor[1] + row * SLOT_SIZE
-                    w = SLOT_SIZE * sc; h = SLOT_SIZE * sr
-                    if sx + w > screen.shape[1] or sy + h > screen.shape[0]: continue
-                    region = screen[sy:sy + h, sx:sx + w]
-                    gray = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
-                    if float(gray.mean()) < BRIGHTNESS_THRESHOLD: continue
-                    if float(gray.std()) < VARIANCE_THRESHOLD: continue
+        for name in chunk:
+            d = self._icon_data[name]
+            tpl = d["icon"]; th, tw = tpl.shape[:2]
+            if th > roi.shape[0] or tw > roi.shape[1]: continue
+            result = cv2.matchTemplate(roi, tpl, cv2.TM_CCOEFF_NORMED)
+            _, score, _, loc = cv2.minMaxLoc(result)
+            if score < 0.50: continue
+            api_id = name.replace("unique_", "")
+            price = self._prices.get(api_id, 0.0)
+            cx, cy = x1 + loc[0] + tw // 2, y1 + loc[1] + th // 2
+            candidates.append((cx, cy, tw, th, api_id, price, float(score)))
 
-                    # pHash pre-filter
-                    top = self._phash_candidates(region, sc, sr)
-                    if not top: continue
-
-                    # matchTemplate verify
-                    best_name, best_score = None, -1.0
-                    for name, _ in top:
-                        tpl = self._icon_data[name]["icon"]
-                        if tpl.shape[:2] != (h, w): continue
-                        result = cv2.matchTemplate(region, tpl, cv2.TM_CCOEFF_NORMED)
-                        _, score, _, _ = cv2.minMaxLoc(result)
-                        if score > best_score:
-                            best_score = score; best_name = name
-                    if best_score < MATCH_THRESHOLD: continue
-
-                    api_id = best_name.replace("unique_", "")
-                    price = self._prices.get(api_id, 0.0)
-                    cx = sx + w // 2; cy = sy + h // 2
-                    candidates.append((row, col, sc, sr, api_id, price, float(best_score)))
-
-        # NMS: largest first
-        candidates.sort(key=lambda c: (-(c[2] * c[3]), -c[6]))
-        consumed = set()
+        candidates.sort(key=lambda c: -(c[6] * c[2] * c[3]))
         hits = []
-        for row, col, sc, sr, api_id, price, score in candidates:
-            slots = {(r, c) for r in range(row, row + sr) for c in range(col, col + sc)}
-            if slots & consumed: continue
-            consumed |= slots
-            cx = anchor[0] + (col + sc / 2) * SLOT_SIZE
-            cy = anchor[1] + (row + sr / 2) * SLOT_SIZE
-            hits.append((int(cx), int(cy), api_id, price))
+        for cx, cy, tw, th, name, price, score in candidates:
+            if any(abs(cx - h[0]) < 35 and abs(cy - h[1]) < 35 for h in hits): continue
+            hits.append((cx, cy, name, price))
+            if len(hits) >= MAX_HITS: break
         return hits
 
 
