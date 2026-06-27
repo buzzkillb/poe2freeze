@@ -4,7 +4,7 @@
     {
       "apiId": "raven-touched-shard",
       "name": "Raven-Touched Shard",
-      "price_exalted": 36412.51594139029,
+      "price_exalted": 36848.82313495749,
       "quantity": 273,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRGVsaXJpdW0vRGVsaXJpdW1FbmRnYW1lU29ja2V0YWJsZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/8ad4972b7b/DeliriumEndgameSocketable.png",
       "icon_local": "raven-touched-shard.png",
@@ -13,7 +13,7 @@
     {
       "apiId": "omen-of-chance",
       "name": "Omen of Chance",
-      "price_exalted": 5130.660601318812,
+      "price_exalted": 5092.274517339688,
       "quantity": 432,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhbmNlTm90RGVzdHJveSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/461b794959/OmenOnChanceNotDestroy.png",
       "icon_local": "omen-of-chance.png",
@@ -22,7 +22,7 @@
     {
       "apiId": "omen-of-sinistral-annulment",
       "name": "Omen of Sinistral Annulment",
-      "price_exalted": 4343.924067898229,
+      "price_exalted": 4255.2264824083895,
       "quantity": 2862,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMyUHVycGxlIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/b9eaf38592/VoodooOmens2Purple.png",
       "icon_local": "omen-of-sinistral-annulment.png",
@@ -31,7 +31,7 @@
     {
       "apiId": "omen-of-sinistral-erasure",
       "name": "Omen of Sinistral Erasure",
-      "price_exalted": 3808.812470296628,
+      "price_exalted": 3873.0320256414857,
       "quantity": 2921,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMyRGFyayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/0cfa6959be/VoodooOmens2Dark.png",
       "icon_local": "omen-of-sinistral-erasure.png",
@@ -40,7 +40,7 @@
     {
       "apiId": "omen-of-light",
       "name": "Omen of Light",
-      "price_exalted": 3268.226761774173,
+      "price_exalted": 3244.760846599775,
       "quantity": 12923,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQW5udWxSZW1vdmVBYnlzc01vZCIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/eb39bcb3d7/OmenOnAnnulRemoveAbyssMod.png",
       "icon_local": "omen-of-light.png",
@@ -49,7 +49,7 @@
     {
       "apiId": "omen-of-whittling",
       "name": "Omen of Whittling",
-      "price_exalted": 2557.094348580748,
+      "price_exalted": 2545.542385069358,
       "quantity": 16347,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMxRGFyayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/2dea0999d5/VoodooOmens1Dark.png",
       "icon_local": "omen-of-whittling.png",
@@ -58,7 +58,7 @@
     {
       "apiId": "omen-of-dextral-annulment",
       "name": "Omen of Dextral Annulment",
-      "price_exalted": 2516.1128195646615,
+      "price_exalted": 2489.0440286257262,
       "quantity": 3012,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMzUHVycGxlIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/d901658529/VoodooOmens3Purple.png",
       "icon_local": "omen-of-dextral-annulment.png",
@@ -67,7 +67,7 @@
     {
       "apiId": "omen-of-dextral-erasure",
       "name": "Omen of Dextral Erasure",
-      "price_exalted": 2449.509869031375,
+      "price_exalted": 2446.679265740909,
       "quantity": 2801,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMzRGFyayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/6e2bb52963/VoodooOmens3Dark.png",
       "icon_local": "omen-of-dextral-erasure.png",
@@ -76,7 +76,7 @@
     {
       "apiId": "head-of-the-king",
       "name": "Head of the King",
-      "price_exalted": 272.4302462534534,
+      "price_exalted": 273.97154331059954,
       "quantity": 4312,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVlc3RJdGVtcy9LaW5nb2Z0aGVNaXN0SGVhZCIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/254e341ba3/KingoftheMistHead.png",
       "icon_local": "head-of-the-king.png",
@@ -85,7 +85,7 @@
     {
       "apiId": "omen-of-dextral-crystallisation",
       "name": "Omen of Dextral Crystallisation",
-      "price_exalted": 133.88638753047633,
+      "price_exalted": 132.51837978414372,
       "quantity": 6155,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uUGVyZmVjdEVzc2VuY2VTdWZmaXgiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/7ec019819e/OmenOnPerfectEssenceSuffix.png",
       "icon_local": "omen-of-dextral-crystallisation.png",
@@ -94,7 +94,7 @@
     {
       "apiId": "omen-of-the-hunt",
       "name": "Omen of the Hunt",
-      "price_exalted": 129.74567649360444,
+      "price_exalted": 118.35635146223082,
       "quantity": 47,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnM0R3JlZW4iLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/4800eedd0e/VoodooOmens4Green.png",
       "icon_local": "omen-of-the-hunt.png",
@@ -103,7 +103,7 @@
     {
       "apiId": "omen-of-chaotic-rarity",
       "name": "Omen of Chaotic Rarity",
-      "price_exalted": 109.67080898882885,
+      "price_exalted": 107.68624743514707,
       "quantity": 13934,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhb3NNYXBJdGVtUmFyaXR5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/e7d9f8657d/OmenOnChaosMapItemRarity.png",
       "icon_local": "omen-of-chaotic-rarity.png",
@@ -112,7 +112,7 @@
     {
       "apiId": "omen-of-abyssal-echoes",
       "name": "Omen of Abyssal Echoes",
-      "price_exalted": 104.76023460079936,
+      "price_exalted": 103.92412450002757,
       "quantity": 34257,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NSZXJvbGxPcHRpb25zIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/9690f99016/OmenOnAbyssRerollOptions.png",
       "icon_local": "omen-of-abyssal-echoes.png",
@@ -121,7 +121,7 @@
     {
       "apiId": "omen-of-secret-compartments",
       "name": "Omen of Secret Compartments",
-      "price_exalted": 95.19418743387136,
+      "price_exalted": 73.71352928879675,
       "quantity": 51,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnM0RGFyayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/a152f2714f/VoodooOmens4Dark.png",
       "icon_local": "omen-of-secret-compartments.png",
@@ -130,7 +130,7 @@
     {
       "apiId": "omen-of-chaotic-quantity",
       "name": "Omen of Chaotic Quantity",
-      "price_exalted": 93.52414955733884,
+      "price_exalted": 89.508178228717,
       "quantity": 21255,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhb3NNYXBQYWNrU2l6ZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/9ea6c86009/OmenOnChaosMapPackSize.png",
       "icon_local": "omen-of-chaotic-quantity.png",
@@ -139,7 +139,7 @@
     {
       "apiId": "omen-of-sanctification",
       "name": "Omen of Sanctification",
-      "price_exalted": 89.68057899165561,
+      "price_exalted": 84.8510506628865,
       "quantity": 693,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uRGl2aW5lU2FuY3RpZnkiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/895416b2b9/OmenOnDivineSanctify.png",
       "icon_local": "omen-of-sanctification.png",
@@ -148,7 +148,7 @@
     {
       "apiId": "omen-of-chaotic-monsters",
       "name": "Omen of Chaotic Monsters",
-      "price_exalted": 74.67665158496455,
+      "price_exalted": 68.90791257907956,
       "quantity": 12947,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhb3NNYXBJdGVtUXVhbnRpdHkiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/dcd21d0252/OmenOnChaosMapItemQuantity.png",
       "icon_local": "omen-of-chaotic-monsters.png",
@@ -157,7 +157,7 @@
     {
       "apiId": "omen-of-the-blessed",
       "name": "Omen of the Blessed",
-      "price_exalted": 72.91088777580933,
+      "price_exalted": 72.72964514862545,
       "quantity": 1646,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uRGl2aW5lUmVyb2xsSW1wbGljaXRzIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/d910191d85/OmenOnDivineRerollImplicits.png",
       "icon_local": "omen-of-the-blessed.png",
@@ -166,7 +166,7 @@
     {
       "apiId": "omen-of-reinforcements",
       "name": "Omen of Reinforcements",
-      "price_exalted": 64.52700102406459,
+      "price_exalted": 47.23809523809524,
       "quantity": 36,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnM0UHVycGxlIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/bed352248c/VoodooOmens4Purple.png",
       "icon_local": "omen-of-reinforcements.png",
@@ -175,7 +175,7 @@
     {
       "apiId": "omen-of-the-blackblooded",
       "name": "Omen of the Blackblooded",
-      "price_exalted": 58.53996937510736,
+      "price_exalted": 62.08645608949292,
       "quantity": 643,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NHdWFyZW50ZWVkTGljaFR5cGVNb2QzIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/7fe7335409/OmenOnAbyssGuarenteedLichTypeMod3.png",
       "icon_local": "omen-of-the-blackblooded.png",
@@ -184,7 +184,7 @@
     {
       "apiId": "idol-of-eramir",
       "name": "Idol of Eramir",
-      "price_exalted": 50.843668380652,
+      "price_exalted": 49.87125994476753,
       "quantity": 164,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9mRXJhbWlyIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/16c654b06e/IdolofEramir.png",
       "icon_local": "idol-of-eramir.png",
@@ -193,7 +193,7 @@
     {
       "apiId": "omen-of-sinistral-crystallisation",
       "name": "Omen of Sinistral Crystallisation",
-      "price_exalted": 49.82697109944474,
+      "price_exalted": 48.60652947838285,
       "quantity": 4747,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uUGVyZmVjdEVzc2VuY2VQcmVmaXgiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/75263d6201/OmenOnPerfectEssencePrefix.png",
       "icon_local": "omen-of-sinistral-crystallisation.png",
@@ -202,7 +202,7 @@
     {
       "apiId": "omen-of-answered-prayers",
       "name": "Omen of Answered Prayers",
-      "price_exalted": 37.170212765957444,
+      "price_exalted": 36.81818181818182,
       "quantity": 47,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnM0Qmx1ZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/ba21c85554/VoodooOmens4Blue.png",
       "icon_local": "omen-of-answered-prayers.png",
@@ -211,7 +211,7 @@
     {
       "apiId": "omen-of-chaotic-effectiveness",
       "name": "Omen of Chaotic Effectiveness",
-      "price_exalted": 24.286466810306745,
+      "price_exalted": 23.18571564855846,
       "quantity": 11891,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhb3NNYXBNb25zdGVyRWZmZWN0aXZlbmVzcyIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/1dc9f3dea9/OmenOnChaosMapMonsterEffectiveness.png",
       "icon_local": "omen-of-chaotic-effectiveness.png",
@@ -265,7 +265,7 @@
     {
       "apiId": "idol-of-greust",
       "name": "Idol of Greust",
-      "price_exalted": 12.002883375498948,
+      "price_exalted": 31.559994195614696,
       "quantity": 19,
       "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9mR3JldXN0Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/04513fa428/IdolofGreust.png",
       "icon_local": "idol-of-greust.png",
@@ -485,6 +485,28 @@
       "price_exalted": 3.0,
       "quantity": 0,
       "icon_local": "unique_beiras-anguish.png"
+    },
+    {
+      "ItemId": 149,
+      "Name": "Lycosidae",
+      "apiId": "lycosidae",
+      "CategoryApiId": "armour",
+      "IconUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvT2ZmaGFuZC9TaGllbGRzL1VuaXF1ZXMvTHljb3NhIiwidyI6MiwiaCI6NCwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/6f1b56c26a/Lycosa.png",
+      "filename": "Lycosa.png",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "icon_local": "unique_lycosidae.png"
+    },
+    {
+      "ItemId": 548,
+      "Name": "Sanguis Heroum",
+      "apiId": "sanguis-heroum",
+      "CategoryApiId": "flask",
+      "IconUrl": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ2hhcm1zL1VuaXF1ZXMvU3RhdW5jaGluZ1VuaXF1ZUNoYXJtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/67d2007223/StaunchingUniqueCharm.png",
+      "filename": "StaunchingUniqueCharm.png",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "icon_local": "unique_sanguis-heroum.png"
     }
   ]
 }
