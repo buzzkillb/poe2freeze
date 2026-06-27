@@ -518,6 +518,17 @@
       "price_exalted": 1.0,
       "quantity": 0,
       "icon_local": "unique_the-hollow-mask.png"
+    },
+    {
+      "ItemId": 184,
+      "Name": "Tetzlapokal's Desire",
+      "apiId": "tetzlapokals-desire",
+      "CategoryApiId": "armour",
+      "IconUrl": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TetzlapokalsDesire.webp",
+      "filename": "TetzlapokalsDesire.webp",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "icon_local": "unique_tetzlapokals-desire.png"
     }
   ]
 }
