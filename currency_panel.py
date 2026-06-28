@@ -31,7 +31,10 @@ class CurrencyRatesPanel(QWidget):
 
     def __init__(self, scout: "Poe2ScoutSource" = None):
         super().__init__()
-        self._scout = scout if scout is not None else Poe2ScoutSource("Runes of Aldur")
+        if scout is None:
+            from config import LEAGUE
+            scout = Poe2ScoutSource(LEAGUE)
+        self._scout = scout
         self.league = self._scout.league
         self.setWindowFlags(
             Qt.FramelessWindowHint
@@ -72,7 +75,7 @@ class CurrencyRatesPanel(QWidget):
         self._main_layout.setContentsMargins(20, 16, 20, 16)
         self._main_layout.setSpacing(6)
 
-        self._title = QLabel(f"Currency — {league}")
+        self._title = QLabel(f"Currency — {self.league}")
         self._title.setStyleSheet(self._title_style())
         self._title.setAlignment(Qt.AlignCenter)
         self._main_layout.addWidget(self._title)

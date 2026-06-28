@@ -105,8 +105,9 @@ class RitualPriceOverlay(QWidget):
 
 
 class RitualDetector:
-    def __init__(self, scout, league="Runes of Aldur"):
-        self.league = league
+    def __init__(self, scout, league=None):
+        import config
+        self.league = league or config.LEAGUE
         self._scout = scout
 
         # Anchor templates
