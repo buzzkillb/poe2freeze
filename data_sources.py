@@ -80,16 +80,33 @@ class Poe2ScoutSource:
         self._reference_currencies_time = 0
         self._rate_limiter = RateLimiter(max_per_second=3.0)
 
-    def _req(self, path: str) -> Optional[Dict]:
-        self._rate_limiter.wait()
+    def _req(self, path: str, retries: int = 3) -> Optional[Dict]:
         url = f"{self.BASE}/{path}"
-        body, err, status = http_get(url)
-        if err or status != 200 or not body:
-            return None
-        try:
-            return json.loads(body)
-        except Exception:
-            return None
+        for attempt in range(retries):
+            self._rate_limiter.wait()
+            body, err, status = http_get(url)
+            if status == 429:
+                wait = min(5 * (attempt + 1), 30)
+                print(f"[poe2scout] 429 on {path}, retry in {wait}s", flush=True)
+                time.sleep(wait)
+                continue
+            if status in (500, 502, 503, 504):
+                if attempt < retries - 1:
+                    print(f"[poe2scout] {status} on {path}, retry {attempt+1}/{retries}", flush=True)
+                    time.sleep(min(2 ** attempt, 10))
+                    continue
+            if err:
+                print(f"[poe2scout] Error on {path}: {err}", flush=True)
+                if attempt < retries - 1:
+                    time.sleep(1)
+                    continue
+            if status != 200 or not body:
+                return None
+            try:
+                return json.loads(body)
+            except Exception:
+                return None
+        return None
 
     def fetch_reference_currencies(self) -> Dict[str, float]:
         """Returns dict of api_id -> relative_price_in_exalts.

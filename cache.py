@@ -56,7 +56,11 @@ def get_db():
 
 def init_db():
     with get_db() as db:
+        db.execute("PRAGMA journal_mode=WAL")
         db.executescript(_SCHEMA)
+        db.commit()
+        # Periodic eviction of expired rows
+        db.execute("DELETE FROM prices WHERE expires_at < ?", (int(time.time()),))
         db.commit()
 
 

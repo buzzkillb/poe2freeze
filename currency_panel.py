@@ -139,7 +139,7 @@ class CurrencyRatesPanel(QWidget):
             from datetime import datetime
             self._update_label.setText(f"updated {datetime.now().strftime('%H:%M:%S')}")
         except Exception as e:
-            self._update_label.setText(f"err: {str(e)[:30]}")
+            self._update_label.setText(f"err: {str(e)[:60]}")
 
     def _fetch_all_currency_items(self):
         """Fetch all currency items in one pass, cached per refresh tick."""
@@ -198,9 +198,9 @@ class CurrencyRatesPanel(QWidget):
         if not refs:
             self._update_label.setText("rates unavailable")
             return
-        chaos_per_ex = refs.get("chaos", 1)
-        divine_per_ex = refs.get("divine", 1)
-        if chaos_per_ex <= 1 or divine_per_ex <= 1:
+        ex_per_chaos = refs.get("chaos", 0)
+        ex_per_divine = refs.get("divine", 0)
+        if ex_per_chaos <= 0 or ex_per_divine <= 0:
             self._update_label.setText("rates incomplete")
             return
         sorted_keys = sorted(
@@ -216,11 +216,12 @@ class CurrencyRatesPanel(QWidget):
             name = self._display_names.get(key, key)
             parts = [f"<b>{name}:</b>"]
             parts.append(f"<span style='color:{self._color_to_hex(self.PO2_GOLD_BRIGHT)}'>{ex_price:.1f}ex</span>")
-            if ex_price >= chaos_per_ex:
-                chaos_amt = ex_price / chaos_per_ex
-                parts.append(f"<span style='color:{self._color_to_hex(self.PO2_CHAOS)}'>{chaos_amt:.0f}c</span>")
-            if ex_price >= divine_per_ex:
-                divine_amt = ex_price / divine_per_ex
+            if ex_price >= ex_per_chaos:
+                chaos_amt = ex_price / ex_per_chaos
+                fmt = ".1f" if chaos_amt < 1 else ".0f"
+                parts.append(f"<span style='color:{self._color_to_hex(self.PO2_CHAOS)}'>{chaos_amt:{fmt}}c</span>")
+            if ex_price >= ex_per_divine:
+                divine_amt = ex_price / ex_per_divine
                 parts.append(f"<span style='color:{self._color_to_hex(self.PO2_DIVINE)}'>{divine_amt:.1f}d</span>")
             widgets["text"].setText("  ".join(parts))
         if sorted_keys != self._current_order:
