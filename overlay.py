@@ -214,27 +214,10 @@ def main(hotkey: str = None):
     pending_timer.timeout.connect(pricer.check_pending)
     pending_timer.start(50)
 
-    ritual_overlay_w = None
-    ritual_watcher = None
-
-    def _start_ritual_watcher():
-        global ritual_overlay_w, ritual_watcher
-        try:
-            from ritual_overlay import RitualPriceOverlay, RitualDetector, RitualWatcher
-            print("[overlay] importing ritual detector...", flush=True)
-            ritual_detector = RitualDetector(_shared_scout, LEAGUE)
-            print("[overlay] ritual detector ready", flush=True)
-            ritual_overlay_w = RitualPriceOverlay()
-            ritual_watcher = RitualWatcher(ritual_overlay_w, ritual_detector)
-            ritual_watcher.start()
-            print(f"[overlay] ritual watcher armed (hover+OCR)", flush=True)
-        except Exception as e:
-            import traceback
-            print(f"[overlay] ritual watcher disabled: {e}", flush=True)
-            print(traceback.format_exc(), flush=True)
-
-    # Defer the ritual watcher initialization to allow other libraries to settle
-    QTimer.singleShot(2000, _start_ritual_watcher)
+    # Ritual overlay disabled for now
+    # ritual_overlay_w = None
+    # ritual_watcher = None
+    print(f"[overlay] ritual watcher disabled", flush=True)
 
     if QSystemTrayIcon.isSystemTrayAvailable():
         try:
