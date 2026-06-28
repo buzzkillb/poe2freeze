@@ -6,7 +6,7 @@ via combined template + color matching against downloaded icon database.
 """
 from __future__ import annotations
 
-import json, time, urllib.parse, urllib.request
+import json, time
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -105,8 +105,9 @@ class RitualPriceOverlay(QWidget):
 
 
 class RitualDetector:
-    def __init__(self, league="Runes of Aldur"):
+    def __init__(self, scout, league="Runes of Aldur"):
         self.league = league
+        self._scout = scout
 
         # Anchor templates
         t = cv2.imread(str(TPL_DIR / "favours_header.png"))
@@ -168,30 +169,29 @@ class RitualDetector:
         print(f"[ritual] Loaded {len(self._icons)} icon templates", flush=True)
 
     def _fetch_prices(self):
-        le = urllib.parse.quote(self.league, safe="")
+        le = self._scout.league_encoded
         fetched = 0
         try:
             for page in range(1, 5):
-                u = f"{POE2SCOUT_BASE}/poe2/Leagues/{le}/Currencies/ByCategory?Category=ritual&Page={page}"
-                r = urllib.request.Request(u, headers={"User-Agent": "mypoeapp/1.0"})
-                with urllib.request.urlopen(r, timeout=15) as resp:
-                    for it in json.loads(resp.read()).get("Items", []):
-                        aid = it.get("ApiId")
-                        if aid and it.get("CurrentPrice") is not None:
-                            raw = float(it["CurrentPrice"])
-                            self._prices[aid] = raw
-                            fetched += 1
-            r = urllib.request.Request(
-                f"{POE2SCOUT_BASE}/poe2/Leagues/{le}/Items?perPage=2000",
-                headers={"User-Agent": "mypoeapp/1.0"},
+                data = self._scout._req(
+                    f"poe2/Leagues/{le}/Currencies/ByCategory?Category=ritual&Page={page}"
+                )
+                if not data:
+                    break
+                for it in data.get("Items", []):
+                    aid = it.get("ApiId")
+                    if aid and it.get("CurrentPrice") is not None:
+                        self._prices[aid] = float(it["CurrentPrice"])
+                        fetched += 1
+            items_data = self._scout._req(
+                f"poe2/Leagues/{le}/Items?perPage=2000"
             )
-            with urllib.request.urlopen(r, timeout=15) as resp:
-                for it in json.loads(resp.read()):
+            if items_data:
+                for it in items_data:
                     n = it.get("Name") or ""
                     aid = n.lower().replace("'", "").replace(" ", "-")
                     if aid and it.get("CurrentPrice") is not None and aid not in self._prices:
-                        raw = float(it["CurrentPrice"])
-                        self._prices[aid] = raw
+                        self._prices[aid] = float(it["CurrentPrice"])
                         fetched += 1
         except Exception as e:
             print(f"[ritual] Price fetch error: {e}", flush=True)

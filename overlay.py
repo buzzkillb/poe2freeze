@@ -189,7 +189,13 @@ def main(hotkey: str = None):
     overlay = PriceOverlay()
     overlay.show_at(QPoint(100, 100), "PoE2 Ninja Pricer\nREADY", 2000)
 
-    currency_panel = CurrencyRatesPanel(LEAGUE)
+    from data_sources import Poe2ScoutSource
+    _shared_scout = Poe2ScoutSource(LEAGUE)
+    # Background warmup: pre-fetch all categories so first lookups are instant
+    import threading as _thr
+    _thr.Thread(target=_shared_scout.fetch_all_currency_prices, daemon=True).start()
+    _thr.Thread(target=_shared_scout.fetch_all_unique_prices, daemon=True).start()
+    currency_panel = CurrencyRatesPanel(_shared_scout)
     currency_panel.move_to_top_left()
     currency_panel.show()
 
@@ -216,7 +222,7 @@ def main(hotkey: str = None):
         try:
             from ritual_overlay import RitualPriceOverlay, RitualDetector, RitualWatcher
             print("[overlay] importing ritual detector...", flush=True)
-            ritual_detector = RitualDetector(LEAGUE)
+            ritual_detector = RitualDetector(_shared_scout, LEAGUE)
             print("[overlay] ritual detector ready", flush=True)
             ritual_overlay_w = RitualPriceOverlay()
             ritual_watcher = RitualWatcher(ritual_overlay_w, ritual_detector)

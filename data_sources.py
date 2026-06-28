@@ -79,6 +79,8 @@ class Poe2ScoutSource:
         self._reference_currencies = None
         self._reference_currencies_time = 0
         self._rate_limiter = RateLimiter(max_per_second=3.0)
+        self._unique_price_index = None
+        self._currency_price_index = None
 
     def _req(self, path: str, retries: int = 3) -> Optional[Dict]:
         url = f"{self.BASE}/{path}"
@@ -144,7 +146,9 @@ class Poe2ScoutSource:
             items = data.get("Items", [])
             if not items:
                 break
-            all_items.extend(items)
+            keep = ("Name", "CurrentPrice", "CurrentQuantity", "Type", "Text",
+                    "ApiId", "IconUrl", "CategoryApiId")
+            all_items.extend({k: item[k] for k in keep if k in item} for item in items)
             total_pages = data.get("Pages", 1)
             if page >= total_pages:
                 break
@@ -181,67 +185,48 @@ class Poe2ScoutSource:
                     return item
         return None
 
+    def _get_unique_index(self) -> Dict[str, Dict]:
+        if self._unique_price_index is not None:
+            return self._unique_price_index
+        self._unique_price_index = self.fetch_all_unique_prices()
+        return self._unique_price_index
+
+    def _get_currency_index(self) -> Dict[str, Dict]:
+        if self._currency_price_index is not None:
+            return self._currency_price_index
+        self._currency_price_index = self.fetch_all_currency_prices()
+        return self._currency_price_index
+
     def fetch_unique_price(self, item_name: str, base_type: str) -> Optional[Dict]:
-        name_lower = (item_name or "").lower()
+        name_lower = (item_name or "").lower().lstrip("the ").strip()
         base_lower = (base_type or "").lower()
         if name_lower.startswith("you cannot") or "stats will be ignored" in name_lower:
             return None
-        categories = ["weapon", "armour", "accessory", "flask", "jewel", "sanctum", "map"]
-        all_matches = []
-        for cat in categories:
-            items = self.fetch_items_by_category(cat, endpoint="Uniques")
-            for item in items:
-                iname = (item.get("Name") or "").lower().lstrip("the ").strip()
-                iname_full = (item.get("Name") or "").lower()
-                itype = (item.get("Type") or "").lower()
-                if iname_full == name_lower or iname == name_lower.lstrip("the ").strip():
-                    if not base_lower or base_lower in itype or itype in base_lower or base_lower == itype:
-                        return {
-                            "name": item.get("Name"),
-                            "base": item.get("Type"),
-                            "current_price_exalted": item.get("CurrentPrice", 0),
-                            "current_quantity": item.get("CurrentQuantity", 0),
-                            "icon": item.get("IconUrl"),
-                            "source": self.NAME,
-                        }
-                    all_matches.append(item)
-        if all_matches:
-            best = all_matches[0]
-            return {
-                "name": best.get("Name"),
-                "base": best.get("Type"),
-                "current_price_exalted": best.get("CurrentPrice", 0),
-                "current_quantity": best.get("CurrentQuantity", 0),
-                "icon": best.get("IconUrl"),
-                "source": self.NAME,
-            }
+        index = self._get_unique_index()
+        entry = index.get(name_lower) or index.get((item_name or "").lower())
+        if entry:
+            if not base_lower or base_lower in entry.get("base", "").lower():
+                return {
+                    "name": entry["name"],
+                    "base": entry.get("base"),
+                    "current_price_exalted": entry["current_price_exalted"],
+                    "current_quantity": entry.get("current_quantity", 0),
+                    "icon": entry.get("icon"),
+                    "source": self.NAME,
+                }
         return None
 
     def fetch_currency_price(self, currency_api_id: str) -> Optional[Dict]:
-        items = self.fetch_all_items()
         api_lower = currency_api_id.lower()
-        for item in items:
-            api_id = (item.get("ApiId") or "").lower()
-            if api_id == api_lower:
-                return {
-                    "name": item.get("Text") or item.get("Name"),
-                    "current_price_exalted": item.get("CurrentPrice", 0),
-                    "current_quantity": item.get("CurrentQuantity", 0),
-                    "source": self.NAME,
-                }
-        for cat in ("currency", "runes", "essences", "fragments", "ultimatum", "breach",
-                    "expedition", "ritual", "delirium", "uncutgems", "lineagesupportgems",
-                    "incursion", "abyss", "vaultkeys", "verisium", "vaal", "idol"):
-            items = self.fetch_items_by_category(cat, endpoint="Currencies")
-            for item in items:
-                api_id = (item.get("ApiId") or "").lower()
-                if api_id == api_lower:
-                    return {
-                        "name": item.get("Text") or item.get("Name"),
-                        "current_price_exalted": item.get("CurrentPrice", 0),
-                        "current_quantity": item.get("CurrentQuantity", 0),
-                        "source": self.NAME,
-                    }
+        index = self._get_currency_index()
+        entry = index.get(api_lower)
+        if entry:
+            return {
+                "name": entry["name"],
+                "current_price_exalted": entry["current_price_exalted"],
+                "current_quantity": entry.get("current_quantity", 0),
+                "source": self.NAME,
+            }
         return None
 
     def fetch_all_currency_prices(self) -> Dict[str, Dict]:

@@ -29,9 +29,10 @@ class CurrencyRatesPanel(QWidget):
 
     ICON_CACHE_DIR = Path(__file__).parent / "data" / "icons"
 
-    def __init__(self, league: str = "Runes of Aldur"):
+    def __init__(self, scout: "Poe2ScoutSource" = None):
         super().__init__()
-        self.league = league
+        self._scout = scout if scout is not None else Poe2ScoutSource("Runes of Aldur")
+        self.league = self._scout.league
         self.setWindowFlags(
             Qt.FramelessWindowHint
             | Qt.WindowStaysOnTopHint
@@ -92,7 +93,6 @@ class CurrencyRatesPanel(QWidget):
         self._update_timer.timeout.connect(self._refresh)
         self._update_timer.start(5 * 60 * 1000)
 
-        self._scout = Poe2ScoutSource(league)
         self._refresh()
 
     def _row_style(self):
