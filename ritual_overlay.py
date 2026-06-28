@@ -158,10 +158,15 @@ class RitualDetector:
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             gray_rs = cv2.resize(gray, (CROP_SIZE, CROP_SIZE))
             img_rs = cv2.resize(img, (CROP_SIZE, CROP_SIZE))
+            # Precompute template stats for normalized correlation
+            t_mean = float(gray_rs.mean())
+            t_std = float(gray_rs.std())
             icon_list.append({
                 "name": name,
                 "img": img_rs,
                 "gray": gray_rs,
+                "gray_flat": gray_rs.ravel().astype(np.float32) - t_mean,
+                "gray_std": t_std if t_std > 0 else 1.0,
                 "price": item.get("currentPrice", 0),
                 "aspect": float(wi) / h if h > 0 else 1.0,
                 "area": h * wi,
@@ -278,8 +283,14 @@ class RitualDetector:
 
         best_name, best_score, best_price = None, 0.0, 0.0
         second_score = 0.0
+
+        # Precompute crop stats once per slot for fast correlation
+        crop_f = cg_rs.ravel().astype(np.float32)
+        c_mean = float(crop_f.mean())
+        c_norm = float(crop_f.std()) or 1.0
+        c_centered = crop_f - c_mean
+
         for data in self._icons:
-            # Fast size filter
             ar_diff = abs(data["aspect"] - item_aspect)
             if ar_diff > ASPECT_TOLERANCE:
                 continue
@@ -287,8 +298,15 @@ class RitualDetector:
             if area_ratio < AREA_MIN_RATIO or area_ratio > AREA_MAX_RATIO:
                 continue
 
-            # Template match with pre-resized icons (no resize in hot loop)
-            tm = cv2.matchTemplate(cg_rs, data["gray"], cv2.TM_CCOEFF_NORMED)[0][0]
+            # Fast correlation using precomputed template stats
+            num = np.dot(data["gray_flat"], c_centered)
+            den = data["gray_std"] * c_norm * len(c_centered)
+            tm = num / den if den > 1e-9 else 0.0
+
+            # Early exit: skip expensive color calc if TM can't beat threshold
+            max_possible = tm * 0.5 + 0.5  # best-case CS=1.0
+            if max_possible < MATCH_THRESH and max_possible < best_score:
+                continue
 
             # Color similarity using resized mask on resized crop
             cs = max(0, 1.0 - np.linalg.norm(
