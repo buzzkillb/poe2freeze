@@ -1,85 +1,117 @@
 # PoE2 Ninja Pricer
 
-A Path of Exile 2 real-time pricing overlay. Two independent systems:
+A real-time Path of Exile 2 pricing overlay. Two independent systems share a single rate-limited API client:
 
-1. **Clipboard pricer** — Ctrl+C any item in PoE2, price pops up near cursor
-2. **Ritual overlay** — automatic icon matching detects items in ritual menus, draws prices on every item without any user interaction (94% accuracy, 1272 icons)
+1. **Clipboard pricer** — Ctrl+C any item, price pops up near cursor with rarity-styled formatting
+2. **Ritual overlay** — automatic icon matching detects items in ritual menus, draws prices at each item's center with zero user interaction
 
-No OAuth, no game memory reading, fully GGG-policy compliant.
+Fully GGG-policy compliant — no game memory reading, no OAuth required.
 
-## Features
+## Quick Start
 
-### Clipboard Pricer
-- Press Ctrl+C on an item → PoE2-styled tooltip with rarity color, mods, listing count
-- Supports uniques, rares (mod-based trade2 search), currency, gems, waystones, tablets, maps
-- Pricing sources: poe2scout (primary), official trade2 API, poeprices.info (fallback)
-- 5-min currency refresh, 2-hour item cache, rate-limit aware
+```bash
+pip install PyQt5 opencv-python numpy mss pillow
+python overlay.py
+```
 
-### Ritual Overlay
-- Opens automatically when the ritual menu is detected in-game
-- Matches item icons against 1272 downloaded unique/currency icons from poe2scout
-- Combined template matching + color similarity scoring with size-bucketed filtering
-- Draws price labels at each item's center — no hovering, no OCR, no interaction needed
-- Re-scans every 2 seconds when the menu changes
+Map a controller button to Ctrl+C via Steam Input for controller use.
 
-### Currency Panel
-- Top-left floating panel: 8 trading currencies sorted by value
-- Smart conversions: exalts always shown, chaos if >= 1c, divine if >= 1d
-- Icons loaded from local cache, refreshes every 5 minutes
+## Clipboard Pricer
 
-## Setup
+Press Ctrl+C on any item in PoE2 and a tooltip appears next to your cursor showing:
 
-1. Install Python 3.12+ from https://www.python.org/downloads/
-2. Install dependencies: `pip install PyQt5 opencv-python numpy mss pillow`
-3. Run `python overlay.py`
-4. Map a controller button to Ctrl+C via Steam Input for controller use
+- Item name, base type, rarity (color-coded)
+- Price in exalts with chaos/divine equivalents
+- Listing count, data freshness, source
+- Top 10 trade listings with prices and time ago
 
-## Files
+Supports: uniques, rares (mod-based trade2 search), currency, gems, waystones, tablets, maps, divination cards. Falls back from trade2 → poe2scout → poeprices.info automatically.
 
-| File | Purpose |
-|------|---------|
-| `overlay.py` | Main entry point, QTimer-based clipboard polling + ritual watcher |
-| `overlay_widget.py` | PoE2-styled price popup (dark gradient, gold border, rarity colors) |
-| `ritual_overlay.py` | Ritual icon matcher: 1272 icons, template+color scoring, size-bucketed |
-| `currency_panel.py` | Top-left currency rates panel with icons |
-| `pricer.py` | Routing engine: dispatches to correct pricer per item type |
-| `data_sources.py` | poe2scout / trade2 / poeprices API wrappers with retry/backoff |
-| `poe2db_data.py` | Local poe2db lookup for base types and trade category mapping |
-| `item_parser.py` | PoE2 clipboard text → structured fields |
-| `mod_matcher.py` | Mod text → trade2 stat IDs |
-| `cache.py` | SQLite-backed price cache (WAL mode, periodic eviction) |
-| `clipboard.py` | Windows clipboard reader |
-| `download_unique_icons.py` | Fetches all 1272 item icons from poe2scout CDN |
-| `ocr_worker.py` | Subprocess OCR fallback (EasyOCR, avoids PyQt5 DLL conflict) |
-| `data/unique_icons/` | 1272 pre-composited item icons + database.json |
-| `data/ritual_templates/` | Favours header templates for ritual grid anchor detection |
+## Ritual Overlay
 
-## Data Sources
+When the ritual menu opens in-game, the overlay automatically:
 
-- **poe2scout.com** (primary, anonymous) — currency rates, unique prices, ritual items
-- **poe2db.tw** data dumps (local) — base type → trade category mapping
-- **Official GGG trade2 API** (anonymous) — rare mod-based searches
-- **poeprices.info** (fallback) — statistical predictor for rares
+1. Detects the grid via FAVOURS header anchor (resolution-scaled)
+2. Finds all occupied item slots
+3. Matches each item's rendered icon against 1,272 pre-downloaded poe2scout icons
+4. Draws a price label at each item's center
 
-### Rate Limiting
-- poe2scout: 3 req/s with exponential backoff on 429/5xx
-- trade2: 1.5s minimum between searches
-- Item cache TTL: 2 hours (currency: 5 min)
-- SQLite WAL mode for concurrent reads, periodic expired row eviction
+**No hovering, OCR, or user interaction needed.** Matching runs in a background thread so the UI stays responsive. Re-scans when the menu changes.
 
-## Ritual Overlay Accuracy
+### Matching Pipeline
 
-Tested on 14 ritual screenshots at 4K (3840x2160):
+| Stage | Technique |
+|-------|-----------|
+| Icon loading | Alpha-composited over dark background, pre-resized to 95×95 |
+| Template correlation | Batch matmul via precomputed centered vectors + standard deviations |
+| Color similarity | Precomputed icon opaque-pixel colors vs slot item color |
+| Size filtering | Aspect ratio (±1.5) and area ratio (0.3–3.0) bucketing |
+| Early exit | Skip color calc when TM score can't beat threshold |
+| Score threshold | 0.40 primary, 0.35 fallback with >0.03 margin to 2nd place |
+
+### Accuracy
+
+Tested on 14 ritual screenshots at 4K (3840×2160):
 
 | Metric | Value |
 |--------|-------|
 | Icons in database | 1,272 |
 | Total slots tested | 366 |
 | Slots matched | 343 |
-| Match rate | **94%** |
+| **Match rate** | **94%** |
 | Typical scan time | ~4s (12 items) |
 
-The remaining 6% are maps, tablets, and non-unique items not covered by the unique icon database.
+The remaining 6% are maps, tablets, and non-unique items not covered by the icon database.
+
+## Currency Panel
+
+Top-left floating panel with 8 trading currencies sorted by current value. Shows exalts always, chaos equivalents when ≥1c, and divine equivalents when ≥1d. Icons cached locally, refreshes every 5 minutes.
+
+## Architecture
+
+```
+overlay.py ──┬── CurrencyRatesPanel ────┐
+             │                           ├── Poe2ScoutSource (shared, 3 req/s, retry/backoff)
+             ├── Pricer ── DataSourceRegistry ──┤
+             │                           │      ├── OfficialTradeSource (1 req/s)
+             └── RitualDetector ─────────┘      └── PoePricesSource (fallback)
+                    │
+                    ├── 1,272 icon templates (pre-resized, batch matrix)
+                    └── RitualWatcher (background thread matching)
+```
+
+A single `Poe2ScoutSource` instance is shared across the currency panel, clipboard pricer, and ritual detector — one rate limiter, one set of caches. Warmup threads pre-fetch all currency and unique prices at startup. Lookups use O(1) indexes built from the cached bulk data.
+
+## Data Sources
+
+| Source | Purpose | Rate Limit |
+|--------|---------|------------|
+| [poe2scout.com](https://poe2scout.com) | Currency rates, unique/ritual prices, icon CDN | 3 req/s, exponential backoff on 429/5xx |
+| [pathofexile.com/trade2](https://pathofexile.com/trade2) | Rare mod-based searches | 1 req/s, 1.5s search spacing |
+| [poeprices.info](https://poeprices.info) | Statistical fallback for rares | 1 req/s |
+| [poe2db.tw](https://poe2db.tw) | Local JSON dumps for base type mapping | Offline |
+
+Cache TTLs: currency 5 min, items 2 hours. SQLite with WAL mode, shared connection, 7-day request log eviction, expired price eviction on startup.
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `overlay.py` | Main entry — clipboard polling (10Hz), ritual watcher startup, shared scout wiring |
+| `ritual_overlay.py` | Icon matcher: 1,272 templates, batch matmul, size-bucketed, background thread |
+| `overlay_widget.py` | PoE2-styled price popup (dark gradient, gold border, rarity colors) |
+| `currency_panel.py` | Currency rates panel with shared scout, auto-sorted by value |
+| `pricer.py` | Routing engine per item type + trade2 search/result handling |
+| `data_sources.py` | API wrappers with retry/backoff, rate limiting, bulk index builders |
+| `cache.py` | SQLite cache — WAL mode, shared connection, auto-eviction |
+| `poe2db_data.py` | Local data loader — base types, item classes, currency IDs |
+| `item_parser.py` | Clipboard text → structured item fields |
+| `mod_matcher.py` | Item mod text → trade2 stat ID translation |
+| `clipboard.py` | Win32 clipboard reader (module-level FFI setup) |
+| `download_unique_icons.py` | One-time: fetches all 1,272 icons + builds database.json |
+| `data/unique_icons/` | Pre-composited 95×95 PNGs + database.json |
+| `data/ritual_templates/` | FAVOURS header + offer button templates for grid detection |
+| `data/poe2db/` | Local JSON: base types, item classes, currency items, skill gems |
 
 ## License
 
