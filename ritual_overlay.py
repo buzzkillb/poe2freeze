@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import cv2, numpy as np
+import threading
 
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QColor, QFont, QFontMetrics, QPainter, QPen, QBrush
@@ -326,7 +327,7 @@ class RitualDetector:
 
 
 class RitualWatcher:
-    TICK_MS = 2000  # Match every 2 seconds
+    TICK_MS = 2000
 
     def __init__(self, overlay, detector):
         self.overlay = overlay
@@ -336,6 +337,8 @@ class RitualWatcher:
         self._cap = _build_capture()
         self._last_hash = 0
         self._menu_open = False
+        self._matching = False
+        self._match_ready: List = []
 
     def start(self):
         self._timer.start(self.TICK_MS)
@@ -369,15 +372,32 @@ class RitualWatcher:
         slots = self.detector.find_occupied_slots(screen, anchor)
         h = hash(tuple(sorted((r, c) for r, c, _, _ in slots)))
 
+        # Pick up completed background match results
+        if self._match_ready:
+            hits = self._match_ready
+            self._match_ready = []
+            print(f"[ritual] {len(hits)}/{len(slots)} items matched", flush=True)
+            self.overlay.set_hits(hits)
+
+        # Kick off new match if grid changed and not already matching
         if h != self._last_hash:
             self._last_hash = h
-            t0 = time.time()
-            hits = self.detector.match_all_slots(screen, anchor, slots)
-            print(
-                f"[ritual] {len(hits)}/{len(slots)} items matched in {time.time()-t0:.1f}s",
-                flush=True,
-            )
-            self.overlay.set_hits(hits)
+            if not self._matching:
+                self._matching = True
+                screen_copy = screen.copy()
+                anchor_copy = anchor
+                slots_copy = list(slots)
+
+                def match_worker():
+                    try:
+                        hits = self.detector.match_all_slots(
+                            screen_copy, anchor_copy, slots_copy
+                        )
+                        self._match_ready = hits
+                    finally:
+                        self._matching = False
+
+                threading.Thread(target=match_worker, daemon=True).start()
 
 
 def _fmt(price):
