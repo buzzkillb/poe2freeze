@@ -482,9 +482,9 @@ class PriceConverter:
 class DataSourceRegistry:
     """Coordinates multiple data sources with priority-based fallback."""
 
-    def __init__(self, league: str):
+    def __init__(self, league: str, scout=None):
         self.league = league
-        self.scout = Poe2ScoutSource(league)
+        self.scout = scout if scout is not None else Poe2ScoutSource(league)
         self.trade = OfficialTradeSource(league)
         self.poeprices = PoePricesSource(league)
         self._converter = None

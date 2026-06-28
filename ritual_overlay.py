@@ -172,6 +172,13 @@ class RitualDetector:
                 "area": h * wi,
             })
         self._icons = icon_list
+        # Stack all template vectors into a matrix for batch correlation
+        if icon_list:
+            self._tpl_matrix = np.vstack([d["gray_flat"] for d in icon_list])
+            self._tpl_stds = np.array([d["gray_std"] for d in icon_list])
+        else:
+            self._tpl_matrix = np.zeros((0, 1), dtype=np.float32)
+            self._tpl_stds = np.zeros(0)
         print(f"[ritual] Loaded {len(self._icons)} icon templates", flush=True)
 
     def _fetch_prices(self):
@@ -273,43 +280,52 @@ class RitualDetector:
         best_name, best_score, best_price = None, 0.0, 0.0
         second_score = 0.0
 
-        # Precompute crop stats once per slot for fast correlation
+        # Precompute crop stats once per slot
         crop_f = cg_rs.ravel().astype(np.float32)
         c_mean = float(crop_f.mean())
         c_norm = float(crop_f.std()) or 1.0
         c_centered = crop_f - c_mean
 
-        for data in self._icons:
-            ar_diff = abs(data["aspect"] - item_aspect)
-            if ar_diff > ASPECT_TOLERANCE:
-                continue
-            area_ratio = data["area"] / max(item_area, 1)
-            if area_ratio < AREA_MIN_RATIO or area_ratio > AREA_MAX_RATIO:
-                continue
+        # Batch correlation: one matmul gives all template scores
+        batch_size = min(200, len(self._icons))
+        for batch_start in range(0, len(self._icons), batch_size):
+            batch_end = min(batch_start + batch_size, len(self._icons))
+            batch_matrix = self._tpl_matrix[batch_start:batch_end]
+            batch_stds = self._tpl_stds[batch_start:batch_end]
+            denom = batch_stds * c_norm * len(c_centered)
+            scores = np.dot(batch_matrix, c_centered) / np.where(denom > 1e-9, denom, 1.0)
 
-            # Fast correlation using precomputed template stats
-            num = np.dot(data["gray_flat"], c_centered)
-            den = data["gray_std"] * c_norm * len(c_centered)
-            tm = num / den if den > 1e-9 else 0.0
+            for i in range(len(scores)):
+                idx = batch_start + i
+                data = self._icons[idx]
+                tm = float(scores[i])
 
-            # Early exit: skip expensive color calc if TM can't beat threshold
-            max_possible = tm * 0.5 + 0.5  # best-case CS=1.0
-            if max_possible < MATCH_THRESH and max_possible < best_score:
-                continue
+                # Fast size filter
+                ar_diff = abs(data["aspect"] - item_aspect)
+                if ar_diff > ASPECT_TOLERANCE:
+                    continue
+                area_ratio = data["area"] / max(item_area, 1)
+                if area_ratio < AREA_MIN_RATIO or area_ratio > AREA_MAX_RATIO:
+                    continue
 
-            # Color similarity using resized mask on resized crop
-            cs = max(0, 1.0 - np.linalg.norm(
-                np.array(cv2.mean(crop_rs, mask=mask_rs)[:3]) -
-                np.array(cv2.mean(data["img"], mask=mask_rs)[:3])
-            ) / 255)
-            score = tm * 0.5 + cs * 0.5
-            if score > best_score:
-                second_score = best_score
-                best_score = score
-                best_name = data["name"]
-                best_price = data["price"]
-            elif score > second_score:
-                second_score = score
+                # Early exit: skip color calc if TM too low
+                max_possible = tm * 0.5 + 0.5
+                if max_possible < MATCH_THRESH and max_possible < best_score:
+                    continue
+
+                # Color similarity
+                cs = max(0, 1.0 - np.linalg.norm(
+                    np.array(cv2.mean(crop_rs, mask=mask_rs)[:3])
+                    - np.array(cv2.mean(data["img"], mask=mask_rs)[:3])
+                ) / 255)
+                score = tm * 0.5 + cs * 0.5
+                if score > best_score:
+                    second_score = best_score
+                    best_score = score
+                    best_name = data["name"]
+                    best_price = data["price"]
+                elif score > second_score:
+                    second_score = score
 
         accept = False
         if best_name and best_score >= MATCH_THRESH:

@@ -22,11 +22,11 @@ from mod_matcher import build_query_stat_filter, match_mods
 _registry: Optional[DataSourceRegistry] = None
 
 
-def get_registry() -> DataSourceRegistry:
+def get_registry(scout=None) -> DataSourceRegistry:
     global _registry
     if _registry is None:
         from config import LEAGUE
-        _registry = DataSourceRegistry(LEAGUE)
+        _registry = DataSourceRegistry(LEAGUE, scout=scout)
     return _registry
 
 
