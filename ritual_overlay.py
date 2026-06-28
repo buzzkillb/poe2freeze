@@ -199,19 +199,20 @@ class RitualDetector:
         print(f"[ritual] {fetched} prices loaded", flush=True)
 
     def find_anchor(self, screen):
-        """Find ritual grid top-left corner. Uses template matching + known offsets for 4K."""
+        """Find ritual grid top-left corner. Uses known positions scaled to screen resolution."""
         if screen is None:
             return None
         h, w = screen.shape[:2]
-
-        # For 4K (3840x2160), the grid has been consistently at (453, 682)
-        # Try known position first with verification
+        # Scale known 4K anchor positions to current resolution
+        sx = w / 3840
+        sy = h / 2160
         for ax, ay in [(453, 682), (400, 680), (350, 680)]:
+            ax = int(ax * sx)
+            ay = int(ay * sy)
             if ax < 0 or ay < 0 or ax + 200 >= w or ay + 300 >= h:
                 continue
             check = screen[ay : ay + 300, ax : ax + 200]
             gray = cv2.cvtColor(check, cv2.COLOR_BGR2GRAY)
-            # A grid with items should have some bright spots
             if gray.mean() > GRID_MEAN_THRESH:
                 return (ax, ay)
 

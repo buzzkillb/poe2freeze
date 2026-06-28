@@ -93,6 +93,9 @@ def build_full_icon_database():
     if db_path.exists():
         try:
             existing_list = json.loads(db_path.read_text()).get("items", [])
+            # Strip absolute iconPath from old entries (migration)
+            for item in existing_list:
+                item.pop("iconPath", None)
             existing = {item["apiId"]: item for item in existing_list if item.get("apiId")}
         except:
             pass
@@ -133,7 +136,6 @@ def build_full_icon_database():
             "category": category,
             "iconUrl": icon_url,
             "iconLocal": f"icons/{fname}",
-            "iconPath": str(local_path),
             "currentPrice": item.get("CurrentPrice"),
             "currentQuantity": item.get("CurrentQuantity"),
         })
@@ -149,9 +151,9 @@ def build_full_icon_database():
     failed = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         futures = {}
-        for item in items_to_download:
-            dest = Path(item["iconPath"])
-            fut = ex.submit(download_icon, item["iconUrl"], dest)
+    for item in items_to_download:
+        dest = icons_dir / Path(item["iconLocal"]).name
+        fut = ex.submit(download_icon, item["iconUrl"], dest)
             futures[fut] = item["name"]
 
         for fut in as_completed(futures):
@@ -167,7 +169,7 @@ def build_full_icon_database():
     print(f"Downloaded: {downloaded}, Failed: {len(failed)}")
 
     # Merge with existing and save
-    all_db_items = list(existing.values()) + [i for i in items_to_download if Path(i["iconPath"]).exists()]
+    all_db_items = list(existing.values()) + items_to_download
     db_data = {"items": all_db_items}
     db_path.write_text(json.dumps(db_data, indent=2))
     print(f"Saved {len(all_db_items)} items to {db_path}")

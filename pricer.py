@@ -551,6 +551,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                         if norm.get("chaos", 0) > 0:
                             listings.append({
                                 "price_exalted": norm.get("exalted", 0),
+                                "price_chaos": norm.get("chaos", 0),
                                 "amount": amount,
                                 "currency": currency,
                                 "account": account,
@@ -563,7 +564,7 @@ def price_waystone(item: Dict, registry: DataSourceRegistry) -> Dict:
                         kind="waystone",
                         base=base,
                         name=name,
-                        chaos=listings[0]["price_exalted"],
+                        chaos=listings[0].get("price_chaos", 0),
                         divine=0,
                         exalted=listings[0]["price_exalted"],
                         listing_count=len(listings),
@@ -722,7 +723,7 @@ def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
                         kind="tablet",
                         base=base,
                         name=name,
-                        chaos=listings[0]["price_exalted"],
+                        chaos=listings[0].get("price_chaos", 0),
                         divine=0,
                         exalted=listings[0]["price_exalted"],
                         listing_count=len(listings),
