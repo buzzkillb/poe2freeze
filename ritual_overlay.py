@@ -7,7 +7,6 @@ via combined template + color matching against downloaded icon database.
 from __future__ import annotations
 
 import json, time, urllib.parse, urllib.request
-from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -27,7 +26,19 @@ ANCHOR_THRESH = 0.55
 SLOT_SIZE = 105
 SLOT_COLS = 12
 SLOT_ROWS = 10
+CROP_SIZE = 95
 MATCH_THRESH = 0.40
+FALLBACK_THRESH = 0.35
+SECOND_MARGIN = 0.03
+ALPHA_THRESH = 40
+MASK_THRESH = 30
+MASK_MIN_PIXELS = 100
+OCCUPIED_MEAN_THRESH = 22
+GRID_MEAN_THRESH = 20
+ASPECT_TOLERANCE = 1.5
+AREA_MIN_RATIO = 0.3
+AREA_MAX_RATIO = 3.0
+BG_COLOR = (12, 10, 8)
 
 
 class RitualPriceOverlay(QWidget):
@@ -42,9 +53,14 @@ class RitualPriceOverlay(QWidget):
         )
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setAttribute(Qt.WA_NoSystemBackground)
-        screen = QApplication.primaryScreen()
-        if screen:
-            self.setGeometry(screen.geometry())
+        screens = QApplication.screens()
+        if screens:
+            # Cover all screens for multi-monitor
+            x0 = min(s.geometry().x() for s in screens)
+            y0 = min(s.geometry().y() for s in screens)
+            x1 = max(s.geometry().x() + s.geometry().width() for s in screens)
+            y1 = max(s.geometry().y() + s.geometry().height() for s in screens)
+            self.setGeometry(x0, y0, x1 - x0, y1 - y0)
         else:
             self.setGeometry(0, 0, 1920, 1080)
         self._hits: List[Tuple[int, int, str, float]] = []
@@ -106,11 +122,9 @@ class RitualDetector:
         self._chaos_per_ex = 1.0
         self._fetch_prices()
 
-        # Cached anchor for reliability
-        self._cached_anchor: Optional[Tuple[int, int]] = None
-
     def _load_icons(self):
         if not DB_PATH.exists():
+            print("[ritual] WARNING: icon database not found", flush=True)
             return
         with open(DB_PATH) as f:
             items = json.load(f).get("items", [])
@@ -131,17 +145,21 @@ class RitualDetector:
                 continue
             if img.shape[-1] == 4:
                 b, g, r, a = cv2.split(img)
-                m = (a > 40).astype(np.uint8) * 255
+                m = (a > ALPHA_THRESH).astype(np.uint8) * 255
                 fg = cv2.merge([b, g, r])
-                bg = np.full(img.shape[:2] + (3,), (12, 10, 8), dtype=np.uint8)
+                bg = np.full(img.shape[:2] + (3,), BG_COLOR, dtype=np.uint8)
                 comp = fg.copy()
                 comp[m == 0] = bg[m == 0]
                 img = comp
             h, wi = img.shape[:2]
+            # Pre-resize to standard crop size for fast matching
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            gray_rs = cv2.resize(gray, (CROP_SIZE, CROP_SIZE))
+            img_rs = cv2.resize(img, (CROP_SIZE, CROP_SIZE))
             icon_list.append({
                 "name": name,
-                "img": img,
-                "gray": cv2.cvtColor(img, cv2.COLOR_BGR2GRAY),
+                "img": img_rs,
+                "gray": gray_rs,
                 "price": item.get("currentPrice", 0),
                 "aspect": float(wi) / h if h > 0 else 1.0,
                 "area": h * wi,
@@ -160,8 +178,8 @@ class RitualDetector:
                 for e in json.loads(resp.read()):
                     if e.get("ApiId") == "chaos":
                         self._chaos_per_ex = float(e.get("RelativePrice", 1.0))
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[ritual] ReferenceCurrencies fetch error: {e}", flush=True)
 
         fetched = 0
         try:
@@ -187,7 +205,8 @@ class RitualDetector:
                     aid = n.lower().replace("'", "").replace(" ", "-")
                     if aid and it.get("CurrentPrice") is not None and aid not in self._prices:
                         raw = float(it["CurrentPrice"])
-                        if raw >= 10 and self._chaos_per_ex > 1:
+                        # /Items prices are in exalts; convert to chaos
+                        if self._chaos_per_ex > 0:
                             raw /= self._chaos_per_ex
                         self._prices[aid] = raw
                         fetched += 1
@@ -209,7 +228,7 @@ class RitualDetector:
             check = screen[ay : ay + 300, ax : ax + 200]
             gray = cv2.cvtColor(check, cv2.COLOR_BGR2GRAY)
             # A grid with items should have some bright spots
-            if gray.mean() > 20:
+            if gray.mean() > GRID_MEAN_THRESH:
                 return (ax, ay)
 
         # Template-based fallback
@@ -234,12 +253,12 @@ class RitualDetector:
             for col in range(SLOT_COLS):
                 x = ax + col * SLOT_SIZE + 5
                 y = ay + row * SLOT_SIZE + 5
-                w = min(95, screen.shape[1] - x)
-                h = min(95, screen.shape[0] - y)
+                w = min(CROP_SIZE, screen.shape[1] - x)
+                h = min(CROP_SIZE, screen.shape[0] - y)
                 if w < 10 or h < 10:
                     continue
                 crop = gray[y : y + h, x : x + w]
-                if crop.size > 0 and crop.mean() > 22:
+                if crop.size > 0 and crop.mean() > OCCUPIED_MEAN_THRESH:
                     cx = ax + col * SLOT_SIZE + SLOT_SIZE // 2
                     cy = ay + row * SLOT_SIZE + SLOT_SIZE // 2
                     slots.append((row, col, cx, cy))
@@ -250,46 +269,46 @@ class RitualDetector:
         ax, ay = anchor
         x = ax + col * SLOT_SIZE + 5
         y = ay + row * SLOT_SIZE + 5
-        crop = screen[y : y + 95, x : x + 95]
+        cw = min(CROP_SIZE, screen.shape[1] - x)
+        ch = min(CROP_SIZE, screen.shape[0] - y)
+        if cw < 10 or ch < 10:
+            return None, 0, 0
+        crop = screen[y : y + ch, x : x + cw]
         cg = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
-        _, mask = cv2.threshold(cg, 30, 255, cv2.THRESH_BINARY)
-        if np.count_nonzero(mask) < 100:
+        _, mask = cv2.threshold(cg, MASK_THRESH, 255, cv2.THRESH_BINARY)
+        if np.count_nonzero(mask) < MASK_MIN_PIXELS:
             return None, 0, 0
 
         # Compute item shape for size bucketing
         ys, xs = np.where(mask > 0)
-        item_h = ys.max() - ys.min() + 1 if len(ys) > 0 else 95
-        item_w = xs.max() - xs.min() + 1 if len(xs) > 0 else 95
+        item_h = ys.max() - ys.min() + 1 if len(ys) > 0 else CROP_SIZE
+        item_w = xs.max() - xs.min() + 1 if len(xs) > 0 else CROP_SIZE
         item_aspect = float(item_w) / item_h if item_h > 0 else 1.0
         item_area = item_w * item_h
+
+        # Resize crop to match precomputed icon size
+        cg_rs = cv2.resize(cg, (CROP_SIZE, CROP_SIZE))
+        crop_rs = cv2.resize(crop, (CROP_SIZE, CROP_SIZE))
 
         best_name, best_score, best_price = None, 0.0, 0.0
         second_score = 0.0
         for data in self._icons:
             # Fast size filter
             ar_diff = abs(data["aspect"] - item_aspect)
-            if ar_diff > 1.5:
+            if ar_diff > ASPECT_TOLERANCE:
                 continue
             area_ratio = data["area"] / max(item_area, 1)
-            if area_ratio < 0.3 or area_ratio > 3.0:
+            if area_ratio < AREA_MIN_RATIO or area_ratio > AREA_MAX_RATIO:
                 continue
 
-            ig = cv2.resize(data["gray"], (cg.shape[1], cg.shape[0]))
-            tm = cv2.matchTemplate(cg, ig, cv2.TM_CCOEFF_NORMED)[0][0]
+            # Template match with pre-resized icons (no resize in hot loop)
+            tm = cv2.matchTemplate(cg_rs, data["gray"], cv2.TM_CCOEFF_NORMED)[0][0]
 
-            sm = crop.copy()
-            sm[mask == 0] = [0, 0, 0]
-            im = cv2.resize(data["img"], (crop.shape[1], crop.shape[0]))
-            im[mask == 0] = [0, 0, 0]
-            cs = max(
-                0,
-                1.0
-                - np.linalg.norm(
-                    np.array(cv2.mean(sm, mask=mask)[:3])
-                    - np.array(cv2.mean(im, mask=mask)[:3])
-                )
-                / 255,
-            )
+            # Color similarity using mask on pre-resized crop
+            cs = max(0, 1.0 - np.linalg.norm(
+                np.array(cv2.mean(crop_rs, mask=mask)[:3]) -
+                np.array(cv2.mean(data["img"], mask=mask)[:3])
+            ) / 255)
             score = tm * 0.5 + cs * 0.5
             if score > best_score:
                 second_score = best_score
@@ -302,17 +321,16 @@ class RitualDetector:
         accept = False
         if best_name and best_score >= MATCH_THRESH:
             accept = True
-        elif best_name and best_score >= 0.35 and (best_score - second_score) > 0.03:
-            # Close match with clear winner — accept below threshold
+        elif best_name and best_score >= FALLBACK_THRESH and (best_score - second_score) > SECOND_MARGIN:
             accept = True
 
         if accept:
             price = best_price
+            if price > 0 and self._chaos_per_ex > 0:
+                price /= self._chaos_per_ex
             api_id = best_name.lower().replace(" ", "-").replace("'", "")
             if api_id in self._prices:
                 price = self._prices[api_id]
-            elif price > 0 and price >= 10 and self._chaos_per_ex > 1:
-                price /= self._chaos_per_ex
             return best_name, best_score, price
         return None, best_score, 0
 
@@ -348,8 +366,15 @@ class RitualWatcher:
     def _tick(self):
         try:
             screen = self._cap()
-        except Exception:
+        except Exception as e:
+            if not hasattr(self, "_cap_err_count"):
+                self._cap_err_count = 0
+            self._cap_err_count += 1
+            if self._cap_err_count <= 1:
+                print(f"[ritual] Screen capture error: {e}", flush=True)
             return
+        else:
+            self._cap_err_count = 0
 
         anchor = self.detector.find_anchor(screen)
         if anchor is None:
