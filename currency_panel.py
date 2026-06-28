@@ -145,22 +145,10 @@ class CurrencyRatesPanel(QWidget):
             self._update_label.setText(f"err: {str(e)[:60]}")
 
     def _fetch_all_currency_items(self):
-        """Fetch all currency items in one pass, cached per refresh tick."""
-        all_items = []
-        for page in range(1, 4):
-            url = f"poe2/Leagues/{self._scout.league_encoded}/Currencies/ByCategory?Category=currency&Page={page}"
-            data = self._scout._req(url)
-            if not data:
-                break
-            items = data.get("Items", [])
-            if not items:
-                break
-            all_items.extend(items)
-        return all_items
+        """Fetch currency items using the shared scout's 600s cache."""
+        return self._scout.fetch_items_by_category("currency", "Currencies")
 
-    def _update_icons(self, all_items=None):
-        if all_items is None:
-            all_items = self._fetch_all_currency_items()
+    def _update_icons(self, all_items):
         for item in all_items:
             api_id = (item.get("ApiId") or "").lower()
             icon_url = item.get("IconUrl")
@@ -187,9 +175,7 @@ class CurrencyRatesPanel(QWidget):
         except Exception as e:
             print(f"[currency_panel] icon load fail {api_id}: {e}", flush=True)
 
-    def _update_display(self, all_items=None):
-        if all_items is None:
-            all_items = self._fetch_all_currency_items()
+    def _update_display(self, all_items):
         item_by_api = {}
         for item in all_items:
             api = (item.get("ApiId") or "").lower()

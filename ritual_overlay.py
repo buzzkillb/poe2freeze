@@ -175,30 +175,19 @@ class RitualDetector:
         print(f"[ritual] Loaded {len(self._icons)} icon templates", flush=True)
 
     def _fetch_prices(self):
-        le = self._scout.league_encoded
         fetched = 0
         try:
-            for page in range(1, 5):
-                data = self._scout._req(
-                    f"poe2/Leagues/{le}/Currencies/ByCategory?Category=ritual&Page={page}"
-                )
-                if not data:
-                    break
-                for it in data.get("Items", []):
-                    aid = it.get("ApiId")
-                    if aid and it.get("CurrentPrice") is not None:
-                        self._prices[aid] = float(it["CurrentPrice"])
-                        fetched += 1
-            items_data = self._scout._req(
-                f"poe2/Leagues/{le}/Items?perPage=2000"
-            )
-            if items_data:
-                for it in items_data:
-                    n = it.get("Name") or ""
-                    aid = n.lower().replace("'", "").replace(" ", "-")
-                    if aid and it.get("CurrentPrice") is not None and aid not in self._prices:
-                        self._prices[aid] = float(it["CurrentPrice"])
-                        fetched += 1
+            for it in self._scout.fetch_items_by_category("ritual", "Currencies"):
+                aid = it.get("ApiId")
+                if aid and it.get("CurrentPrice") is not None:
+                    self._prices[aid] = float(it["CurrentPrice"])
+                    fetched += 1
+            for it in self._scout.fetch_all_items():
+                n = it.get("Name") or ""
+                aid = n.lower().replace("'", "").replace(" ", "-")
+                if aid and it.get("CurrentPrice") is not None and aid not in self._prices:
+                    self._prices[aid] = float(it["CurrentPrice"])
+                    fetched += 1
         except Exception as e:
             print(f"[ritual] Price fetch error: {e}", flush=True)
         print(f"[ritual] {fetched} prices loaded", flush=True)
