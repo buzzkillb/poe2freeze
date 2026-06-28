@@ -35,7 +35,8 @@ ALPHA_THRESH = 40
 MASK_THRESH = 30
 MASK_MIN_PIXELS = 100
 OCCUPIED_MEAN_THRESH = 22
-GRID_MEAN_THRESH = 20
+GRID_MEAN_THRESH = 35
+MIN_OCCUPIED_SLOTS = 5
 ASPECT_TOLERANCE = 1.5
 AREA_MIN_RATIO = 0.3
 AREA_MAX_RATIO = 3.0
@@ -402,6 +403,8 @@ class RitualWatcher:
         self._menu_open = True
 
         slots = self.detector.find_occupied_slots(screen, anchor)
+        if len(slots) < MIN_OCCUPIED_SLOTS:
+            return
         h = hash(tuple(sorted((r, c) for r, c, _, _ in slots)))
 
         # Pick up completed background match results (only if hash matches)
