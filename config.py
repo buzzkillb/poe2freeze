@@ -109,7 +109,6 @@ CURRENCY_TAGS = {
     "regret": "regret",
     "orb of regret": "regret",
     "blessed": "blessed",
-    "orb of alchemy": "alch",
     "vaal": "vaal",
     "annul": "annul",
     "annulment": "annul",

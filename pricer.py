@@ -740,54 +740,6 @@ def price_tablet(item: Dict, registry: DataSourceRegistry) -> Dict:
                         "listings": listings,
                     }
 
-    result = registry.trade.search_items(query)
-    if result and result.get("result"):
-        ids = result["result"][:10]
-        fetched = registry.trade.fetch_results(result["id"], ids)
-        if fetched:
-            converter = registry.get_converter()
-            listings = []
-            for entry in fetched.get("result", []):
-                if not entry:
-                    continue
-                p = entry.get("listing", {})
-                price_info = p.get("price", {})
-                amount = price_info.get("amount", 0)
-                currency = price_info.get("currency", "")
-                indexed = p.get("indexed", "")
-                if amount > 0 and currency:
-                    norm = converter.normalize_to_all(amount, currency)
-                    if norm.get("chaos", 0) > 0:
-                        listings.append({
-                            "price_exalted": norm.get("exalted", 0),
-                            "amount": amount,
-                            "currency": currency,
-                            "indexed": indexed,
-                            "time_ago": _time_ago(indexed) if indexed else "",
-                        })
-            if listings:
-                cache_price(
-                    key=cache_key,
-                    kind="tablet",
-                    base=base,
-                    name=name,
-                    chaos=listings[0]["price_exalted"],
-                    divine=0,
-                    exalted=listings[0]["price_exalted"],
-                    listing_count=len(listings),
-                    detail={"source": "trade2", "listings": listings},
-                    ttl_seconds=CACHE_TTL["default"],
-                )
-                return {
-                    "kind": "tablet",
-                    "name": name,
-                    "base": base,
-                    "normalized": converter.from_exalted(listings[0]["price_exalted"]),
-                    "cached": False,
-                    "source": "trade2",
-                    "listing_count": len(listings),
-                    "listings": listings,
-                }
     sc_result = registry.scout.lookup_item_by_name(base, item_type=None, category="map")
     if sc_result:
         converter = registry.get_converter()

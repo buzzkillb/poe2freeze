@@ -268,9 +268,10 @@ class RitualDetector:
         item_aspect = float(item_w) / item_h if item_h > 0 else 1.0
         item_area = item_w * item_h
 
-        # Resize crop to match precomputed icon size
+        # Resize crop and mask to match precomputed icon size
         cg_rs = cv2.resize(cg, (CROP_SIZE, CROP_SIZE))
         crop_rs = cv2.resize(crop, (CROP_SIZE, CROP_SIZE))
+        mask_rs = cv2.resize(mask, (CROP_SIZE, CROP_SIZE))
 
         best_name, best_score, best_price = None, 0.0, 0.0
         second_score = 0.0
@@ -286,10 +287,10 @@ class RitualDetector:
             # Template match with pre-resized icons (no resize in hot loop)
             tm = cv2.matchTemplate(cg_rs, data["gray"], cv2.TM_CCOEFF_NORMED)[0][0]
 
-            # Color similarity using mask on pre-resized crop
+            # Color similarity using resized mask on resized crop
             cs = max(0, 1.0 - np.linalg.norm(
-                np.array(cv2.mean(crop_rs, mask=mask)[:3]) -
-                np.array(cv2.mean(data["img"], mask=mask)[:3])
+                np.array(cv2.mean(crop_rs, mask=mask_rs)[:3]) -
+                np.array(cv2.mean(data["img"], mask=mask_rs)[:3])
             ) / 255)
             score = tm * 0.5 + cs * 0.5
             if score > best_score:
