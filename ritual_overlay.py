@@ -145,20 +145,27 @@ class RitualDetector:
             img = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
             if img is None:
                 continue
+            icon_mask = None
             if img.shape[-1] == 4:
                 b, g, r, a = cv2.split(img)
-                m = (a > ALPHA_THRESH).astype(np.uint8) * 255
+                icon_mask = (a > ALPHA_THRESH).astype(np.uint8) * 255
                 fg = cv2.merge([b, g, r])
                 bg = np.full(img.shape[:2] + (3,), BG_COLOR, dtype=np.uint8)
                 comp = fg.copy()
-                comp[m == 0] = bg[m == 0]
+                comp[icon_mask == 0] = bg[icon_mask == 0]
                 img = comp
             h, wi = img.shape[:2]
-            # Pre-resize to standard crop size for fast matching
+            # Pre-resize to standard crop size
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             gray_rs = cv2.resize(gray, (CROP_SIZE, CROP_SIZE))
             img_rs = cv2.resize(img, (CROP_SIZE, CROP_SIZE))
-            # Precompute template stats for normalized correlation
+            # Resize icon mask for color precomputation
+            if icon_mask is not None:
+                icon_mask_rs = cv2.resize(icon_mask, (CROP_SIZE, CROP_SIZE))
+                icon_color = np.array(cv2.mean(img_rs, mask=icon_mask_rs)[:3])
+            else:
+                icon_color = np.array(cv2.mean(img_rs)[:3])
+            # Precompute template stats
             t_mean = float(gray_rs.mean())
             t_std = float(gray_rs.std())
             icon_list.append({
@@ -167,6 +174,7 @@ class RitualDetector:
                 "gray": gray_rs,
                 "gray_flat": gray_rs.ravel().astype(np.float32) - t_mean,
                 "gray_std": t_std if t_std > 0 else 1.0,
+                "avg_color": icon_color,
                 "price": item.get("currentPrice", 0),
                 "aspect": float(wi) / h if h > 0 else 1.0,
                 "area": h * wi,
@@ -285,6 +293,8 @@ class RitualDetector:
         c_mean = float(crop_f.mean())
         c_norm = float(crop_f.std()) or 1.0
         c_centered = crop_f - c_mean
+        # Precompute slot item color once (not per-icon)
+        slot_color = np.array(cv2.mean(crop_rs, mask=mask_rs)[:3])
 
         # Batch correlation: one matmul gives all template scores
         batch_size = min(200, len(self._icons))
@@ -313,11 +323,8 @@ class RitualDetector:
                 if max_possible < MATCH_THRESH and max_possible < best_score:
                     continue
 
-                # Color similarity
-                cs = max(0, 1.0 - np.linalg.norm(
-                    np.array(cv2.mean(crop_rs, mask=mask_rs)[:3])
-                    - np.array(cv2.mean(data["img"], mask=mask_rs)[:3])
-                ) / 255)
+                # Color similarity using precomputed icon color
+                cs = max(0, 1.0 - np.linalg.norm(slot_color - data["avg_color"]) / 255)
                 score = tm * 0.5 + cs * 0.5
                 if score > best_score:
                     second_score = best_score
