@@ -48,7 +48,7 @@ def get_db():
     global _shared_db
     if _shared_db is None:
         DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-        _shared_db = sqlite3.connect(str(DB_PATH), timeout=10)
+        _shared_db = sqlite3.connect(str(DB_PATH), timeout=10, check_same_thread=False)
         _shared_db.row_factory = sqlite3.Row
         _shared_db.execute("PRAGMA journal_mode=WAL")
         _shared_db.execute("PRAGMA synchronous=NORMAL")

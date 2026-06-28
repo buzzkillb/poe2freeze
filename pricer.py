@@ -455,7 +455,7 @@ def price_gem(item: Dict, registry: DataSourceRegistry) -> Dict:
     name = item.get("base") or item.get("name", "")
     level = item.get("gem_level", 0)
     quality = item.get("quality", 0)
-    cached = find_price_by_name(f"{name}|{level}|{quality}", "gem")
+    cached = get_price(f"gem:{name}|{level}|{quality}")
     if cached:
         converter = registry.get_converter()
         return {

@@ -151,11 +151,10 @@ def build_full_icon_database():
     failed = []
     with ThreadPoolExecutor(max_workers=8) as ex:
         futures = {}
-    for item in items_to_download:
-        dest = icons_dir / Path(item["iconLocal"]).name
-        fut = ex.submit(download_icon, item["iconUrl"], dest)
+        for item in items_to_download:
+            dest = icons_dir / Path(item["iconLocal"]).name
+            fut = ex.submit(download_icon, item["iconUrl"], dest)
             futures[fut] = item["name"]
-
         for fut in as_completed(futures):
             name = futures[fut]
             try:
