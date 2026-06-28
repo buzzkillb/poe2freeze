@@ -119,7 +119,6 @@ class RitualDetector:
 
         # Prices
         self._prices: Dict[str, float] = {}
-        self._chaos_per_ex = 1.0
         self._fetch_prices()
 
     def _load_icons(self):
@@ -169,18 +168,6 @@ class RitualDetector:
 
     def _fetch_prices(self):
         le = urllib.parse.quote(self.league, safe="")
-        try:
-            r = urllib.request.Request(
-                f"{POE2SCOUT_BASE}/poe2/Leagues/{le}/ReferenceCurrencies",
-                headers={"User-Agent": "mypoeapp/1.0"},
-            )
-            with urllib.request.urlopen(r, timeout=15) as resp:
-                for e in json.loads(resp.read()):
-                    if e.get("ApiId") == "chaos":
-                        self._chaos_per_ex = float(e.get("RelativePrice", 1.0))
-        except Exception as e:
-            print(f"[ritual] ReferenceCurrencies fetch error: {e}", flush=True)
-
         fetched = 0
         try:
             for page in range(1, 5):
@@ -191,8 +178,6 @@ class RitualDetector:
                         aid = it.get("ApiId")
                         if aid and it.get("CurrentPrice") is not None:
                             raw = float(it["CurrentPrice"])
-                            if raw >= 10 and self._chaos_per_ex > 1:
-                                raw /= self._chaos_per_ex
                             self._prices[aid] = raw
                             fetched += 1
             r = urllib.request.Request(
@@ -205,14 +190,11 @@ class RitualDetector:
                     aid = n.lower().replace("'", "").replace(" ", "-")
                     if aid and it.get("CurrentPrice") is not None and aid not in self._prices:
                         raw = float(it["CurrentPrice"])
-                        # /Items prices are in exalts; convert to chaos
-                        if self._chaos_per_ex > 0:
-                            raw /= self._chaos_per_ex
                         self._prices[aid] = raw
                         fetched += 1
         except Exception as e:
             print(f"[ritual] Price fetch error: {e}", flush=True)
-        print(f"[ritual] {fetched} prices (c/ex={self._chaos_per_ex:.2f})", flush=True)
+        print(f"[ritual] {fetched} prices loaded", flush=True)
 
     def find_anchor(self, screen):
         """Find ritual grid top-left corner. Uses template matching + known offsets for 4K."""
@@ -326,8 +308,6 @@ class RitualDetector:
 
         if accept:
             price = best_price
-            if price > 0 and self._chaos_per_ex > 0:
-                price /= self._chaos_per_ex
             api_id = best_name.lower().replace(" ", "-").replace("'", "")
             if api_id in self._prices:
                 price = self._prices[api_id]
@@ -405,12 +385,12 @@ def _fmt(price):
     if price >= 1000:
         return f"{price/1000:.1f}kx"
     if price >= 10:
-        return f"{price:.0f}c"
+        return f"{price:.0f}"
     if price >= 1:
-        return f"{price:.1f}c"
+        return f"{price:.1f}"
     if price >= 0.01:
-        return f"{price:.2f}c"
-    return f"{price:.3f}c"
+        return f"{price:.2f}"
+    return f"{price:.3f}"
 
 
 def _build_capture():
