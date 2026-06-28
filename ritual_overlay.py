@@ -18,16 +18,15 @@ from PyQt5.QtGui import QColor, QFont, QFontMetrics, QPainter, QPen, QBrush
 from PyQt5.QtWidgets import QWidget, QApplication
 
 DATA_DIR = Path(__file__).parent / "data"
-TPL_DIR = DATA_DIR / "ritual_templates"
 ICONS_DIR = DATA_DIR / "unique_icons" / "icons"
 DB_PATH = DATA_DIR / "unique_icons" / "database.json"
-POE2SCOUT_BASE = "https://poe2scout.com/api"
 
-ANCHOR_THRESH = 0.55
+ANCHOR_THRESH = 0.50
 SLOT_SIZE = 105
 SLOT_COLS = 12
 SLOT_ROWS = 10
 CROP_SIZE = 95
+CROP_INSET = 5
 MATCH_THRESH = 0.40
 FALLBACK_THRESH = 0.35
 SECOND_MARGIN = 0.03
@@ -35,7 +34,7 @@ ALPHA_THRESH = 40
 MASK_THRESH = 30
 MASK_MIN_PIXELS = 100
 OCCUPIED_MEAN_THRESH = 22
-GRID_MEAN_THRESH = 35
+GRID_MEAN_THRESH = 25
 MIN_OCCUPIED_SLOTS = 5
 ASPECT_TOLERANCE = 1.5
 AREA_MIN_RATIO = 0.3
@@ -110,12 +109,6 @@ class RitualDetector:
         import config
         self.league = league or config.LEAGUE
         self._scout = scout
-
-        # Anchor templates
-        t = cv2.imread(str(TPL_DIR / "favours_header.png"))
-        self._anchor_tpl = t
-        if t is not None:
-            self._anchor_tpl_h, self._anchor_tpl_w = t.shape[:2]
 
         # Icon database for matching
         self._icons: Dict[str, dict] = {}
@@ -209,35 +202,29 @@ class RitualDetector:
         print(f"[ritual] {fetched} prices loaded", flush=True)
 
     def find_anchor(self, screen):
-        """Find ritual grid top-left corner. Uses known positions scaled to screen resolution."""
+        """Find ritual grid by scanning for 5+ items in a 12x10 slot pattern."""
         if screen is None:
             return None
         h, w = screen.shape[:2]
-        # Scale known 4K anchor positions to current resolution
+        gray = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
         sx = w / 3840
         sy = h / 2160
+
         for ax, ay in [(453, 682), (400, 680), (350, 680)]:
             ax = int(ax * sx)
             ay = int(ay * sy)
-            if ax < 0 or ay < 0 or ax + 200 >= w or ay + 300 >= h:
+            if ax < 10 or ay < 10 or ax + SLOT_SIZE * SLOT_COLS >= w or ay + SLOT_SIZE * SLOT_ROWS >= h:
                 continue
-            check = screen[ay : ay + 300, ax : ax + 200]
-            gray = cv2.cvtColor(check, cv2.COLOR_BGR2GRAY)
-            if gray.mean() > GRID_MEAN_THRESH:
+            count = 0
+            for row in range(SLOT_ROWS):
+                for col in range(SLOT_COLS):
+                    x = ax + col * SLOT_SIZE + CROP_INSET
+                    y = ay + row * SLOT_SIZE + CROP_INSET
+                    crop = gray[y : y + CROP_SIZE, x : x + CROP_SIZE]
+                    if crop.size > 0 and crop.mean() > OCCUPIED_MEAN_THRESH:
+                        count += 1
+            if count >= MIN_OCCUPIED_SLOTS:
                 return (ax, ay)
-
-        # Template-based fallback
-        if self._anchor_tpl is not None:
-            th, tw = self._anchor_tpl.shape[:2]
-            if h >= th and w >= tw:
-                r = cv2.matchTemplate(screen, self._anchor_tpl, cv2.TM_CCOEFF_NORMED)
-                _, v, _, loc = cv2.minMaxLoc(r)
-                if v >= ANCHOR_THRESH:
-                    ax = loc[0] - 315
-                    ay = loc[1] + 288
-                    if 0 <= ax < w - 100 and 0 <= ay < h - 100:
-                        return (ax, ay)
-
         return None
 
     def find_occupied_slots(self, screen, anchor):
@@ -404,6 +391,16 @@ class RitualWatcher:
 
         slots = self.detector.find_occupied_slots(screen, anchor)
         if len(slots) < MIN_OCCUPIED_SLOTS:
+            return
+
+        # Validate grid pattern: real ritual items should be in a regular 105px grid
+        cols_used = set()
+        rows_used = set()
+        for r, c, _, _ in slots:
+            cols_used.add(c)
+            rows_used.add(r)
+        # Real ritual menu: items spread across multiple columns and rows
+        if len(cols_used) < 2 or len(rows_used) < 2:
             return
         h = hash(tuple(sorted((r, c) for r, c, _, _ in slots)))
 
