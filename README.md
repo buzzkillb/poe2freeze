@@ -16,6 +16,8 @@ python overlay.py
 
 Map a controller button to Ctrl+C via Steam Input for controller use.
 
+See also: [Smooth PoE2 Performance Settings](poe2_settings.md) — tested config for RTX 5080 + 9800X3D, 120 FPS no-crash.
+
 ## Clipboard Pricer
 
 Press Ctrl+C on any item in PoE2 and a tooltip appears next to your cursor showing:
