@@ -204,11 +204,12 @@ def main(hotkey: str = None):
 
     print(f"[overlay] starting, mode=poll-clipboard", flush=True)
 
-    status = StatusWindow(hotkey)
-    status.show()
-    status.raise_()
+    # Status window disabled
+    # status = StatusWindow(hotkey)
+    # status.show()
+    # status.raise_()
 
-    pricer = Pricer(overlay, app, status)
+    pricer = Pricer(overlay, app, None)
 
     pending_timer = QTimer()
     pending_timer.timeout.connect(pricer.check_pending)
