@@ -29,9 +29,13 @@ class CurrencyRatesPanel(QWidget):
 
     ICON_CACHE_DIR = Path(__file__).parent / "data" / "icons"
 
-    def __init__(self, league: str = "Runes of Aldur"):
+    def __init__(self, scout: "Poe2ScoutSource" = None):
         super().__init__()
-        self.league = league
+        if scout is None:
+            from config import LEAGUE
+            scout = Poe2ScoutSource(LEAGUE)
+        self._scout = scout
+        self.league = self._scout.league
         self.setWindowFlags(
             Qt.FramelessWindowHint
             | Qt.WindowStaysOnTopHint
@@ -71,7 +75,7 @@ class CurrencyRatesPanel(QWidget):
         self._main_layout.setContentsMargins(20, 16, 20, 16)
         self._main_layout.setSpacing(6)
 
-        self._title = QLabel("Currency Exchange")
+        self._title = QLabel(f"Currency — {self.league}")
         self._title.setStyleSheet(self._title_style())
         self._title.setAlignment(Qt.AlignCenter)
         self._main_layout.addWidget(self._title)
@@ -92,7 +96,6 @@ class CurrencyRatesPanel(QWidget):
         self._update_timer.timeout.connect(self._refresh)
         self._update_timer.start(5 * 60 * 1000)
 
-        self._scout = Poe2ScoutSource(league)
         self._refresh()
 
     def _row_style(self):
@@ -139,25 +142,13 @@ class CurrencyRatesPanel(QWidget):
             from datetime import datetime
             self._update_label.setText(f"updated {datetime.now().strftime('%H:%M:%S')}")
         except Exception as e:
-            self._update_label.setText(f"err: {str(e)[:30]}")
+            self._update_label.setText(f"err: {str(e)[:60]}")
 
     def _fetch_all_currency_items(self):
-        """Fetch all currency items in one pass, cached per refresh tick."""
-        all_items = []
-        for page in range(1, 4):
-            url = f"poe2/Leagues/{self._scout.league_encoded}/Currencies/ByCategory?Category=currency&Page={page}"
-            data = self._scout._req(url)
-            if not data:
-                break
-            items = data.get("Items", [])
-            if not items:
-                break
-            all_items.extend(items)
-        return all_items
+        """Fetch currency items using the shared scout's 600s cache."""
+        return self._scout.fetch_items_by_category("currency", "Currencies")
 
-    def _update_icons(self, all_items=None):
-        if all_items is None:
-            all_items = self._fetch_all_currency_items()
+    def _update_icons(self, all_items):
         for item in all_items:
             api_id = (item.get("ApiId") or "").lower()
             icon_url = item.get("IconUrl")
@@ -184,9 +175,7 @@ class CurrencyRatesPanel(QWidget):
         except Exception as e:
             print(f"[currency_panel] icon load fail {api_id}: {e}", flush=True)
 
-    def _update_display(self, all_items=None):
-        if all_items is None:
-            all_items = self._fetch_all_currency_items()
+    def _update_display(self, all_items):
         item_by_api = {}
         for item in all_items:
             api = (item.get("ApiId") or "").lower()
@@ -198,10 +187,11 @@ class CurrencyRatesPanel(QWidget):
         if not refs:
             self._update_label.setText("rates unavailable")
             return
-        chaos_per_ex = refs.get("chaos", 1)
-        divine_per_ex = refs.get("divine", 1)
-        if chaos_per_ex <= 1 or divine_per_ex <= 1:
+        ex_per_chaos = refs.get("chaos", 0)
+        ex_per_divine = refs.get("divine", 0)
+        if ex_per_chaos <= 0 or ex_per_divine <= 0:
             self._update_label.setText("rates incomplete")
+            return
         sorted_keys = sorted(
             [k for k in self._currency_keys if k in item_by_api],
             key=lambda k: item_by_api[k],
@@ -215,11 +205,12 @@ class CurrencyRatesPanel(QWidget):
             name = self._display_names.get(key, key)
             parts = [f"<b>{name}:</b>"]
             parts.append(f"<span style='color:{self._color_to_hex(self.PO2_GOLD_BRIGHT)}'>{ex_price:.1f}ex</span>")
-            if ex_price >= chaos_per_ex:
-                chaos_amt = ex_price / chaos_per_ex
-                parts.append(f"<span style='color:{self._color_to_hex(self.PO2_CHAOS)}'>{chaos_amt:.0f}c</span>")
-            if ex_price >= divine_per_ex:
-                divine_amt = ex_price / divine_per_ex
+            if ex_price >= ex_per_chaos:
+                chaos_amt = ex_price / ex_per_chaos
+                fmt = ".1f" if chaos_amt < 1 else ".0f"
+                parts.append(f"<span style='color:{self._color_to_hex(self.PO2_CHAOS)}'>{chaos_amt:{fmt}}c</span>")
+            if ex_price >= ex_per_divine:
+                divine_amt = ex_price / ex_per_divine
                 parts.append(f"<span style='color:{self._color_to_hex(self.PO2_DIVINE)}'>{divine_amt:.1f}d</span>")
             widgets["text"].setText("  ".join(parts))
         if sorted_keys != self._current_order:

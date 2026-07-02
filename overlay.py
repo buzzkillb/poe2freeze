@@ -40,7 +40,7 @@ def _format_display(result: Dict) -> tuple:
     corrupted = parsed.get("corrupted", False) or result.get("corrupted", False)
     tier = result.get("tier", 0)
     gem_level = parsed.get("level", 0)
-    quality = result.get("quality", 0)
+    quality = parsed.get("quality", 0)
     source = result.get("source", "unknown")
     if not normalized:
         return f"{display_name} [{rarity}]\nno price data", QColor(180, 180, 180)
@@ -60,6 +60,13 @@ def _format_display(result: Dict) -> tuple:
         parts.append(f"L{gem_level}/Q{quality}")
     parts.append(f"{_fmt_currency(exalted)}ex  ({_fmt_currency(chaos)}c / {_fmt_currency(divine)}d)")
     parts.append(f"n={count} {age_str}{cache_marker} [{source}]")
+    listings = result.get("listings", [])
+    if listings:
+        parts.append("---")
+        for i, l in enumerate(listings[:10]):
+            px = _fmt_currency(l["price_exalted"])
+            rel = l.get("time_ago", "?")
+            parts.append(f"  {i+1}. {px}ex ({l['amount']} {l['currency']}) {rel}")
     text = "\n".join(parts)
     if exalted >= 100:
         color = QColor(255, 75, 75)
@@ -182,7 +189,13 @@ def main(hotkey: str = None):
     overlay = PriceOverlay()
     overlay.show_at(QPoint(100, 100), "PoE2 Ninja Pricer\nREADY", 2000)
 
-    currency_panel = CurrencyRatesPanel(LEAGUE)
+    from data_sources import Poe2ScoutSource
+    _shared_scout = Poe2ScoutSource(LEAGUE)
+    # Background warmup: pre-fetch all categories so first lookups are instant
+    import threading as _thr
+    _thr.Thread(target=_shared_scout.fetch_all_currency_prices, daemon=True).start()
+    _thr.Thread(target=_shared_scout.fetch_all_unique_prices, daemon=True).start()
+    currency_panel = CurrencyRatesPanel(_shared_scout)
     currency_panel.move_to_top_left()
     currency_panel.show()
 
@@ -200,6 +213,11 @@ def main(hotkey: str = None):
     pending_timer = QTimer()
     pending_timer.timeout.connect(pricer.check_pending)
     pending_timer.start(50)
+
+    # Ritual overlay disabled for now
+    # ritual_overlay_w = None
+    # ritual_watcher = None
+    print(f"[overlay] ritual watcher disabled", flush=True)
 
     if QSystemTrayIcon.isSystemTrayAvailable():
         try:

@@ -33,11 +33,17 @@ def _ensure_loaded():
     global _skill_gems, _base_type_index
     if _base_types is not None:
         return
-    _item_classes = {c["Id"]: c for c in (_load_json("itemclasses.json") or [])}
+    _item_classes = {
+        c["Id"]: c for c in (_load_json("itemclasses.json") or [])
+        if not (c.get("Id") or "").startswith("DONOTUSE")
+    }
     _base_types = _load_json("baseitemtypes.json") or []
     _currency_exchange = _load_json("currencyexchange.json") or []
     _currency_items = _load_json("currencyitems.json") or []
-    _skill_gems = _load_json("skillgems.json") or []
+    _skill_gems = [
+        g for g in (_load_json("skillgems.json") or [])
+        if "Unknown" not in str((g.get("BaseItemTypesKey") or {}).get("Id", ""))
+    ]
     _base_type_index = {}
     for entry in _base_types:
         name = entry.get("Name", "")
@@ -132,8 +138,7 @@ _CLASS_TO_TRADE_ID = {
     "Talisman": "weapon.talisman",
     "LifeFlask": "flask.life",
     "ManaFlask": "flask.mana",
-    "UtilityFlask": "flask.utility",
-    "Charm": "flask.charm",
+    "UtilityFlask": "flask.charm",
     "Jewel": "jewel",
     "AbyssJewel": "jewel.abyss",
     "Active Skill Gem": "gem.activegem",
@@ -173,8 +178,17 @@ def get_skill_gems() -> List[Dict]:
 def find_currency_by_name(name: str) -> Optional[Dict]:
     _ensure_loaded()
     name_lower = name.lower().strip()
+    # Build id→name index from base_types
+    name_by_id = {}
+    for b in _base_types:
+        bid = (b.get("BaseItemTypesKey") or {}).get("Id") or b.get("Id", "")
+        bname = b.get("Name", "")
+        if bid and bname:
+            name_by_id[bid] = bname
     for entry in _currency_items:
-        if (entry.get("Name") or "").lower() == name_lower:
+        meta_id = (entry.get("BaseItemTypesKey") or {}).get("Id", "")
+        cname = name_by_id.get(meta_id, "")
+        if cname.lower() == name_lower:
             return entry
     return None
 
@@ -192,7 +206,19 @@ def find_unique_by_name(name: str) -> Optional[Dict]:
 
 def get_all_currency_names() -> List[str]:
     _ensure_loaded()
-    return [e.get("Name") for e in _currency_items if e.get("Name")]
+    name_by_id = {}
+    for b in _base_types:
+        bid = (b.get("BaseItemTypesKey") or {}).get("Id") or b.get("Id", "")
+        bname = b.get("Name", "")
+        if bid and bname:
+            name_by_id[bid] = bname
+    result = []
+    for e in _currency_items:
+        meta_id = (e.get("BaseItemTypesKey") or {}).get("Id", "")
+        cname = name_by_id.get(meta_id, "")
+        if cname:
+            result.append(cname)
+    return result
 
 
 def get_all_unique_names() -> List[str]:

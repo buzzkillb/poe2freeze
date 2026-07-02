@@ -1,0 +1,6268 @@
+{
+  "items": [
+    {
+      "apiId": "raven-touched-shard",
+      "name": "Raven-Touched Shard",
+      "price_exalted": 36848.82313495749,
+      "quantity": 273,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvRGVsaXJpdW0vRGVsaXJpdW1FbmRnYW1lU29ja2V0YWJsZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/8ad4972b7b/DeliriumEndgameSocketable.png",
+      "icon_local": "raven-touched-shard.png",
+      "icon_filename": "DeliriumEndgameSocketable.png"
+    },
+    {
+      "apiId": "omen-of-chance",
+      "name": "Omen of Chance",
+      "price_exalted": 5092.274517339688,
+      "quantity": 432,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhbmNlTm90RGVzdHJveSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/461b794959/OmenOnChanceNotDestroy.png",
+      "icon_local": "omen-of-chance.png",
+      "icon_filename": "OmenOnChanceNotDestroy.png"
+    },
+    {
+      "apiId": "omen-of-sinistral-annulment",
+      "name": "Omen of Sinistral Annulment",
+      "price_exalted": 4255.2264824083895,
+      "quantity": 2862,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMyUHVycGxlIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/b9eaf38592/VoodooOmens2Purple.png",
+      "icon_local": "omen-of-sinistral-annulment.png",
+      "icon_filename": "VoodooOmens2Purple.png"
+    },
+    {
+      "apiId": "omen-of-sinistral-erasure",
+      "name": "Omen of Sinistral Erasure",
+      "price_exalted": 3873.0320256414857,
+      "quantity": 2921,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMyRGFyayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/0cfa6959be/VoodooOmens2Dark.png",
+      "icon_local": "omen-of-sinistral-erasure.png",
+      "icon_filename": "VoodooOmens2Dark.png"
+    },
+    {
+      "apiId": "omen-of-light",
+      "name": "Omen of Light",
+      "price_exalted": 3244.760846599775,
+      "quantity": 12923,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQW5udWxSZW1vdmVBYnlzc01vZCIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/eb39bcb3d7/OmenOnAnnulRemoveAbyssMod.png",
+      "icon_local": "omen-of-light.png",
+      "icon_filename": "OmenOnAnnulRemoveAbyssMod.png"
+    },
+    {
+      "apiId": "omen-of-whittling",
+      "name": "Omen of Whittling",
+      "price_exalted": 2545.542385069358,
+      "quantity": 16347,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMxRGFyayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/2dea0999d5/VoodooOmens1Dark.png",
+      "icon_local": "omen-of-whittling.png",
+      "icon_filename": "VoodooOmens1Dark.png"
+    },
+    {
+      "apiId": "omen-of-dextral-annulment",
+      "name": "Omen of Dextral Annulment",
+      "price_exalted": 2489.0440286257262,
+      "quantity": 3012,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMzUHVycGxlIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/d901658529/VoodooOmens3Purple.png",
+      "icon_local": "omen-of-dextral-annulment.png",
+      "icon_filename": "VoodooOmens3Purple.png"
+    },
+    {
+      "apiId": "omen-of-dextral-erasure",
+      "name": "Omen of Dextral Erasure",
+      "price_exalted": 2446.679265740909,
+      "quantity": 2801,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMzRGFyayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/6e2bb52963/VoodooOmens3Dark.png",
+      "icon_local": "omen-of-dextral-erasure.png",
+      "icon_filename": "VoodooOmens3Dark.png"
+    },
+    {
+      "apiId": "head-of-the-king",
+      "name": "Head of the King",
+      "price_exalted": 273.97154331059954,
+      "quantity": 4312,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvUXVlc3RJdGVtcy9LaW5nb2Z0aGVNaXN0SGVhZCIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/254e341ba3/KingoftheMistHead.png",
+      "icon_local": "head-of-the-king.png",
+      "icon_filename": "KingoftheMistHead.png"
+    },
+    {
+      "apiId": "omen-of-dextral-crystallisation",
+      "name": "Omen of Dextral Crystallisation",
+      "price_exalted": 132.51837978414372,
+      "quantity": 6155,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uUGVyZmVjdEVzc2VuY2VTdWZmaXgiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/7ec019819e/OmenOnPerfectEssenceSuffix.png",
+      "icon_local": "omen-of-dextral-crystallisation.png",
+      "icon_filename": "OmenOnPerfectEssenceSuffix.png"
+    },
+    {
+      "apiId": "omen-of-the-hunt",
+      "name": "Omen of the Hunt",
+      "price_exalted": 118.35635146223082,
+      "quantity": 47,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnM0R3JlZW4iLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/4800eedd0e/VoodooOmens4Green.png",
+      "icon_local": "omen-of-the-hunt.png",
+      "icon_filename": "VoodooOmens4Green.png"
+    },
+    {
+      "apiId": "omen-of-chaotic-rarity",
+      "name": "Omen of Chaotic Rarity",
+      "price_exalted": 107.68624743514707,
+      "quantity": 13934,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhb3NNYXBJdGVtUmFyaXR5Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/e7d9f8657d/OmenOnChaosMapItemRarity.png",
+      "icon_local": "omen-of-chaotic-rarity.png",
+      "icon_filename": "OmenOnChaosMapItemRarity.png"
+    },
+    {
+      "apiId": "omen-of-abyssal-echoes",
+      "name": "Omen of Abyssal Echoes",
+      "price_exalted": 103.92412450002757,
+      "quantity": 34257,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NSZXJvbGxPcHRpb25zIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/9690f99016/OmenOnAbyssRerollOptions.png",
+      "icon_local": "omen-of-abyssal-echoes.png",
+      "icon_filename": "OmenOnAbyssRerollOptions.png"
+    },
+    {
+      "apiId": "omen-of-secret-compartments",
+      "name": "Omen of Secret Compartments",
+      "price_exalted": 73.71352928879675,
+      "quantity": 51,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnM0RGFyayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/a152f2714f/VoodooOmens4Dark.png",
+      "icon_local": "omen-of-secret-compartments.png",
+      "icon_filename": "VoodooOmens4Dark.png"
+    },
+    {
+      "apiId": "omen-of-chaotic-quantity",
+      "name": "Omen of Chaotic Quantity",
+      "price_exalted": 89.508178228717,
+      "quantity": 21255,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhb3NNYXBQYWNrU2l6ZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/9ea6c86009/OmenOnChaosMapPackSize.png",
+      "icon_local": "omen-of-chaotic-quantity.png",
+      "icon_filename": "OmenOnChaosMapPackSize.png"
+    },
+    {
+      "apiId": "omen-of-sanctification",
+      "name": "Omen of Sanctification",
+      "price_exalted": 84.8510506628865,
+      "quantity": 693,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uRGl2aW5lU2FuY3RpZnkiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/895416b2b9/OmenOnDivineSanctify.png",
+      "icon_local": "omen-of-sanctification.png",
+      "icon_filename": "OmenOnDivineSanctify.png"
+    },
+    {
+      "apiId": "omen-of-chaotic-monsters",
+      "name": "Omen of Chaotic Monsters",
+      "price_exalted": 68.90791257907956,
+      "quantity": 12947,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhb3NNYXBJdGVtUXVhbnRpdHkiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/dcd21d0252/OmenOnChaosMapItemQuantity.png",
+      "icon_local": "omen-of-chaotic-monsters.png",
+      "icon_filename": "OmenOnChaosMapItemQuantity.png"
+    },
+    {
+      "apiId": "omen-of-the-blessed",
+      "name": "Omen of the Blessed",
+      "price_exalted": 72.72964514862545,
+      "quantity": 1646,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uRGl2aW5lUmVyb2xsSW1wbGljaXRzIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/d910191d85/OmenOnDivineRerollImplicits.png",
+      "icon_local": "omen-of-the-blessed.png",
+      "icon_filename": "OmenOnDivineRerollImplicits.png"
+    },
+    {
+      "apiId": "omen-of-reinforcements",
+      "name": "Omen of Reinforcements",
+      "price_exalted": 47.23809523809524,
+      "quantity": 36,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnM0UHVycGxlIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/bed352248c/VoodooOmens4Purple.png",
+      "icon_local": "omen-of-reinforcements.png",
+      "icon_filename": "VoodooOmens4Purple.png"
+    },
+    {
+      "apiId": "omen-of-the-blackblooded",
+      "name": "Omen of the Blackblooded",
+      "price_exalted": 62.08645608949292,
+      "quantity": 643,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NHdWFyZW50ZWVkTGljaFR5cGVNb2QzIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/7fe7335409/OmenOnAbyssGuarenteedLichTypeMod3.png",
+      "icon_local": "omen-of-the-blackblooded.png",
+      "icon_filename": "OmenOnAbyssGuarenteedLichTypeMod3.png"
+    },
+    {
+      "apiId": "idol-of-eramir",
+      "name": "Idol of Eramir",
+      "price_exalted": 49.87125994476753,
+      "quantity": 164,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9mRXJhbWlyIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/16c654b06e/IdolofEramir.png",
+      "icon_local": "idol-of-eramir.png",
+      "icon_filename": "IdolofEramir.png"
+    },
+    {
+      "apiId": "omen-of-sinistral-crystallisation",
+      "name": "Omen of Sinistral Crystallisation",
+      "price_exalted": 48.60652947838285,
+      "quantity": 4747,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uUGVyZmVjdEVzc2VuY2VQcmVmaXgiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/75263d6201/OmenOnPerfectEssencePrefix.png",
+      "icon_local": "omen-of-sinistral-crystallisation.png",
+      "icon_filename": "OmenOnPerfectEssencePrefix.png"
+    },
+    {
+      "apiId": "omen-of-answered-prayers",
+      "name": "Omen of Answered Prayers",
+      "price_exalted": 36.81818181818182,
+      "quantity": 47,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnM0Qmx1ZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/ba21c85554/VoodooOmens4Blue.png",
+      "icon_local": "omen-of-answered-prayers.png",
+      "icon_filename": "VoodooOmens4Blue.png"
+    },
+    {
+      "apiId": "omen-of-chaotic-effectiveness",
+      "name": "Omen of Chaotic Effectiveness",
+      "price_exalted": 23.18571564855846,
+      "quantity": 11891,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhb3NNYXBNb25zdGVyRWZmZWN0aXZlbmVzcyIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/1dc9f3dea9/OmenOnChaosMapMonsterEffectiveness.png",
+      "icon_local": "omen-of-chaotic-effectiveness.png",
+      "icon_filename": "OmenOnChaosMapMonsterEffectiveness.png"
+    },
+    {
+      "apiId": "omen-of-sinistral-exaltation",
+      "name": "Omen of Sinistral Exaltation",
+      "price_exalted": 16.81093430435058,
+      "quantity": 6674,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMyWWVsbG93Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/6d316b47ee/VoodooOmens2Yellow.png",
+      "icon_local": "omen-of-sinistral-exaltation.png",
+      "icon_filename": "VoodooOmens2Yellow.png"
+    },
+    {
+      "apiId": "idol-of-kraityn",
+      "name": "Idol of Kraityn",
+      "price_exalted": 15.104108810086,
+      "quantity": 40,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9LcmFpdHluIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/06571f7a6a/IdoloKraityn.png",
+      "icon_local": "idol-of-kraityn.png",
+      "icon_filename": "IdoloKraityn.png"
+    },
+    {
+      "apiId": "omen-of-resurgence",
+      "name": "Omen of Resurgence",
+      "price_exalted": 15.094542537994394,
+      "quantity": 9584,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMyQmx1ZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/044d5086da/VoodooOmens2Blue.png",
+      "icon_local": "omen-of-resurgence.png",
+      "icon_filename": "VoodooOmens2Blue.png"
+    },
+    {
+      "apiId": "omen-of-amelioration",
+      "name": "Omen of Amelioration",
+      "price_exalted": 14.473029180450492,
+      "quantity": 12967,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMzQmx1ZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/b5ee965352/VoodooOmens3Blue.png",
+      "icon_local": "omen-of-amelioration.png",
+      "icon_filename": "VoodooOmens3Blue.png"
+    },
+    {
+      "apiId": "omen-of-bartering",
+      "name": "Omen of Bartering",
+      "price_exalted": 12.510848224503206,
+      "quantity": 20732,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lblNlbGxWZW5kb3JSYW5kb21pc2UiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/12ef99da8b/OmenSellVendorRandomise.png",
+      "icon_local": "omen-of-bartering.png",
+      "icon_filename": "OmenSellVendorRandomise.png"
+    },
+    {
+      "apiId": "idol-of-greust",
+      "name": "Idol of Greust",
+      "price_exalted": 31.559994195614696,
+      "quantity": 19,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9mR3JldXN0Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/04513fa428/IdolofGreust.png",
+      "icon_local": "idol-of-greust.png",
+      "icon_filename": "IdolofGreust.png"
+    },
+    {
+      "apiId": "idol-of-the-pharisee",
+      "name": "Idol of the Pharisee",
+      "price_exalted": 11.274250470935511,
+      "quantity": 49,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvUml0dWFsQ29ycnVwdGVkSWRvbDMiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/8555a2a109/RitualCorruptedIdol3.png",
+      "icon_local": "idol-of-the-pharisee.png",
+      "icon_filename": "RitualCorruptedIdol3.png"
+    },
+    {
+      "apiId": "call-of-the-shadows",
+      "name": "Call of the Shadows",
+      "price_exalted": 10.962779343657886,
+      "quantity": 10054,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvUml0dWFsL1JpdHVhbEVmZmlneVBpZWNlcyIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/6fb287c8f4/RitualEffigyPieces.png",
+      "icon_local": "call-of-the-shadows.png",
+      "icon_filename": "RitualEffigyPieces.png"
+    },
+    {
+      "apiId": "omen-of-catalysing-exaltation",
+      "name": "Omen of Catalysing Exaltation",
+      "price_exalted": 8.994328119879077,
+      "quantity": 2635,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uRXhhbHRDb25zdW1lUXVhbGl0eSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/ca4d0db767/OmenOnExaltConsumeQuality.png",
+      "icon_local": "omen-of-catalysing-exaltation.png",
+      "icon_filename": "OmenOnExaltConsumeQuality.png"
+    },
+    {
+      "apiId": "idol-of-the-sycophant",
+      "name": "Idol of the Sycophant",
+      "price_exalted": 8.311906471883077,
+      "quantity": 39,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvUml0dWFsQ29ycnVwdGVkSWRvbDEiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/cac5e993bc/RitualCorruptedIdol1.png",
+      "icon_local": "idol-of-the-sycophant.png",
+      "icon_filename": "RitualCorruptedIdol1.png"
+    },
+    {
+      "apiId": "idol-of-the-martyr",
+      "name": "Idol of the Martyr",
+      "price_exalted": 7.753735281896363,
+      "quantity": 44,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvUml0dWFsQ29ycnVwdGVkSWRvbDIiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/3d4b0cf485/RitualCorruptedIdol2.png",
+      "icon_local": "idol-of-the-martyr.png",
+      "icon_filename": "RitualCorruptedIdol2.png"
+    },
+    {
+      "apiId": "omen-of-the-ancients",
+      "name": "Omen of the Ancients",
+      "price_exalted": 7.077356128519078,
+      "quantity": 6493,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQ2hhbmNlQW5jaWVudE9yYiIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/6392c12c6d/OmenOnChanceAncientOrb.png",
+      "icon_local": "omen-of-the-ancients.png",
+      "icon_filename": "OmenOnChanceAncientOrb.png"
+    },
+    {
+      "apiId": "omen-of-dextral-exaltation",
+      "name": "Omen of Dextral Exaltation",
+      "price_exalted": 5.111176320812059,
+      "quantity": 4232,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMzWWVsbG93Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/ed7cf06fa4/VoodooOmens3Yellow.png",
+      "icon_local": "omen-of-dextral-exaltation.png",
+      "icon_filename": "VoodooOmens3Yellow.png"
+    },
+    {
+      "apiId": "idol-of-yeena",
+      "name": "Idol of Yeena",
+      "price_exalted": 4.557077337068889,
+      "quantity": 36,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9mWWVlbmEiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/f9671c2da7/IdolofYeena.png",
+      "icon_local": "idol-of-yeena.png",
+      "icon_filename": "IdolofYeena.png"
+    },
+    {
+      "apiId": "omen-of-greater-exaltation",
+      "name": "Omen of Greater Exaltation",
+      "price_exalted": 3.9774365837340744,
+      "quantity": 13178,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMxWWVsbG93Iiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/22d9b6478d/VoodooOmens1Yellow.png",
+      "icon_local": "omen-of-greater-exaltation.png",
+      "icon_filename": "VoodooOmens1Yellow.png"
+    },
+    {
+      "apiId": "omen-of-dextral-necromancy",
+      "name": "Omen of Dextral Necromancy",
+      "price_exalted": 3.818176892553162,
+      "quantity": 7917,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NBZGRTdWZmaXhlcyIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/93e1dd20ce/OmenOnAbyssAddSuffixes.png",
+      "icon_local": "omen-of-dextral-necromancy.png",
+      "icon_filename": "OmenOnAbyssAddSuffixes.png"
+    },
+    {
+      "apiId": "omen-of-the-sovereign",
+      "name": "Omen of the Sovereign",
+      "price_exalted": 3.762969537637447,
+      "quantity": 188,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NHdWFyZW50ZWVkTGljaFR5cGVNb2QxIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/a4962e6d7b/OmenOnAbyssGuarenteedLichTypeMod1.png",
+      "icon_local": "omen-of-the-sovereign.png",
+      "icon_filename": "OmenOnAbyssGuarenteedLichTypeMod1.png"
+    },
+    {
+      "apiId": "idol-of-oak",
+      "name": "Idol of Oak",
+      "price_exalted": 3.2505478413447997,
+      "quantity": 100,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9mT2FrIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/3b899a4269/IdolofOak.png",
+      "icon_local": "idol-of-oak.png",
+      "icon_filename": "IdolofOak.png"
+    },
+    {
+      "apiId": "idol-of-alira",
+      "name": "Idol of Alira",
+      "price_exalted": 2.75,
+      "quantity": 24,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9BbGlyYSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/e42de4138f/IdoloAlira.png",
+      "icon_local": "idol-of-alira.png",
+      "icon_filename": "IdoloAlira.png"
+    },
+    {
+      "apiId": "omen-of-sinistral-necromancy",
+      "name": "Omen of Sinistral Necromancy",
+      "price_exalted": 1.879721030827038,
+      "quantity": 9614,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NBZGRQcmVmaXhlcyIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/1c0a646414/OmenOnAbyssAddPrefixes.png",
+      "icon_local": "omen-of-sinistral-necromancy.png",
+      "icon_filename": "OmenOnAbyssAddPrefixes.png"
+    },
+    {
+      "apiId": "omen-of-refreshment",
+      "name": "Omen of Refreshment",
+      "price_exalted": 1.4476645022302783,
+      "quantity": 1061,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvVm9vZG9vT21lbnMxQmx1ZSIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/213474d1d5/VoodooOmens1Blue.png",
+      "icon_local": "omen-of-refreshment.png",
+      "icon_filename": "VoodooOmens1Blue.png"
+    },
+    {
+      "apiId": "snake-idol",
+      "name": "Snake Idol",
+      "price_exalted": 1.3888798133468236,
+      "quantity": 85,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvQXptZXJpU29ja2V0YWJsZVNuYWtlIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/752d762312/AzmeriSocketableSnake.png",
+      "icon_local": "snake-idol.png",
+      "icon_filename": "AzmeriSocketableSnake.png"
+    },
+    {
+      "apiId": "omen-of-the-liege",
+      "name": "Omen of the Liege",
+      "price_exalted": 1.0042454347511955,
+      "quantity": 663,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NHdWFyZW50ZWVkTGljaFR5cGVNb2QyIiwic2NhbGUiOjEsInJlYWxtIjoicG9lMiJ9XQ/675e1d439a/OmenOnAbyssGuarenteedLichTypeMod2.png",
+      "icon_local": "omen-of-the-liege.png",
+      "icon_filename": "OmenOnAbyssGuarenteedLichTypeMod2.png"
+    },
+    {
+      "apiId": "idol-of-silk",
+      "name": "Idol of Silk",
+      "price_exalted": 1.0,
+      "quantity": 2,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvVG9ybWVudGVkU3Bpcml0U29ja2V0YWJsZXMvSWRvbG9mU2lsayIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/79679b0f2b/IdolofSilk.png",
+      "icon_local": "idol-of-silk.png",
+      "icon_filename": "IdolofSilk.png"
+    },
+    {
+      "apiId": "omen-of-putrefaction",
+      "name": "Omen of Putrefaction",
+      "price_exalted": 0.865973751400689,
+      "quantity": 3666,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbk9uQWJ5c3NWZWlsQWxsQW5kQ29ycnVwdCIsInNjYWxlIjoxLCJyZWFsbSI6InBvZTIifV0/8c706ec466/OmenOnAbyssVeilAllAndCorrupt.png",
+      "icon_local": "omen-of-putrefaction.png",
+      "icon_filename": "OmenOnAbyssVeilAllAndCorrupt.png"
+    },
+    {
+      "apiId": "omen-of-gambling",
+      "name": "Omen of Gambling",
+      "price_exalted": 0.23341139734582358,
+      "quantity": 1281,
+      "icon_url": "https://web.poecdn.com//gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvQ3VycmVuY3kvT21lbnMvT21lbkdhbWJsZU5vR29sZENvc3QiLCJzY2FsZSI6MSwicmVhbG0iOiJwb2UyIn1d/90225aff24/OmenGambleNoGoldCost.png",
+      "icon_local": "omen-of-gambling.png",
+      "icon_filename": "OmenGambleNoGoldCost.png"
+    }
+  ],
+  "uniques": [
+    {
+      "name": "Igniferis",
+      "apiId": "igniferis",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/Igniferis.webp",
+      "icon_local": "unique_igniferis.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Everlasting Gaze",
+      "apiId": "the-everlasting-gaze",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/TheEverlastingGaze.webp",
+      "icon_local": "unique_the-everlasting-gaze.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Ungil's Harmony",
+      "apiId": "ungils-harmony",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/UngilsHarmony.webp",
+      "icon_local": "unique_ungils-harmony.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Surefooted Sigil",
+      "apiId": "surefooted-sigil",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/SurefootedSigil.webp",
+      "icon_local": "unique_surefooted-sigil.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Defiance of Destiny",
+      "apiId": "defiance-of-destiny",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/DefianceOfDestiny.webp",
+      "icon_local": "unique_defiance-of-destiny.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Eye of Chayula",
+      "apiId": "eye-of-chayula",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/EyeOfChayula.webp",
+      "icon_local": "unique_eye-of-chayula.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Serpent's Egg",
+      "apiId": "serpents-egg",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/TheSerpentsEgg.webp",
+      "icon_local": "unique_serpents-egg.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Revered Resin",
+      "apiId": "revered-resin",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/ReveredResin.webp",
+      "icon_local": "unique_revered-resin.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Idol of Uldurn",
+      "apiId": "idol-of-uldurn",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/IdolOfUldurn.webp",
+      "icon_local": "unique_idol-of-uldurn.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Xoph's Blood",
+      "apiId": "xophs-blood",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/XophsBlood.webp",
+      "icon_local": "unique_xophs-blood.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Choir of the Storm",
+      "apiId": "choir-of-the-storm",
+      "price_exalted": 75.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/ChoirOfTheStorm.webp",
+      "icon_local": "unique_choir-of-the-storm.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Stone of Lazhwar",
+      "apiId": "stone-of-lazhwar",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/StoneOfLazhwar.webp",
+      "icon_local": "unique_stone-of-lazhwar.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Ligurium Talisman",
+      "apiId": "ligurium-talisman",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/LiguriumTalisman.webp",
+      "icon_local": "unique_ligurium-talisman.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Anvil",
+      "apiId": "the-anvil",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/TheAnvil.webp",
+      "icon_local": "unique_the-anvil.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Carnage Heart",
+      "apiId": "carnage-heart",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/CarnageHeart.webp",
+      "icon_local": "unique_carnage-heart.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Hinekora's Sight",
+      "apiId": "hinekoras-sight",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/HinekorasSight.webp",
+      "icon_local": "unique_hinekoras-sight.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Strugglescream",
+      "apiId": "strugglescream",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/DeliriumAmulet.webp",
+      "icon_local": "unique_strugglescream.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Fixation of Yix",
+      "apiId": "fixation-of-yix",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/FixationOfYix.webp",
+      "icon_local": "unique_fixation-of-yix.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Astramentis",
+      "apiId": "astramentis",
+      "price_exalted": 30.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/Astramentis.webp",
+      "icon_local": "unique_astramentis.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Pandemonius",
+      "apiId": "the-pandemonius",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/ThePandemonius.webp",
+      "icon_local": "unique_the-pandemonius.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Yoke of Suffering",
+      "apiId": "yoke-of-suffering",
+      "price_exalted": 11.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/YokeOfSuffering.webp",
+      "icon_local": "unique_yoke-of-suffering.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Rondel of Fragility",
+      "apiId": "rondel-of-fragility",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/RondelOfFragility.webp",
+      "icon_local": "unique_rondel-of-fragility.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Immaculate Adherence",
+      "apiId": "immaculate-adherence",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/ChainsOfAdherence.webp",
+      "icon_local": "unique_immaculate-adherence.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Fireflower",
+      "apiId": "fireflower",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/Fireflower.webp",
+      "icon_local": "unique_fireflower.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Beacon of Azis",
+      "apiId": "beacon-of-azis",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/BeaconOfAzis.webp",
+      "icon_local": "unique_beacon-of-azis.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Midnight Braid",
+      "apiId": "midnight-braid",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/MidnightBraid.webp",
+      "icon_local": "unique_midnight-braid.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Meginord's Girdle",
+      "apiId": "meginords-girdle",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/MeginordsGirdle.webp",
+      "icon_local": "unique_meginords-girdle.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Mageblood",
+      "apiId": "mageblood",
+      "price_exalted": 253375.76076824512,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Mageblood.webp",
+      "icon_local": "unique_mageblood.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Cat O' Nine Tails",
+      "apiId": "cat-o-nine-tails",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/CatONineTails.webp",
+      "icon_local": "unique_cat-o-nine-tails.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Darkness Enthroned",
+      "apiId": "darkness-enthroned",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/DarknessEnthroned.webp",
+      "icon_local": "unique_darkness-enthroned.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Shavronne's Satchel",
+      "apiId": "shavronnes-satchel",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/ShavronnesSatchel.webp",
+      "icon_local": "unique_shavronnes-satchel.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Umbilicus Immortalis",
+      "apiId": "umbilicus-immortalis",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/UmbilicusImmortalis.webp",
+      "icon_local": "unique_umbilicus-immortalis.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Keelhaul",
+      "apiId": "keelhaul",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Keelhaul.webp",
+      "icon_local": "unique_keelhaul.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Byrnabas",
+      "apiId": "byrnabas",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Byrnabas.webp",
+      "icon_local": "unique_byrnabas.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "The Gnashing Sash",
+      "apiId": "the-gnashing-sash",
+      "price_exalted": 352486.73756629846,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/GnashingSash.webp",
+      "icon_local": "unique_the-gnashing-sash.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Birthright Buckle",
+      "apiId": "birthright-buckle",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/BirthrightBuckle.webp",
+      "icon_local": "unique_birthright-buckle.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Soul Tether",
+      "apiId": "soul-tether",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/SoulTether.webp",
+      "icon_local": "unique_soul-tether.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Goregirdle",
+      "apiId": "goregirdle",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Goregirdle.webp",
+      "icon_local": "unique_goregirdle.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Ryslatha's Coil",
+      "apiId": "ryslathas-coil",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/RyslathasCoil.webp",
+      "icon_local": "unique_ryslathas-coil.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Coward's Legacy",
+      "apiId": "cowards-legacy",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/CowardsLegacy.webp",
+      "icon_local": "unique_cowards-legacy.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Bijouborne",
+      "apiId": "bijouborne",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Twinclasp.webp",
+      "icon_local": "unique_bijouborne.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Waistgate",
+      "apiId": "waistgate",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Waistgate.webp",
+      "icon_local": "unique_waistgate.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Zerphi's Genesis",
+      "apiId": "zerphis-genesis",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/ZerphisGenesis.webp",
+      "icon_local": "unique_zerphis-genesis.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Ingenuity",
+      "apiId": "ingenuity",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Widowmaker.webp",
+      "icon_local": "unique_ingenuity.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Icefang Orbit",
+      "apiId": "icefang-orbit",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/IcefangOrbit.webp",
+      "icon_local": null,
+      "icon_size": null
+    },
+    {
+      "name": "Blackheart",
+      "apiId": "blackheart",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/Blackheart.webp",
+      "icon_local": "unique_blackheart.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Ventor's Gamble",
+      "apiId": "ventors-gamble",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/VentorsGamble.webp",
+      "icon_local": "unique_ventors-gamble.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Perandus Seal",
+      "apiId": "perandus-seal",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/PerandusSeal.webp",
+      "icon_local": "unique_perandus-seal.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Andvarius",
+      "apiId": "andvarius",
+      "price_exalted": 9.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/Andvarius.webp",
+      "icon_local": "unique_andvarius.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Prized Pain",
+      "apiId": "prized-pain",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/PrizedPain.webp",
+      "icon_local": "unique_prized-pain.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Bursting Decay",
+      "apiId": "bursting-decay",
+      "price_exalted": 11611.32782571336,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/BurstingDecay.webp",
+      "icon_local": "unique_bursting-decay.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Seed of Cataclysm",
+      "apiId": "seed-of-cataclysm",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/SeedOfCataclysm.webp",
+      "icon_local": "unique_seed-of-cataclysm.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Venopuncture",
+      "apiId": "venopuncture",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/Venopuncture.webp",
+      "icon_local": "unique_venopuncture.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Headhunter",
+      "apiId": "headhunter",
+      "price_exalted": 95378.76428264545,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Belts/Uniques/Headhunter.webp",
+      "icon_local": "unique_headhunter.png",
+      "icon_size": [
+        212,
+        108
+      ]
+    },
+    {
+      "name": "Glowswarm",
+      "apiId": "glowswarm",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/Glowswarm.webp",
+      "icon_local": "unique_glowswarm.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Cracklecreep",
+      "apiId": "cracklecreep",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/Cracklecreep.webp",
+      "icon_local": "unique_cracklecreep.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Blistering Bond",
+      "apiId": "blistering-bond",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/BlisteringBond.webp",
+      "icon_local": "unique_blistering-bond.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Polcirkeln",
+      "apiId": "polcirkeln",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/Polcirkeln.webp",
+      "icon_local": "unique_polcirkeln.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Whisper of the Brotherhood",
+      "apiId": "whisper-of-the-brotherhood",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/WhisperOfTheBrotherhood.webp",
+      "icon_local": "unique_whisper-of-the-brotherhood.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Dream Fragments",
+      "apiId": "dream-fragments",
+      "price_exalted": 20.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/DreamFragments.webp",
+      "icon_local": "unique_dream-fragments.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Burrower",
+      "apiId": "the-burrower",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/TheBurrower.webp",
+      "icon_local": "unique_the-burrower.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Levinstone",
+      "apiId": "levinstone",
+      "price_exalted": 15.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/StoneOfOndar.webp",
+      "icon_local": "unique_levinstone.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Call of the Brotherhood",
+      "apiId": "call-of-the-brotherhood",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/CallOfTheBrotherhood.webp",
+      "icon_local": "unique_call-of-the-brotherhood.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Doedre's Damning",
+      "apiId": "doedres-damning",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/DoedresDamning.webp",
+      "icon_local": "unique_doedres-damning.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Ming's Heart",
+      "apiId": "mings-heart",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/MingsHeart.webp",
+      "icon_local": "unique_mings-heart.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Veilpiercer",
+      "apiId": "veilpiercer",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/Veilpiercer.webp",
+      "icon_local": "unique_veilpiercer.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Original Sin",
+      "apiId": "original-sin",
+      "price_exalted": 20.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/OriginalSin.webp",
+      "icon_local": "unique_original-sin.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Blackflame",
+      "apiId": "blackflame",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/BlackFlameChaos.webp",
+      "icon_local": "unique_blackflame.png",
+      "icon_size": [
+        80,
+        80
+      ]
+    },
+    {
+      "name": "Vigilant View",
+      "apiId": "vigilant-view",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/VigilantView.webp",
+      "icon_local": "unique_vigilant-view.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Thief's Torment",
+      "apiId": "thiefs-torment",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/ThiefsTorment.webp",
+      "icon_local": "unique_thiefs-torment.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Death Rush",
+      "apiId": "death-rush",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/DeathRush.webp",
+      "icon_local": "unique_death-rush.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Heartbound Loop",
+      "apiId": "heartbound-loop",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/HeartboundLoop.webp",
+      "icon_local": "unique_heartbound-loop.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Snakepit",
+      "apiId": "snakepit",
+      "price_exalted": 49.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/Snakepit.webp",
+      "icon_local": "unique_snakepit.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Gifts from Above",
+      "apiId": "gifts-from-above",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/GiftsFromAbove.webp",
+      "icon_local": "unique_gifts-from-above.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Taming",
+      "apiId": "the-taming",
+      "price_exalted": 1617.8583948642668,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/TheTaming.webp",
+      "icon_local": "unique_the-taming.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Zaida's Longevity",
+      "apiId": "zaidas-longevity",
+      "price_exalted": 35.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/StormforgedSeal.webp",
+      "icon_local": "unique_zaidas-longevity.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Safrin's Resolve",
+      "apiId": "safrins-resolve",
+      "price_exalted": 15202.588855266953,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/EmberheartSeal.webp",
+      "icon_local": "unique_safrins-resolve.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Eshtera's Path",
+      "apiId": "eshteras-path",
+      "price_exalted": 3200.5450221614637,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/RimeveilSeal.webp",
+      "icon_local": "unique_eshteras-path.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Kalandra's Touch",
+      "apiId": "kalandras-touch",
+      "price_exalted": 8000.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/MirrorRing.webp",
+      "icon_local": "unique_kalandras-touch.png",
+      "icon_size": [
+        84,
+        84
+      ]
+    },
+    {
+      "name": "Evergrasping Ring",
+      "apiId": "evergrasping-ring",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/EvergraspingRing.webp",
+      "icon_local": "unique_evergrasping-ring.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Bristleboar",
+      "apiId": "bristleboar",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Bristleboar.webp",
+      "icon_local": "unique_bristleboar.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Queen of the Forest",
+      "apiId": "queen-of-the-forest",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/QueenOfTheForest.webp",
+      "icon_local": "unique_queen-of-the-forest.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Ashrend",
+      "apiId": "ashrend",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Ashrend.webp",
+      "icon_local": "unique_ashrend.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Foxshade",
+      "apiId": "foxshade",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Foxform.webp",
+      "icon_local": "unique_foxshade.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Sands of Silk",
+      "apiId": "sands-of-silk",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/SandsOfSilk.webp",
+      "icon_local": "unique_sands-of-silk.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Briskwrap",
+      "apiId": "briskwrap",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Briskwrap.webp",
+      "icon_local": "unique_briskwrap.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Rat Cage",
+      "apiId": "the-rat-cage",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TheRatCage.webp",
+      "icon_local": "unique_the-rat-cage.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Dustbloom",
+      "apiId": "dustbloom",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Dustbloom.webp",
+      "icon_local": "unique_dustbloom.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Quatl's Molt",
+      "apiId": "quatls-molt",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/QuatlsMolt.webp",
+      "icon_local": "unique_quatls-molt.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Apron of Emiran",
+      "apiId": "apron-of-emiran",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/ApronOfEmiran.webp",
+      "icon_local": "unique_apron-of-emiran.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Sierran Inheritance",
+      "apiId": "sierran-inheritance",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/MutewindSail.webp",
+      "icon_local": "unique_sierran-inheritance.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Gloomform",
+      "apiId": "gloomform",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/GatheringGloom.webp",
+      "icon_local": "unique_gloomform.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Dancing Mirage",
+      "apiId": "the-dancing-mirage",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TheDancingMirage.webp",
+      "icon_local": "unique_the-dancing-mirage.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Redflare Conduit",
+      "apiId": "redflare-conduit",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/RedflareConduit.webp",
+      "icon_local": "unique_redflare-conduit.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Zerphi's Serape",
+      "apiId": "zerphis-serape",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/ZerphisSerape.webp",
+      "icon_local": "unique_zerphis-serape.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Ghostwrithe",
+      "apiId": "ghostwrithe",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Ghostwrithe.webp",
+      "icon_local": "unique_ghostwrithe.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Bitterbloom",
+      "apiId": "bitterbloom",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/DarkwoodPerianth.webp",
+      "icon_local": "unique_bitterbloom.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Black Doubt",
+      "apiId": "the-black-doubt",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TheBlackDoubt.webp",
+      "icon_local": "unique_the-black-doubt.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Temporalis",
+      "apiId": "temporalis",
+      "price_exalted": 1520258.8855266953,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/PilgrimsImage.webp",
+      "icon_local": "unique_temporalis.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Necromantle",
+      "apiId": "necromantle",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Necromantle.webp",
+      "icon_local": "unique_necromantle.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Cloak of Flame",
+      "apiId": "cloak-of-flame",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/CloakOfFlame.webp",
+      "icon_local": "unique_cloak-of-flame.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Prayers for Rain",
+      "apiId": "prayers-for-rain",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/PrayersForRain.webp",
+      "icon_local": "unique_prayers-for-rain.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Tetzlapokal's Desire",
+      "apiId": "tetzlapokals-desire",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TetzlapokalsDesire.webp",
+      "icon_local": "unique_tetzlapokals-desire.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Covenant",
+      "apiId": "the-covenant",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TheCovenant.webp",
+      "icon_local": "unique_the-covenant.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Brass Dome",
+      "apiId": "the-brass-dome",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/BrassDome.webp",
+      "icon_local": "unique_the-brass-dome.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Bramblejack",
+      "apiId": "bramblejack",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Bramblejack.webp",
+      "icon_local": "unique_bramblejack.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Blackbraid",
+      "apiId": "blackbraid",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Blackbraid.webp",
+      "icon_local": "unique_blackbraid.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Kaom's Heart",
+      "apiId": "kaoms-heart",
+      "price_exalted": 15.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/KaomsHeart.webp",
+      "icon_local": "unique_kaoms-heart.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Titanrot Cataphract",
+      "apiId": "titanrot-cataphract",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TitanrotCataphract.webp",
+      "icon_local": "unique_titanrot-cataphract.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Edyrn's Tusks",
+      "apiId": "edyrns-tusks",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/EdyrnsTusks.webp",
+      "icon_local": "unique_edyrns-tusks.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Wandering Reliquary",
+      "apiId": "wandering-reliquary",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/WanderingReliquary.webp",
+      "icon_local": "unique_wandering-reliquary.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Kingsguard",
+      "apiId": "kingsguard",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Kingsguard.webp",
+      "icon_local": "unique_kingsguard.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Greed's Embrace",
+      "apiId": "greeds-embrace",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/GreedsEmbrace.webp",
+      "icon_local": "unique_greeds-embrace.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Coat of Red",
+      "apiId": "coat-of-red",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/CoatOfRed.webp",
+      "icon_local": null,
+      "icon_size": null
+    },
+    {
+      "name": "The Barrow Dweller",
+      "apiId": "the-barrow-dweller",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TheBarrowDweller.webp",
+      "icon_local": "unique_the-barrow-dweller.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Irongrasp",
+      "apiId": "irongrasp",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Irongrasp.webp",
+      "icon_local": null,
+      "icon_size": null
+    },
+    {
+      "name": "Pariah's Embrace",
+      "apiId": "pariahs-embrace",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/PariahsEmbrace.webp",
+      "icon_local": "unique_pariahs-embrace.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Pragmatism",
+      "apiId": "pragmatism",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Pragmatism.webp",
+      "icon_local": "unique_pragmatism.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Belly of the Beast",
+      "apiId": "belly-of-the-beast",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/BellyOfTheBeast.webp",
+      "icon_local": "unique_belly-of-the-beast.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Doryani's Prototype",
+      "apiId": "doryanis-prototype",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/DoryanisPrototype.webp",
+      "icon_local": "unique_doryanis-prototype.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Sunken Vessel",
+      "apiId": "the-sunken-vessel",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TheSunkenVessel.webp",
+      "icon_local": "unique_the-sunken-vessel.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Perfidy",
+      "apiId": "perfidy",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Perfidy.webp",
+      "icon_local": "unique_perfidy.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Morior Invictus",
+      "apiId": "morior-invictus",
+      "price_exalted": 980.5318207600681,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/MoriorInvictus_M.webp",
+      "icon_local": "unique_morior-invictus.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Skin of the Loyal",
+      "apiId": "skin-of-the-loyal",
+      "price_exalted": 7.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/SkinOfTheLoyal.webp",
+      "icon_local": "unique_skin-of-the-loyal.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Tabula Rasa",
+      "apiId": "tabula-rasa",
+      "price_exalted": 1659.3615428247303,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TabulaRasa.webp",
+      "icon_local": "unique_tabula-rasa.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Enfolding Dawn",
+      "apiId": "enfolding-dawn",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/EnfoldingDawn.webp",
+      "icon_local": "unique_enfolding-dawn.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Icetomb",
+      "apiId": "icetomb",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Icetomb.webp",
+      "icon_local": "unique_icetomb.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Voll's Protector",
+      "apiId": "volls-protector",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/VollsProtector.webp",
+      "icon_local": "unique_volls-protector.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Reverie",
+      "apiId": "reverie",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/HuskOfDreams.webp",
+      "icon_local": "unique_reverie.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Soul Mantle",
+      "apiId": "soul-mantle",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/SoulMantle.webp",
+      "icon_local": "unique_soul-mantle.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Couture of Crimson",
+      "apiId": "couture-of-crimson",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/CoutureOfCrimson.webp",
+      "icon_local": "unique_couture-of-crimson.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Widow's Reign",
+      "apiId": "widows-reign",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/WidowsReign.webp",
+      "icon_local": "unique_widows-reign.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Atziri's Step",
+      "apiId": "atziris-step",
+      "price_exalted": 7.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/AtzirisStep.webp",
+      "icon_local": "unique_atziris-step.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Gamblesprint",
+      "apiId": "gamblesprint",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Gamblesprint.webp",
+      "icon_local": "unique_gamblesprint.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Ghostmarch",
+      "apiId": "ghostmarch",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Ghostmarch.webp",
+      "icon_local": "unique_ghostmarch.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Bushwhack",
+      "apiId": "bushwhack",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Bushwack.webp",
+      "icon_local": "unique_bushwhack.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Luminous Pace",
+      "apiId": "luminous-pace",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/BatedPace.webp",
+      "icon_local": "unique_luminous-pace.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Briarpatch",
+      "apiId": "briarpatch",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Gems/New/DruidBriarpatchSkillGem.webp",
+      "icon_local": "unique_briarpatch.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Wondertrap",
+      "apiId": "wondertrap",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Wondertrap.webp",
+      "icon_local": "unique_wondertrap.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Windscream",
+      "apiId": "windscream",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Windscream.webp",
+      "icon_local": "unique_windscream.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Legionstride",
+      "apiId": "legionstride",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Legionstride.webp",
+      "icon_local": "unique_legionstride.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Trampletoe",
+      "apiId": "trampletoe",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Trampletoe.webp",
+      "icon_local": "unique_trampletoe.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Knight-errant",
+      "apiId": "the-knight-errant",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/KnightErrant.webp",
+      "icon_local": "unique_the-knight-errant.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Birth of Fury",
+      "apiId": "birth-of-fury",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/BirthOfFury.webp",
+      "icon_local": "unique_birth-of-fury.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Darkray Vectors",
+      "apiId": "darkray-vectors",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/DarkrayVectors.webp",
+      "icon_local": "unique_darkray-vectors.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Obern's Bastion",
+      "apiId": "oberns-bastion",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/ObernsBastion.webp",
+      "icon_local": "unique_oberns-bastion.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Ab Aeterno",
+      "apiId": "ab-aeterno",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/AbAeterno.webp",
+      "icon_local": "unique_ab-aeterno.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Northpaw",
+      "apiId": "northpaw",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Northpaw.webp",
+      "icon_local": "unique_northpaw.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Idle Hands",
+      "apiId": "idle-hands",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/IdleHands.webp",
+      "icon_local": "unique_idle-hands.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Snakebite",
+      "apiId": "snakebite",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Snakebite.webp",
+      "icon_local": "unique_snakebite.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Candlemaker",
+      "apiId": "candlemaker",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Candlemaker.webp",
+      "icon_local": "unique_candlemaker.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Maligaro's Virtuosity",
+      "apiId": "maligaros-virtuosity",
+      "price_exalted": 20.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/MaligarosVirtuosity.webp",
+      "icon_local": "unique_maligaros-virtuosity.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Doedre's Tenure",
+      "apiId": "doedres-tenure",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/EnraptHands.webp",
+      "icon_local": "unique_doedres-tenure.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Treefingers",
+      "apiId": "treefingers",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Treefingers.webp",
+      "icon_local": "unique_treefingers.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Myris Uxor",
+      "apiId": "myris-uxor",
+      "price_exalted": 25.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/MyrisUxor.webp",
+      "icon_local": "unique_myris-uxor.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Goldrim",
+      "apiId": "goldrim",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Goldrim.webp",
+      "icon_local": "unique_goldrim.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Hollow Mask",
+      "apiId": "the-hollow-mask",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/MaskOfTheHollow.webp",
+      "icon_local": "unique_the-hollow-mask.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Radiant Grief",
+      "apiId": "radiant-grief",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/RadiantGrief.webp",
+      "icon_local": "unique_radiant-grief.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Sandstorm Visage",
+      "apiId": "sandstorm-visage",
+      "price_exalted": 75.42552467385138,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/SandstormVisage.webp",
+      "icon_local": "unique_sandstorm-visage.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Mask of the Stitched Demon",
+      "apiId": "mask-of-the-stitched-demon",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/MaskOfTheStitchedDemon.webp",
+      "icon_local": "unique_mask-of-the-stitched-demon.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Atziri's Disdain",
+      "apiId": "atziris-disdain",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/AtzirisDisdain.webp",
+      "icon_local": "unique_atziris-disdain.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Ezomyte Peak",
+      "apiId": "ezomyte-peak",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/EzomytePeak.webp",
+      "icon_local": "unique_ezomyte-peak.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Lochtonial Caress",
+      "apiId": "lochtonial-caress",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/LochtonialCaress.webp",
+      "icon_local": "unique_lochtonial-caress.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Black Sun Crest",
+      "apiId": "black-sun-crest",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/BlackSunCrest.webp",
+      "icon_local": "unique_black-sun-crest.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Greymake",
+      "apiId": "greymake",
+      "price_exalted": 37.71276233692569,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Greymake.webp",
+      "icon_local": "unique_greymake.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Crown of the Victor",
+      "apiId": "crown-of-the-victor",
+      "price_exalted": 14.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/CrownOfTheVictor.webp",
+      "icon_local": "unique_crown-of-the-victor.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Wulfsbane",
+      "apiId": "wulfsbane",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Wulfsbane.webp",
+      "icon_local": "unique_wulfsbane.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Sine Aequo",
+      "apiId": "sine-aequo",
+      "price_exalted": 20.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/SineAequo.webp",
+      "icon_local": "unique_sine-aequo.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Feathered Fortress",
+      "apiId": "feathered-fortress",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/FeatheredFortress.webp",
+      "icon_local": "unique_feathered-fortress.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Crest of Ardura",
+      "apiId": "crest-of-ardura",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/CrestOfArdura.webp",
+      "icon_local": "unique_crest-of-ardura.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Prism Guardian",
+      "apiId": "prism-guardian",
+      "price_exalted": 7.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/PrismGuardian.webp",
+      "icon_local": "unique_prism-guardian.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Lethal Draw",
+      "apiId": "the-lethal-draw",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Quivers/Uniques/TheLethalDraw.webp",
+      "icon_local": "unique_the-lethal-draw.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Murkshaft",
+      "apiId": "murkshaft",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Quivers/Uniques/Murkshaft.webp",
+      "icon_local": "unique_murkshaft.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Drillneck",
+      "apiId": "drillneck",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Quivers/Uniques/Drillneck.webp",
+      "icon_local": "unique_drillneck.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Cloak of Defiance",
+      "apiId": "cloak-of-defiance",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/CloakOfDefiance.webp",
+      "icon_local": "unique_cloak-of-defiance.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Black Insignia",
+      "apiId": "the-black-insignia",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/TheBlackCrest.webp",
+      "icon_local": "unique_the-black-insignia.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Empire's Grasp",
+      "apiId": "empires-grasp",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/EmpiresGrasp.webp",
+      "icon_local": "unique_empires-grasp.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Blood Price",
+      "apiId": "blood-price",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/BloodPrice.webp",
+      "icon_local": "unique_blood-price.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Bloodbarrier",
+      "apiId": "bloodbarrier",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/BloodBarrier.webp",
+      "icon_local": "unique_bloodbarrier.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Silverthorne",
+      "apiId": "silverthorne",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Silverthorne.webp",
+      "icon_local": "unique_silverthorne.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Spire of Ire",
+      "apiId": "spire-of-ire",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/SpireOfIre.webp",
+      "icon_local": "unique_spire-of-ire.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Saitha's Spear",
+      "apiId": "saithas-spear",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/SaithasSpear.webp",
+      "icon_local": "unique_saithas-spear.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Sacrosanctum",
+      "apiId": "sacrosanctum",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Sacrosanctum.webp",
+      "icon_local": "unique_sacrosanctum.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Sunsplinter",
+      "apiId": "sunsplinter",
+      "price_exalted": 30.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Sunsplinter.webp",
+      "icon_local": "unique_sunsplinter.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Wanderlust",
+      "apiId": "wanderlust",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Wanderlust.webp",
+      "icon_local": "unique_wanderlust.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Infinite Pursuit",
+      "apiId": "the-infinite-pursuit",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/TheInfinitePursuit.webp",
+      "icon_local": "unique_the-infinite-pursuit.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Corpsewade",
+      "apiId": "corpsewade",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Corpsewade.webp",
+      "icon_local": "unique_corpsewade.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Wake of Destruction",
+      "apiId": "wake-of-destruction",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/WakeOfDestruction.webp",
+      "icon_local": "unique_wake-of-destruction.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Deathrattle",
+      "apiId": "deathrattle",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Foci/Uniques/DeathRattle.webp",
+      "icon_local": "unique_deathrattle.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Nocturne",
+      "apiId": "nocturne",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Nocturne.webp",
+      "icon_local": "unique_nocturne.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Effigy of Cruelty",
+      "apiId": "effigy-of-cruelty",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Foci/Uniques/EffigyOfCruelty.webp",
+      "icon_local": "unique_effigy-of-cruelty.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Carrion Call",
+      "apiId": "carrion-call",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Foci/Uniques/CarrionCall.webp",
+      "icon_local": "unique_carrion-call.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Apep's Supremacy",
+      "apiId": "apeps-supremacy",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Foci/Uniques/ApepsSupremacy.webp",
+      "icon_local": "unique_apeps-supremacy.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Eternal Spark",
+      "apiId": "the-eternal-spark",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Foci/Uniques/EternalSpark.webp",
+      "icon_local": "unique_the-eternal-spark.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Bones of Ullr",
+      "apiId": "bones-of-ullr",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/BonesOfUllr.webp",
+      "icon_local": "unique_bones-of-ullr.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Grip of Winter",
+      "apiId": "grip-of-winter",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/GripOfWinter.webp",
+      "icon_local": "unique_grip-of-winter.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Plaguefinger",
+      "apiId": "plaguefinger",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Plaguefinger.webp",
+      "icon_local": "unique_plaguefinger.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Killjoy",
+      "apiId": "killjoy",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Killjoy.webp",
+      "icon_local": "unique_killjoy.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Essentia Sanguis",
+      "apiId": "essentia-sanguis",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/EssentiaSanguis.webp",
+      "icon_local": "unique_essentia-sanguis.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Hand of Wisdom and Action",
+      "apiId": "hand-of-wisdom-and-action",
+      "price_exalted": 40.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/HandOfWisdomAndAction.webp",
+      "icon_local": "unique_hand-of-wisdom-and-action.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Leopold's Applause",
+      "apiId": "leopolds-applause",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/LeopoldsApplause.webp",
+      "icon_local": "unique_leopolds-applause.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Gravebind",
+      "apiId": "gravebind",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Gravebind.webp",
+      "icon_local": "unique_gravebind.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Blueflame Bracers",
+      "apiId": "blueflame-bracers",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/SunConstrictor.webp",
+      "icon_local": "unique_blueflame-bracers.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Shackles of the Wretched",
+      "apiId": "shackles-of-the-wretched",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/ShacklesOfTheWretched.webp",
+      "icon_local": "unique_shackles-of-the-wretched.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Alpha's Howl",
+      "apiId": "alphas-howl",
+      "price_exalted": 304.6796797459141,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/AlphasHowl.webp",
+      "icon_local": "unique_alphas-howl.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Atsak's Sight",
+      "apiId": "atsaks-sight",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/BalefulTemperance.webp",
+      "icon_local": "unique_atsaks-sight.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Vertex",
+      "apiId": "the-vertex",
+      "price_exalted": 100.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/TheVertex.webp",
+      "icon_local": "unique_the-vertex.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Three Dragons",
+      "apiId": "the-three-dragons",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/TheThreeDragons.webp",
+      "icon_local": "unique_the-three-dragons.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Glimpse of Chaos",
+      "apiId": "glimpse-of-chaos",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/GlimpseOfChaos.webp",
+      "icon_local": "unique_glimpse-of-chaos.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Visage of Ayah",
+      "apiId": "visage-of-ayah",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/VisageOfAyah.webp",
+      "icon_local": "unique_visage-of-ayah.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Wings of Caelyn",
+      "apiId": "wings-of-caelyn",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/WingsOfCaelyn.webp",
+      "icon_local": "unique_wings-of-caelyn.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Devouring Diadem",
+      "apiId": "the-devouring-diadem",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/DevouringDiadem.webp",
+      "icon_local": "unique_the-devouring-diadem.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Horns of Bynden",
+      "apiId": "horns-of-bynden",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/HornsOfBrynden.webp",
+      "icon_local": "unique_horns-of-bynden.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Smiling Knight",
+      "apiId": "the-smiling-knight",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/TheSmilingKnight.webp",
+      "icon_local": "unique_the-smiling-knight.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Assailum",
+      "apiId": "assailum",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Assailum.webp",
+      "icon_local": "unique_assailum.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Vile Knight",
+      "apiId": "the-vile-knight",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/TheVileKnight.webp",
+      "icon_local": "unique_the-vile-knight.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Cornathaum",
+      "apiId": "cornathaum",
+      "price_exalted": 10.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Cornathaum.webp",
+      "icon_local": "unique_cornathaum.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Keeper of the Arc",
+      "apiId": "keeper-of-the-arc",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/KeeperOfTheArc.webp",
+      "icon_local": "unique_keeper-of-the-arc.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Surrender",
+      "apiId": "the-surrender",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/TheSurrender.webp",
+      "icon_local": "unique_the-surrender.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Svalinn",
+      "apiId": "svalinn",
+      "price_exalted": 33.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Svalinn.webp",
+      "icon_local": "unique_svalinn.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Oaksworn",
+      "apiId": "oaksworn",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Oaksworn.webp",
+      "icon_local": "unique_oaksworn.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Saffell's Frame",
+      "apiId": "saffells-frame",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/SaffelsFrame.webp",
+      "icon_local": "unique_saffells-frame.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Beyond Reach",
+      "apiId": "beyond-reach",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Quivers/Uniques/BreachQuiver.webp",
+      "icon_local": "unique_beyond-reach.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Silks of Veneration",
+      "apiId": "silks-of-veneration",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/SilksOfVeneration.webp",
+      "icon_local": "unique_silks-of-veneration.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Waveshaper",
+      "apiId": "waveshaper",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Waveshaper.webp",
+      "icon_local": "unique_waveshaper.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Veil of the Night",
+      "apiId": "veil-of-the-night",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/VeilOfTheNight.webp",
+      "icon_local": "unique_veil-of-the-night.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Dunkelhalt",
+      "apiId": "dunkelhalt",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Dunkelhalt.webp",
+      "icon_local": "unique_dunkelhalt.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Valako's Vice",
+      "apiId": "valakos-vice",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/ValakosVice.webp",
+      "icon_local": "unique_valakos-vice.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Rondel de Ezo",
+      "apiId": "rondel-de-ezo",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/RondelDeEzo.webp",
+      "icon_local": "unique_rondel-de-ezo.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Cursecarver",
+      "apiId": "cursecarver",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Wands/Uniques/Clawmark.webp",
+      "icon_local": "unique_cursecarver.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    },
+    {
+      "name": "Kaltenhalt",
+      "apiId": "kaltenhalt",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Kaltenhalt.webp",
+      "icon_local": "unique_kaltenhalt.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Mutable Star",
+      "apiId": "the-mutable-star",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/MutableStar.webp",
+      "icon_local": "unique_the-mutable-star.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Yriel's Fostering",
+      "apiId": "yriels-fostering",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/YrielsFostering.webp",
+      "icon_local": "unique_yriels-fostering.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Powertread",
+      "apiId": "powertread",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Powertread.webp",
+      "icon_local": "unique_powertread.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Beetlebite",
+      "apiId": "beetlebite",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/ChainsOfDeshret.webp",
+      "icon_local": "unique_beetlebite.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Threaded Light",
+      "apiId": "threaded-light",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Foci/Uniques/ThreadedLight.webp",
+      "icon_local": "unique_threaded-light.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Serpent's Lesson",
+      "apiId": "serpents-lesson",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Foci/Uniques/TonesOfFate.webp",
+      "icon_local": "unique_serpents-lesson.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Rathpith Globe",
+      "apiId": "rathpith-globe",
+      "price_exalted": 5500.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Foci/Uniques/RathpithGlobe.webp",
+      "icon_local": "unique_rathpith-globe.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Painter's Servant",
+      "apiId": "painters-servant",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/PaintersServant.webp",
+      "icon_local": "unique_painters-servant.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Kitoko's Current",
+      "apiId": "kitokos-current",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/GaruksCurrent.webp",
+      "icon_local": "unique_kitokos-current.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Demon Stitcher",
+      "apiId": "demon-stitcher",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/DemonStitcher.webp",
+      "icon_local": "unique_demon-stitcher.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Facebreaker",
+      "apiId": "facebreaker",
+      "price_exalted": 8.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Facebreaker.webp",
+      "icon_local": "unique_facebreaker.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Dreadfist",
+      "apiId": "dreadfist",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Dreadfist.webp",
+      "icon_local": "unique_dreadfist.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Hateforge",
+      "apiId": "hateforge",
+      "price_exalted": 1591.516300618545,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Hateforge.webp",
+      "icon_local": "unique_hateforge.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Atziri's Acuity",
+      "apiId": "atziris-acuity",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/AtzirisAcuity.webp",
+      "icon_local": "unique_atziris-acuity.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Jarngreipr",
+      "apiId": "jarngreipr",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Jarngreipr.webp",
+      "icon_local": "unique_jarngreipr.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Aurseize",
+      "apiId": "aurseize",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Aurseize.webp",
+      "icon_local": "unique_aurseize.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Deathblow",
+      "apiId": "deathblow",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Deathblow.webp",
+      "icon_local": "unique_deathblow.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Aerisvane's Wings",
+      "apiId": "aerisvanes-wings",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/AerisvanesWings.webp",
+      "icon_local": "unique_aerisvanes-wings.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Innsmouth",
+      "apiId": "innsmouth",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Innsmouth.webp",
+      "icon_local": "unique_innsmouth.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Elevore",
+      "apiId": "elevore",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Elevore.webp",
+      "icon_local": "unique_elevore.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Constricting Command",
+      "apiId": "constricting-command",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/ConstrictingCommand.webp",
+      "icon_local": "unique_constricting-command.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Mask of the Sanguimancer",
+      "apiId": "mask-of-the-sanguimancer",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/PhantomBlood.webp",
+      "icon_local": "unique_mask-of-the-sanguimancer.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Leer Cast",
+      "apiId": "leer-cast",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Leercast.webp",
+      "icon_local": "unique_leer-cast.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Crown of Thorns",
+      "apiId": "crown-of-thorns",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/CrownOfThorns.webp",
+      "icon_local": "unique_crown-of-thorns.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Thrillsteel",
+      "apiId": "thrillsteel",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Thrillsteel.webp",
+      "icon_local": "unique_thrillsteel.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Deidbell",
+      "apiId": "deidbell",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Deidbell.webp",
+      "icon_local": "unique_deidbell.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Corona of the Red Sun",
+      "apiId": "corona-of-the-red-sun",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/CoronaOfTheRedSun.webp",
+      "icon_local": "unique_corona-of-the-red-sun.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Erian's Cobble",
+      "apiId": "erians-cobble",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/GrimrotCoif.webp",
+      "icon_local": "unique_erians-cobble.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Ironride",
+      "apiId": "ironride",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Ironride.webp",
+      "icon_local": "unique_ironride.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Solus Ipse",
+      "apiId": "solus-ipse",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/SolusIpse.webp",
+      "icon_local": "unique_solus-ipse.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Bronzebeard",
+      "apiId": "bronzebeard",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Bronzebeard.webp",
+      "icon_local": "unique_bronzebeard.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Crown of the Pale King",
+      "apiId": "crown-of-the-pale-king",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/CrownOfThePaleKing.webp",
+      "icon_local": "unique_crown-of-the-pale-king.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Dionadair",
+      "apiId": "dionadair",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Dionadair.webp",
+      "icon_local": "unique_dionadair.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Doomgate",
+      "apiId": "doomgate",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Doomgate.webp",
+      "icon_local": "unique_doomgate.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Lycosidae",
+      "apiId": "lycosidae",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Lycosa.webp",
+      "icon_local": "unique_lycosidae.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Window to Paradise",
+      "apiId": "window-to-paradise",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/WindowToParadise.webp",
+      "icon_local": "unique_window-to-paradise.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Redblade Banner",
+      "apiId": "redblade-banner",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/RedbladeBanner.webp",
+      "icon_local": "unique_redblade-banner.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Arvil's Wheel",
+      "apiId": "arvils-wheel",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/ArvilsWheel.webp",
+      "icon_local": "unique_arvils-wheel.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Rise of the Phoenix",
+      "apiId": "rise-of-the-phoenix",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Crest06.webp",
+      "icon_local": "unique_rise-of-the-phoenix.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Alkem Eira",
+      "apiId": "alkem-eira",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/AlkemEira.webp",
+      "icon_local": "unique_alkem-eira.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Mahuxotl's Machination",
+      "apiId": "mahuxotls-machination",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/MahuxotlsMachination.webp",
+      "icon_local": "unique_mahuxotls-machination.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Blackgleam",
+      "apiId": "blackgleam",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Quivers/Uniques/Blackgleam.webp",
+      "icon_local": "unique_blackgleam.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Asphyxia's Wrath",
+      "apiId": "asphyxias-wrath",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Quivers/Uniques/AsphyxiasWrath.webp",
+      "icon_local": "unique_asphyxias-wrath.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Rearguard",
+      "apiId": "rearguard",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Quivers/Uniques/Rearguard.webp",
+      "icon_local": "unique_rearguard.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Cadiro's Gambit",
+      "apiId": "cadiros-gambit",
+      "price_exalted": 140.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Quivers/Uniques/PerandusTurnstile.webp",
+      "icon_local": "unique_cadiros-gambit.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Nascent Hope",
+      "apiId": "nascent-hope",
+      "price_exalted": 15.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/ThawingUniqueCharm.webp",
+      "icon_local": "unique_nascent-hope.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Rite of Passage",
+      "apiId": "rite-of-passage",
+      "price_exalted": 6000.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/GoldenUniqueCharm.webp",
+      "icon_local": "unique_rite-of-passage.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Beira's Anguish",
+      "apiId": "beiras-anguish",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/DousingUniqueCharm.webp",
+      "icon_local": "unique_beiras-anguish.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Fall of the Axe",
+      "apiId": "the-fall-of-the-axe",
+      "price_exalted": 72.10956826895999,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/SilverUniqueCharm.webp",
+      "icon_local": "unique_the-fall-of-the-axe.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Blood of the Warrior",
+      "apiId": "blood-of-the-warrior",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Uniques/BloodOfTheKarui.webp",
+      "icon_local": "unique_blood-of-the-warrior.png",
+      "icon_size": [
+        105,
+        212
+      ]
+    },
+    {
+      "name": "Lavianga's Spirits",
+      "apiId": "laviangas-spirits",
+      "price_exalted": 7.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Uniques/LaviangasSpirit.webp",
+      "icon_local": "unique_laviangas-spirits.png",
+      "icon_size": [
+        105,
+        212
+      ]
+    },
+    {
+      "name": "Valako's Roar",
+      "apiId": "valakos-roar",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/TopazUniqueCharm.webp",
+      "icon_local": "unique_valakos-roar.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Sanguis Heroum",
+      "apiId": "sanguis-heroum",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/StaunchingUniqueCharm.webp",
+      "icon_local": "unique_sanguis-heroum.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Black Cat",
+      "apiId": "the-black-cat",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/GroundingUniqueCharm.webp",
+      "icon_local": "unique_the-black-cat.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Ngamahu's Chosen",
+      "apiId": "ngamahus-chosen",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/RubyUniqueCharm.webp",
+      "icon_local": "unique_ngamahus-chosen.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Uhtred's Chalice",
+      "apiId": "uhtreds-chalice",
+      "price_exalted": 9.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Uniques/UhtredsLegacy.webp",
+      "icon_local": "unique_uhtreds-chalice.png",
+      "icon_size": [
+        105,
+        212
+      ]
+    },
+    {
+      "name": "Arakaali's Gift",
+      "apiId": "arakaalis-gift",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/AntidoteUniqueCharm.webp",
+      "icon_local": "unique_arakaalis-gift.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Forsaken Bangle",
+      "apiId": "forsaken-bangle",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/ChaosUniqueCharm.webp",
+      "icon_local": "unique_forsaken-bangle.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "For Utopia",
+      "apiId": "for-utopia",
+      "price_exalted": 35.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/StoneUniqueCharm.webp",
+      "icon_local": "unique_for-utopia.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Breath of the Mountains",
+      "apiId": "breath-of-the-mountains",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Charms/Uniques/SapphireUniqueCharm.webp",
+      "icon_local": "unique_breath-of-the-mountains.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Opportunity",
+      "apiId": "opportunity",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Uniques/TranscendantThirst.webp",
+      "icon_local": "unique_opportunity.png",
+      "icon_size": [
+        105,
+        212
+      ]
+    },
+    {
+      "name": "Olroth's Resolve",
+      "apiId": "olroths-resolve",
+      "price_exalted": 612.9313302861599,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Uniques/OlrothsResolve.webp",
+      "icon_local": "unique_olroths-resolve.png",
+      "icon_size": [
+        105,
+        212
+      ]
+    },
+    {
+      "name": "Melting Maelstrom",
+      "apiId": "melting-maelstrom",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "flask",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Flasks/Uniques/MeltingMaelstrom.webp",
+      "icon_local": "unique_melting-maelstrom.png",
+      "icon_size": [
+        105,
+        212
+      ]
+    },
+    {
+      "name": "Wraeclast Besieged",
+      "apiId": "wraeclast-besieged",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletBreachUnique1.webp",
+      "icon_local": "unique_wraeclast-besieged.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Grand Project",
+      "apiId": "the-grand-project",
+      "price_exalted": 1126.458055299488,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletGenericUnique1.webp",
+      "icon_local": "unique_the-grand-project.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Visions of Paradise",
+      "apiId": "visions-of-paradise",
+      "price_exalted": 1300.0,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletGenericUnique3.webp",
+      "icon_local": "unique_visions-of-paradise.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Winter's Bite",
+      "apiId": "winters-bite",
+      "price_exalted": 75097.20368663254,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Daggers/Uniques/Nevermelt.webp",
+      "icon_local": "unique_winters-bite.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    },
+    {
+      "name": "Trenchtimbre",
+      "apiId": "trenchtimbre",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/Trenchtimbre.webp",
+      "icon_local": "unique_trenchtimbre.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Frostbreath",
+      "apiId": "frostbreath",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/Frostbreath.webp",
+      "icon_local": "unique_frostbreath.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Tangletongue",
+      "apiId": "tangletongue",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/Tangletongue.webp",
+      "icon_local": "unique_tangletongue.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Chainsting",
+      "apiId": "chainsting",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/Chainsting.webp",
+      "icon_local": "unique_chainsting.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "The Dark Defiler",
+      "apiId": "the-dark-defiler",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/DarkDefiler.webp",
+      "icon_local": "unique_the-dark-defiler.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Guiding Palm of the Mind",
+      "apiId": "guiding-palm-of-the-mind",
+      "price_exalted": 1297.9722288412797,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/GuidingPalmLightning.webp",
+      "icon_local": "unique_guiding-palm-of-the-mind.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Guiding Palm of the Heart",
+      "apiId": "guiding-palm-of-the-heart",
+      "price_exalted": 1370.08179711024,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/GuidingPalmFire.webp",
+      "icon_local": "unique_guiding-palm-of-the-heart.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Sacred Flame",
+      "apiId": "sacred-flame",
+      "price_exalted": 901.3696033619999,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/SacredFlame.webp",
+      "icon_local": "unique_sacred-flame.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Guiding Palm of the Eye",
+      "apiId": "guiding-palm-of-the-eye",
+      "price_exalted": 1126.458055299488,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/GuidingPalmCold.webp",
+      "icon_local": "unique_guiding-palm-of-the-eye.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Lifesprig",
+      "apiId": "lifesprig",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Wands/Uniques/Lifesprig.webp",
+      "icon_local": "unique_lifesprig.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    },
+    {
+      "name": "Rampart Raptor",
+      "apiId": "rampart-raptor",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Crossbows/Uniques/RampartRaptor.webp",
+      "icon_local": "unique_rampart-raptor.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Double Vision",
+      "apiId": "double-vision",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Crossbows/Uniques/DoubleVision.webp",
+      "icon_local": "unique_double-vision.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Widowhail",
+      "apiId": "widowhail",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/Widowhail.webp",
+      "icon_local": "unique_widowhail.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "The Last Lament",
+      "apiId": "the-last-lament",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Crossbows/Uniques/TheGrandDesign.webp",
+      "icon_local": "unique_the-last-lament.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Pillar of the Caged God",
+      "apiId": "pillar-of-the-caged-god",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/WarStaves/Uniques/PillarOfTheCagedGod.webp",
+      "icon_local": "unique_pillar-of-the-caged-god.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Matsya",
+      "apiId": "matsya",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/WarStaves/Uniques/Matsya.webp",
+      "icon_local": "unique_matsya.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "The Sentry",
+      "apiId": "the-sentry",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/WarStaves/Uniques/TheSentry.webp",
+      "icon_local": "unique_the-sentry.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Nazir's Judgement",
+      "apiId": "nazirs-judgement",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/WarStaves/Uniques/NazirsJudgement.webp",
+      "icon_local": "unique_nazirs-judgement.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "The Empty Roar",
+      "apiId": "the-empty-roar",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/TheEmptyRoar.webp",
+      "icon_local": "unique_the-empty-roar.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Earthbound",
+      "apiId": "earthbound",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/Earthbound.webp",
+      "icon_local": "unique_earthbound.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Shyaba",
+      "apiId": "shyaba",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/Shyaba.webp",
+      "icon_local": "unique_shyaba.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Chober Chaber",
+      "apiId": "chober-chaber",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/ChoberChaber.webp",
+      "icon_local": "unique_chober-chaber.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Quecholli",
+      "apiId": "quecholli",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/Quecholli.webp",
+      "icon_local": "unique_quecholli.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Voices",
+      "apiId": "voices",
+      "price_exalted": 194241.78843876533,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/Voices.webp",
+      "icon_local": "unique_voices.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Mj\u00f6lner",
+      "apiId": "mj\u00f6lner",
+      "price_exalted": 10.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/Mjolner.webp",
+      "icon_local": "unique_mj\u00f6lner.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Freedom of Faith",
+      "apiId": "freedom-of-faith",
+      "price_exalted": 46.0,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletRitualUnique1.webp",
+      "icon_local": "unique_freedom-of-faith.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Sadist's Mercy",
+      "apiId": "sadists-mercy",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/Murkmaw.webp",
+      "icon_local": "unique_sadists-mercy.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Olrovasara",
+      "apiId": "olrovasara",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/Olrovasara.webp",
+      "icon_local": "unique_olrovasara.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Tyranny's Grip",
+      "apiId": "tyrannys-grip",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/ArmsLength.webp",
+      "icon_local": "unique_tyrannys-grip.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Undying Hate",
+      "apiId": "undying-hate",
+      "price_exalted": 60.0,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/UndyingHatred.webp",
+      "icon_local": "unique_undying-hate.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Heroic Tragedy",
+      "apiId": "heroic-tragedy",
+      "price_exalted": 100.0,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/ExpeditionJewel.webp",
+      "icon_local": "unique_heroic-tragedy.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Daevata's Wind",
+      "apiId": "daevatas-wind",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/DaevatasWind.webp",
+      "icon_local": "unique_daevatas-wind.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Sanguine Diviner",
+      "apiId": "sanguine-diviner",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Wands/Uniques/SanguineDiviner.webp",
+      "icon_local": "unique_sanguine-diviner.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    },
+    {
+      "name": "Font of Power",
+      "apiId": "font-of-power",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/FontOfPower.webp",
+      "icon_local": "unique_font-of-power.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Doomfletch",
+      "apiId": "doomfletch",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/Doomfletch.webp",
+      "icon_local": "unique_doomfletch.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Enezun's Charge",
+      "apiId": "enezuns-charge",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Wands/Uniques/EnezunsCharge.webp",
+      "icon_local": "unique_enezuns-charge.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    },
+    {
+      "name": "Slivertongue",
+      "apiId": "slivertongue",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/Slivertongue.webp",
+      "icon_local": "unique_slivertongue.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Mist Whisper",
+      "apiId": "mist-whisper",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Crossbows/Uniques/MistWhisper.webp",
+      "icon_local": "unique_mist-whisper.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Death's Harp",
+      "apiId": "deaths-harp",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/DeathsHarp.webp",
+      "icon_local": "unique_deaths-harp.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Collapsing Horizon",
+      "apiId": "collapsing-horizon",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/WarStaves/Uniques/CollapsingHorizon.webp",
+      "icon_local": "unique_collapsing-horizon.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Sire of Shards",
+      "apiId": "sire-of-shards",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/SireOfShards.webp",
+      "icon_local": "unique_sire-of-shards.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Taryn's Shiver",
+      "apiId": "taryns-shiver",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/TarynsShiver.webp",
+      "icon_local": "unique_taryns-shiver.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "The Burden of Shadows",
+      "apiId": "the-burden-of-shadows",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/BurdenOfShadows.webp",
+      "icon_local": "unique_the-burden-of-shadows.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Hrimnor's Hymn",
+      "apiId": "hrimnors-hymn",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/HrimnorsHymn.webp",
+      "icon_local": "unique_hrimnors-hymn.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Trephina",
+      "apiId": "trephina",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/Trephina.webp",
+      "icon_local": "unique_trephina.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Brain Rattler",
+      "apiId": "brain-rattler",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/Brainrattler.webp",
+      "icon_local": "unique_brain-rattler.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Heart of the Well",
+      "apiId": "heart-of-the-well",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/ApostatesHeart.webp",
+      "icon_local": "unique_heart-of-the-well.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Adorned",
+      "apiId": "the-adorned",
+      "price_exalted": 5657.527818604815,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/TrialmasterJewel.webp",
+      "icon_local": "unique_the-adorned.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "From Nothing",
+      "apiId": "from-nothing",
+      "price_exalted": 12.0,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/RitualJewel.webp",
+      "icon_local": "unique_from-nothing.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Megalomaniac",
+      "apiId": "megalomaniac",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/DeliriumJewel.webp",
+      "icon_local": "unique_megalomaniac.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Flesh Crucible",
+      "apiId": "flesh-crucible",
+      "price_exalted": 20.0,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/Vivisection.webp",
+      "icon_local": "unique_flesh-crucible.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Controlled Metamorphosis",
+      "apiId": "controlled-metamorphosis",
+      "price_exalted": 697.6794643381562,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/BreachJewel.webp",
+      "icon_local": "unique_controlled-metamorphosis.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Against the Darkness",
+      "apiId": "against-the-darkness",
+      "price_exalted": 1508.674084961284,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/SanctumJewel.webp",
+      "icon_local": "unique_against-the-darkness.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Split Personality",
+      "apiId": "split-personality",
+      "price_exalted": 10.0,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/SplitPersonality.webp",
+      "icon_local": "unique_split-personality.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Prism of Belief",
+      "apiId": "prism-of-belief",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/SacredFlameJewel.webp",
+      "icon_local": "unique_prism-of-belief.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Grand Spectrum",
+      "apiId": "grand-spectrum",
+      "price_exalted": 146.8798872290855,
+      "quantity": 0,
+      "CategoryApiId": "jewel",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Jewels/Uniques/GrandSpectrum_Sapphire.webp",
+      "icon_local": "unique_grand-spectrum.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Clear Skies",
+      "apiId": "clear-skies",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletDeliriumUnique1.webp",
+      "icon_local": "unique_clear-skies.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Cruel Hegemony",
+      "apiId": "cruel-hegemony",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletOverseerUnique2.webp",
+      "icon_local": "unique_cruel-hegemony.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Season of the Hunt",
+      "apiId": "season-of-the-hunt",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletOverseerUnique1.webp",
+      "icon_local": "unique_season-of-the-hunt.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "INCOMPLETE",
+      "apiId": "incomplete",
+      "price_exalted": 79205.38946046741,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Daggers/Basetypes/Dagger07.webp",
+      "icon_local": null,
+      "icon_size": null
+    },
+    {
+      "name": "Brynhand's Mark",
+      "apiId": "brynhands-mark",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/BrynhandsMark.webp",
+      "icon_local": "unique_brynhands-mark.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Sculpted Suffering",
+      "apiId": "sculpted-suffering",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/SculptedSuffering.webp",
+      "icon_local": "unique_sculpted-suffering.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Splinter of Lorrata",
+      "apiId": "splinter-of-lorrata",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/SplinterOfLorrata.webp",
+      "icon_local": "unique_splinter-of-lorrata.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Skysliver",
+      "apiId": "skysliver",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Skysliver.webp",
+      "icon_local": "unique_skysliver.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Redbeak",
+      "apiId": "redbeak",
+      "price_exalted": 294191.4465674504,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSwords/Uniques/Redbeak.webp",
+      "icon_local": "unique_redbeak.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Bluetongue",
+      "apiId": "bluetongue",
+      "price_exalted": 1282372.9722170914,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSwords/Uniques/Bluetongue.webp",
+      "icon_local": "unique_bluetongue.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Dancing Dervish",
+      "apiId": "the-dancing-dervish",
+      "price_exalted": 735478.6164186259,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSwords/Basetypes/1HSword04.webp",
+      "icon_local": "unique_the-dancing-dervish.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Sylvan's Effigy",
+      "apiId": "sylvans-effigy",
+      "price_exalted": 55.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Scepters/Uniques/Packleader.webp",
+      "icon_local": "unique_sylvans-effigy.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Wicked Quill",
+      "apiId": "the-wicked-quill",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Wands/Uniques/TheWickedQuill.webp",
+      "icon_local": "unique_the-wicked-quill.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    },
+    {
+      "name": "Adonia's Ego",
+      "apiId": "adonias-ego",
+      "price_exalted": 60.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Wands/Uniques/CourtlyDiscord.webp",
+      "icon_local": "unique_adonias-ego.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    },
+    {
+      "name": "Quill Rain",
+      "apiId": "quill-rain",
+      "price_exalted": 20.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/QuillRain.webp",
+      "icon_local": "unique_quill-rain.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Ironbound",
+      "apiId": "ironbound",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/Ironbound.webp",
+      "icon_local": "unique_ironbound.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Splinterheart",
+      "apiId": "splinterheart",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/Splinterheart.webp",
+      "icon_local": "unique_splinterheart.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Voltaxic Rift",
+      "apiId": "voltaxic-rift",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/VoltaxicRift.webp",
+      "icon_local": "unique_voltaxic-rift.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "The Blood Thorn",
+      "apiId": "the-blood-thorn",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/WarStaves/Uniques/TheBloodThorn.webp",
+      "icon_local": "unique_the-blood-thorn.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Dusk Vigil",
+      "apiId": "dusk-vigil",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/DuskVigil.webp",
+      "icon_local": "unique_dusk-vigil.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Seeing Stars",
+      "apiId": "seeing-stars",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/SeeingStars.webp",
+      "icon_local": "unique_seeing-stars.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Searing Touch",
+      "apiId": "the-searing-touch",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/SearingTouch.webp",
+      "icon_local": "unique_the-searing-touch.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "The Peacemaker's Draught",
+      "apiId": "the-peacemakers-draught",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "sanctum",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Relics/RelicUnique1x3.webp",
+      "icon_local": "unique_the-peacemakers-draught.png",
+      "icon_size": [
+        80,
+        236
+      ]
+    },
+    {
+      "name": "Hoghunt",
+      "apiId": "hoghunt",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/Hoghunt.webp",
+      "icon_local": "unique_hoghunt.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "The Desperate Alliance",
+      "apiId": "the-desperate-alliance",
+      "price_exalted": 1814.5745214858216,
+      "quantity": 0,
+      "CategoryApiId": "sanctum",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Relics/RelicUnique1x4.webp",
+      "icon_local": "unique_the-desperate-alliance.png",
+      "icon_size": [
+        80,
+        312
+      ]
+    },
+    {
+      "name": "The Changing Seasons",
+      "apiId": "the-changing-seasons",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "sanctum",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Relics/RelicUnique2x1.webp",
+      "icon_local": "unique_the-changing-seasons.png",
+      "icon_size": [
+        156,
+        80
+      ]
+    },
+    {
+      "name": "The Burden of Leadership",
+      "apiId": "the-burden-of-leadership",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "sanctum",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Relics/RelicUnique3x1.webp",
+      "icon_local": "unique_the-burden-of-leadership.png",
+      "icon_size": [
+        236,
+        80
+      ]
+    },
+    {
+      "name": "The Last Flame",
+      "apiId": "the-last-flame",
+      "price_exalted": 404569.722822365,
+      "quantity": 0,
+      "CategoryApiId": "sanctum",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Relics/RelicUnique4x1.webp",
+      "icon_local": "unique_the-last-flame.png",
+      "icon_size": [
+        312,
+        80
+      ]
+    },
+    {
+      "name": "Gloamgown",
+      "apiId": "gloamgown",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Gloamgown.webp",
+      "icon_local": "unique_gloamgown.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Nightscale",
+      "apiId": "nightscale",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Nightscale.webp",
+      "icon_local": "unique_nightscale.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Scold's Bridle",
+      "apiId": "scolds-bridle",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/ScoldsBridle.webp",
+      "icon_local": "unique_scolds-bridle.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Atziri's Contempt",
+      "apiId": "atziris-contempt",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/AtziriStaffBlood.webp",
+      "icon_local": "unique_atziris-contempt.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Calgyra's Arc",
+      "apiId": "calgyras-arc",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/CalgyrasArc.webp",
+      "icon_local": "unique_calgyras-arc.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Ordained",
+      "apiId": "the-ordained",
+      "price_exalted": 1820.5637527006425,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandSpears/Uniques/TheOrdained.webp",
+      "icon_local": "unique_the-ordained.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Tidebreaker",
+      "apiId": "tidebreaker",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/Tidebreaker.webp",
+      "icon_local": "unique_tidebreaker.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Vis Mortis",
+      "apiId": "vis-mortis",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/VisMortis.webp",
+      "icon_local": "unique_vis-mortis.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Bringer of Rain",
+      "apiId": "the-bringer-of-rain",
+      "price_exalted": 20.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/BringerOfRain.webp",
+      "icon_local": "unique_the-bringer-of-rain.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Indigon",
+      "apiId": "indigon",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Indigon.webp",
+      "icon_local": "unique_indigon.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Coming Calamity",
+      "apiId": "the-coming-calamity",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TheComingCalamity.webp",
+      "icon_local": "unique_the-coming-calamity.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Hammer of Faith",
+      "apiId": "the-hammer-of-faith",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/HammerOfTheChurch.webp",
+      "icon_local": "unique_the-hammer-of-faith.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Chernobog's Pillar",
+      "apiId": "chernobogs-pillar",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/ChernobogsPillar.webp",
+      "icon_local": "unique_chernobogs-pillar.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Lioneye's Glare",
+      "apiId": "lioneyes-glare",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/LioneyesGlare.webp",
+      "icon_local": "unique_lioneyes-glare.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Mind of the Council",
+      "apiId": "mind-of-the-council",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/MindOfTheCouncil.webp",
+      "icon_local": "unique_mind-of-the-council.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Nebuloch",
+      "apiId": "nebuloch",
+      "price_exalted": 3.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/Nebuloch.webp",
+      "icon_local": "unique_nebuloch.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Starkonja's Head",
+      "apiId": "starkonjas-head",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/StarkonjasHead.webp",
+      "icon_local": "unique_starkonjas-head.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Death Articulated",
+      "apiId": "death-articulated",
+      "price_exalted": 1618.27889128946,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/DeathArticulated.webp",
+      "icon_local": "unique_death-articulated.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Hyrri's Ire",
+      "apiId": "hyrris-ire",
+      "price_exalted": 9.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/HyrrisIre.webp",
+      "icon_local": "unique_hyrris-ire.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Heatshiver",
+      "apiId": "heatshiver",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/Heatshiver.webp",
+      "icon_local": "unique_heatshiver.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Whispering Ice",
+      "apiId": "the-whispering-ice",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/WhisperingIce.webp",
+      "icon_local": "unique_the-whispering-ice.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "The Prisoner's Manacles",
+      "apiId": "the-prisoners-manacles",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/PrisonersManacles.webp",
+      "icon_local": "unique_the-prisoners-manacles.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Crown of Eyes",
+      "apiId": "crown-of-eyes",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/CrownOfEyes.webp",
+      "icon_local": "unique_crown-of-eyes.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Grip of Kulemak",
+      "apiId": "grip-of-kulemak",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/TokenOfPassage05.webp",
+      "icon_local": "unique_grip-of-kulemak.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Fairgraves' Curse",
+      "apiId": "fairgraves-curse",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/DealersHand.webp",
+      "icon_local": "unique_fairgraves-curse.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Shankgonne",
+      "apiId": "shankgonne",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/Shankgonne.webp",
+      "icon_local": "unique_shankgonne.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Brutus' Lead Sprinkler",
+      "apiId": "brutus-lead-sprinkler",
+      "price_exalted": 20.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/BrutusLeadSprinkler.webp",
+      "icon_local": "unique_brutus-lead-sprinkler.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Marohi Erqi",
+      "apiId": "marohi-erqi",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/MarohiErqi.webp",
+      "icon_local": "unique_marohi-erqi.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Lightning Coil",
+      "apiId": "lightning-coil",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/LightningCoil.webp",
+      "icon_local": "unique_lightning-coil.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Cospri's Will",
+      "apiId": "cospris-will",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/CosprisWill.webp",
+      "icon_local": "unique_cospris-will.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Thunderfist",
+      "apiId": "thunderfist",
+      "price_exalted": 2.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/Thunderfist.webp",
+      "icon_local": "unique_thunderfist.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Unborn Lich",
+      "apiId": "the-unborn-lich",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/KulemaksBirth.webp",
+      "icon_local": "unique_the-unborn-lich.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Unforeseen Consequences",
+      "apiId": "unforeseen-consequences",
+      "price_exalted": 404.569722822365,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletAbyssUnique1.webp",
+      "icon_local": "unique_unforeseen-consequences.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Surge of the Tide",
+      "apiId": "surge-of-the-tide",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Talismans/Uniques/TawhoasDominion.webp",
+      "icon_local": "unique_surge-of-the-tide.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Amor Mandragora",
+      "apiId": "amor-mandragora",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Talismans/Uniques/AmorMandragora.webp",
+      "icon_local": "unique_amor-mandragora.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Fury of the King",
+      "apiId": "fury-of-the-king",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Talismans/Uniques/VesselOfWrath.webp",
+      "icon_local": "unique_fury-of-the-king.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Hysseg's Claw",
+      "apiId": "hyssegs-claw",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Talismans/Uniques/HandOfTheClan.webp",
+      "icon_local": "unique_hyssegs-claw.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Spiteful Floret",
+      "apiId": "spiteful-floret",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Talismans/Uniques/CrimsonChrysalis.webp",
+      "icon_local": "unique_spiteful-floret.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "The Flesh Poppet",
+      "apiId": "the-flesh-poppet",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Talismans/Uniques/TheSkinThief.webp",
+      "icon_local": "unique_the-flesh-poppet.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Atziri's Rule",
+      "apiId": "atziris-rule",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/AtziriStaff.webp",
+      "icon_local": "unique_atziris-rule.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Atziri's Splendour",
+      "apiId": "atziris-splendour",
+      "price_exalted": 119.06117898645624,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/AtzirisSplendour.webp",
+      "icon_local": "unique_atziris-splendour.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Berek's Respite",
+      "apiId": "bereks-respite",
+      "price_exalted": 34.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/BereksRespite.webp",
+      "icon_local": "unique_bereks-respite.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Mastered Domain",
+      "apiId": "mastered-domain",
+      "price_exalted": 8.0,
+      "quantity": 0,
+      "CategoryApiId": "map",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Currency/PrecursorTablets/PrecursorTabletMasteredDomain.webp",
+      "icon_local": "unique_mastered-domain.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Berek's Pass",
+      "apiId": "bereks-pass",
+      "price_exalted": 27.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/BereksPass.webp",
+      "icon_local": "unique_bereks-pass.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Berek's Grip",
+      "apiId": "bereks-grip",
+      "price_exalted": 38.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Rings/Uniques/BereksGrip.webp",
+      "icon_local": "unique_bereks-grip.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "The Auspex",
+      "apiId": "the-auspex",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/The%20Auspex.webp",
+      "icon_local": "unique_the-auspex.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Loreweave",
+      "apiId": "loreweave",
+      "price_exalted": 100.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Loreweave.webp",
+      "icon_local": "unique_loreweave.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Geofri's Sanctuary",
+      "apiId": "geofris-sanctuary",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/GeofrisSanctuary.webp",
+      "icon_local": "unique_geofris-sanctuary.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "The Unleashed",
+      "apiId": "the-unleashed",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/Endurfaedyr.webp",
+      "icon_local": "unique_the-unleashed.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Decree of Flight",
+      "apiId": "decree-of-flight",
+      "price_exalted": 30.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Boots/Uniques/BoundlessAuthority.webp",
+      "icon_local": "unique_decree-of-flight.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Nightfall",
+      "apiId": "nightfall",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/TulShield.webp",
+      "icon_local": "unique_nightfall.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Serle's Grit",
+      "apiId": "serles-grit",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/OneHandMaces/Uniques/SerlesMasterwork.webp",
+      "icon_local": "unique_serles-grit.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Vestige of Darkness",
+      "apiId": "vestige-of-darkness",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/CrownOfTheWendigo.webp",
+      "icon_local": "unique_vestige-of-darkness.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Decree of Loyalty",
+      "apiId": "decree-of-loyalty",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/UnfalteringFaith.webp",
+      "icon_local": "unique_decree-of-loyalty.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Decree of Acuity",
+      "apiId": "decree-of-acuity",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Helmets/Uniques/SightlessConviction.webp",
+      "icon_local": "unique_decree-of-acuity.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Redemption",
+      "apiId": "redemption",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Crossbows/Uniques/TheRedemption.webp",
+      "icon_local": "unique_redemption.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Eventide Petals",
+      "apiId": "eventide-petals",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "accessory",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Amulets/Uniques/Nattblom.webp",
+      "icon_local": "unique_eventide-petals.png",
+      "icon_size": [
+        108,
+        108
+      ]
+    },
+    {
+      "name": "Forgotten Warden",
+      "apiId": "forgotten-warden",
+      "price_exalted": 15.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/BodyArmours/Uniques/TheAncientOrder.webp",
+      "icon_local": "unique_forgotten-warden.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Horror's Flight",
+      "apiId": "horrors-flight",
+      "price_exalted": 10.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Armours/Gloves/Uniques/ChokingMists.webp",
+      "icon_local": "unique_horrors-flight.png",
+      "icon_size": [
+        212,
+        212
+      ]
+    },
+    {
+      "name": "Eyes of the Runefather",
+      "apiId": "eyes-of-the-runefather",
+      "price_exalted": 1.0,
+      "quantity": 0,
+      "CategoryApiId": "armour",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Offhand/Shields/Uniques/Vindromyr.webp",
+      "icon_local": "unique_eyes-of-the-runefather.png",
+      "icon_size": [
+        212,
+        316
+      ]
+    },
+    {
+      "name": "Liminal Coil",
+      "apiId": "liminal-coil",
+      "price_exalted": 10.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Wands/Uniques/CoilOfUndoing.webp",
+      "icon_local": "unique_liminal-coil.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    },
+    {
+      "name": "Periphery",
+      "apiId": "periphery",
+      "price_exalted": 5.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Bows/Uniques/Fluttermoth.webp",
+      "icon_local": "unique_periphery.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Duality",
+      "apiId": "duality",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/WarStaves/Uniques/Stjorvar.webp",
+      "icon_local": "unique_duality.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "The Raven's Flock",
+      "apiId": "the-ravens-flock",
+      "price_exalted": 4.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/Staves/Uniques/RoostOfTheRavenKing.webp",
+      "icon_local": "unique_the-ravens-flock.png",
+      "icon_size": [
+        108,
+        420
+      ]
+    },
+    {
+      "name": "Twisted Empyrean",
+      "apiId": "twisted-empyrean",
+      "price_exalted": 60.0,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/TwoHandWeapons/TwoHandMaces/Uniques/SpiderVerisiumMaul.webp",
+      "icon_local": "unique_twisted-empyrean.png",
+      "icon_size": [
+        212,
+        420
+      ]
+    },
+    {
+      "name": "Runeseeker's Call",
+      "apiId": "runeseekers-call",
+      "price_exalted": 80577.75007214585,
+      "quantity": 0,
+      "CategoryApiId": "weapon",
+      "icon_url": "https://cdn.poe2db.tw/image/Art/2DItems/Weapons/OneHandWeapons/Wands/Uniques/RunicDiviner.webp",
+      "icon_local": "unique_runeseekers-call.png",
+      "icon_size": [
+        108,
+        316
+      ]
+    }
+  ]
+}

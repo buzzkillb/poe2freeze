@@ -45,18 +45,27 @@ CREATE TABLE IF NOT EXISTS request_log (
 
 @contextmanager
 def get_db():
-    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    db = sqlite3.connect(str(DB_PATH), timeout=10)
-    db.row_factory = sqlite3.Row
+    global _shared_db
+    if _shared_db is None:
+        DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+        _shared_db = sqlite3.connect(str(DB_PATH), timeout=10, check_same_thread=False)
+        _shared_db.row_factory = sqlite3.Row
+        _shared_db.execute("PRAGMA journal_mode=WAL")
+        _shared_db.execute("PRAGMA synchronous=NORMAL")
     try:
-        yield db
-    finally:
-        db.close()
+        yield _shared_db
+    except Exception:
+        _shared_db.rollback()
+        raise
+
+_shared_db = None
 
 
 def init_db():
     with get_db() as db:
         db.executescript(_SCHEMA)
+        db.execute("DELETE FROM prices WHERE expires_at < ?", (int(time.time()),))
+        db.execute("DELETE FROM request_log WHERE ts < ?", (int(time.time()) - 7 * 86400,))
         db.commit()
 
 
@@ -74,10 +83,6 @@ def cache_price(
 ):
     if detail is None:
         detail = {}
-    if exalted is None and chaos is not None:
-        exalted = chaos
-    if exalted is None and divine is not None:
-        exalted = divine
     now = int(time.time())
     expires = now + ttl_seconds
     detail_json = _safe_json(detail)
