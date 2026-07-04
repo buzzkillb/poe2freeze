@@ -18,6 +18,7 @@ from PyQt5.QtGui import QColor, QFont, QFontMetrics, QPainter, QPen, QBrush
 from PyQt5.QtWidgets import QWidget, QApplication
 
 DATA_DIR = Path(__file__).parent / "data"
+TPL_DIR = DATA_DIR / "ritual_templates"
 ICONS_DIR = DATA_DIR / "unique_icons" / "icons"
 DB_PATH = DATA_DIR / "unique_icons" / "database.json"
 
@@ -202,14 +203,35 @@ class RitualDetector:
         print(f"[ritual] {fetched} prices loaded", flush=True)
 
     def find_anchor(self, screen):
-        """Find ritual grid by scanning for 5+ items in a 12x10 slot pattern."""
+        """Find ritual grid via FAVOURS template match + grid verification."""
         if screen is None:
             return None
         h, w = screen.shape[:2]
         gray = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
+
+        # Use cropped FAVOURS text template (200x70) - more specific
+        fav_text = cv2.imread(str(TPL_DIR / "favours_text_only.png"), cv2.IMREAD_GRAYSCALE)
+        if fav_text is None:
+            fav_text = cv2.imread(str(TPL_DIR / "favours_thresh.png"), cv2.IMREAD_GRAYSCALE)
+            if fav_text is None:
+                return None
+        fth, ftw = fav_text.shape
+
+        # Search only in top 30% where FAVOURS header is
+        search_h = int(h * 0.30)
+        if h < fth or w < ftw or search_h < fth:
+            return None
+        result = cv2.matchTemplate(
+            gray[:search_h, :], fav_text, cv2.TM_CCOEFF_NORMED
+        )
+        _, tpl_score, _, _ = cv2.minMaxLoc(result)
+
+        if tpl_score < 0.92:  # strict to avoid false positives
+            return None
+
+        # Template matched. Verify grid position.
         sx = w / 3840
         sy = h / 2160
-
         for ax, ay in [(453, 682), (400, 680), (350, 680)]:
             ax = int(ax * sx)
             ay = int(ay * sy)
