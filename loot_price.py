@@ -43,8 +43,8 @@ COLOR_RANGES = [
 ]
 
 # Also detect white/bright text regions (E-tier, white text only)
-TEXT_LOWER = np.array([0, 0, 180])
-TEXT_UPPER = np.array([180, 50, 255])
+TEXT_LOWER = np.array([0, 0, 120])
+TEXT_UPPER = np.array([180, 80, 255])
 
 TMPDIR = Path(tempfile.gettempdir()) / "poe2_loot_ocr"
 TMPDIR.mkdir(exist_ok=True)
@@ -218,18 +218,12 @@ class GroundPriceScanner:
 
         # Also scan for white text (E-tier items, text-only labels)
         text_mask = cv2.inRange(hsv, TEXT_LOWER, TEXT_UPPER)
-        # Keep only text-size connected components
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
         text_mask = cv2.morphologyEx(text_mask, cv2.MORPH_CLOSE, kernel)
         contours, _ = cv2.findContours(text_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         for cnt in contours:
             x, y, w, h = cv2.boundingRect(cnt)
-            if w * h < 200:
-                continue
-            if w * h > 5000:
-                continue
-            # Restrict to lower portion of screen (ground items)
-            if y < frame.shape[0] * 0.5:
+            if w * h < 50 or w * h > 10000:
                 continue
             ox = max(0, x - 10)
             oy = max(0, y - 10)
