@@ -95,11 +95,10 @@ class LootOverlay(QWidget):
             return
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
-        font = QFont("Serif", 13, QFont.Bold)
+        font = QFont("Serif", 12, QFont.Bold)
         painter.setFont(font)
         fm = QFontMetrics(font)
-        for x, y, name, price in self._labels:
-            txt = _fmt(price) if price > 0 else name[:20]
+        for x, y, txt, price in self._labels:
             tw = fm.horizontalAdvance(txt) + 14
             th = fm.height() + 8
             lx, ly = x - tw // 2, y - th - 4
@@ -180,7 +179,7 @@ class GroundPriceScanner:
 
         import mss
         try:
-            with mss.mss() as sct:
+            with mss.MSS() as sct:
                 raw = np.array(sct.grab(sct.monitors[1]))
                 frame = cv2.cvtColor(raw, cv2.COLOR_BGRA2BGR)
         except Exception as e:
@@ -235,12 +234,13 @@ class GroundPriceScanner:
         for key in to_remove:
             del self._items[key]
 
-        # Build display labels
+        # Build display labels - show detected items even without price
         labels = []
         for key, (bbox, price) in self._items.items():
             bx, by, bw, bh = bbox
             cx, cy = bx + bw // 2, by + bh // 2
-            labels.append((cx, cy, key, price))
+            txt = _fmt(price) if price > 0 else f"? {key[:25]}"
+            labels.append((cx, cy, txt, price))
 
         self._overlay.set_labels(labels)
 
