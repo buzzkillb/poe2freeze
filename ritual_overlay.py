@@ -111,6 +111,18 @@ class RitualDetector:
         self.league = league or config.LEAGUE
         self._scout = scout
 
+        # Calibration offset (from calibrate_ritual.py)
+        self._calibrated_xy: Optional[Tuple[int, int]] = None
+        offset_file = Path(__file__).parent / "ritual_offset.json"
+        if offset_file.exists():
+            try:
+                cfg = json.loads(offset_file.read_text())
+                self._calibrated_xy = tuple(cfg.get("grid_xy", ()))
+                if len(self._calibrated_xy) == 2:
+                    print(f"[ritual] using calibrated offset: {self._calibrated_xy}", flush=True)
+            except Exception:
+                pass
+
         # Icon database for matching
         self._icons: Dict[str, dict] = {}
         self._load_icons()
@@ -203,51 +215,67 @@ class RitualDetector:
         print(f"[ritual] {fetched} prices loaded", flush=True)
 
     def find_anchor(self, screen):
-        """Find ritual grid via FAVOURS template match + grid verification."""
+        """Find ritual grid: calibration > FAVOURS template > hardcoded."""
         if screen is None:
             return None
         h, w = screen.shape[:2]
         gray = cv2.cvtColor(screen, cv2.COLOR_BGR2GRAY)
 
-        # Use cropped FAVOURS text template (200x70) - more specific
+        # 1) Try calibrated position (from calibrate_ritual.py)
+        if self._calibrated_xy and len(self._calibrated_xy) == 2:
+            ax, ay = self._calibrated_xy
+            count = self._count_occupied_slots(gray, ax, ay, w, h)
+            if count >= MIN_OCCUPIED_SLOTS:
+                return (ax, ay)
+            else:
+                print(f"[ritual] calibrated pos has {count} slots, no menu", flush=True)
+
+        # 2) Try FAVOURS template match in top of screen
         fav_text = cv2.imread(str(TPL_DIR / "favours_text_only.png"), cv2.IMREAD_GRAYSCALE)
         if fav_text is None:
             fav_text = cv2.imread(str(TPL_DIR / "favours_thresh.png"), cv2.IMREAD_GRAYSCALE)
-            if fav_text is None:
-                return None
-        fth, ftw = fav_text.shape
+        if fav_text is not None:
+            fth, ftw = fav_text.shape
+            search_h = int(h * 0.30)
+            if h >= fth and w >= ftw and search_h >= fth:
+                result = cv2.matchTemplate(
+                    gray[:search_h, :], fav_text, cv2.TM_CCOEFF_NORMED
+                )
+                _, tpl_score, _, _ = cv2.minMaxLoc(result)
+                if tpl_score >= 0.92:
+                    count = self._count_occupied_slots(gray, *self._hardcoded_anchor(w, h), w, h)
+                    if count >= MIN_OCCUPIED_SLOTS:
+                        return self._hardcoded_anchor(w, h)
 
-        # Search only in top 30% where FAVOURS header is
-        search_h = int(h * 0.30)
-        if h < fth or w < ftw or search_h < fth:
-            return None
-        result = cv2.matchTemplate(
-            gray[:search_h, :], fav_text, cv2.TM_CCOEFF_NORMED
-        )
-        _, tpl_score, _, _ = cv2.minMaxLoc(result)
+        # 3) Fall back to hardcoded positions
+        ax, ay = self._hardcoded_anchor(w, h)
+        count = self._count_occupied_slots(gray, ax, ay, w, h)
+        if count >= MIN_OCCUPIED_SLOTS:
+            return (ax, ay)
+        return None
 
-        if tpl_score < 0.92:  # strict to avoid false positives
-            return None
-
-        # Template matched. Verify grid position.
+    def _hardcoded_anchor(self, w, h):
         sx = w / 3840
         sy = h / 2160
         for ax, ay in [(453, 682), (400, 680), (350, 680)]:
-            ax = int(ax * sx)
-            ay = int(ay * sy)
-            if ax < 10 or ay < 10 or ax + SLOT_SIZE * SLOT_COLS >= w or ay + SLOT_SIZE * SLOT_ROWS >= h:
-                continue
-            count = 0
-            for row in range(SLOT_ROWS):
-                for col in range(SLOT_COLS):
-                    x = ax + col * SLOT_SIZE + CROP_INSET
-                    y = ay + row * SLOT_SIZE + CROP_INSET
-                    crop = gray[y : y + CROP_SIZE, x : x + CROP_SIZE]
-                    if crop.size > 0 and crop.mean() > OCCUPIED_MEAN_THRESH:
-                        count += 1
-            if count >= MIN_OCCUPIED_SLOTS:
-                return (ax, ay)
-        return None
+            ax2 = int(ax * sx)
+            ay2 = int(ay * sy)
+            if ax2 >= 10 and ay2 >= 10 and ax2 + SLOT_SIZE * SLOT_COLS < w and ay2 + SLOT_SIZE * SLOT_ROWS < h:
+                return (ax2, ay2)
+        return (0, 0)
+
+    def _count_occupied_slots(self, gray, ax, ay, w, h):
+        count = 0
+        for row in range(SLOT_ROWS):
+            for col in range(SLOT_COLS):
+                x = ax + col * SLOT_SIZE + CROP_INSET
+                y = ay + row * SLOT_SIZE + CROP_INSET
+                if x + CROP_SIZE > w or y + CROP_SIZE > h:
+                    continue
+                crop = gray[y : y + CROP_SIZE, x : x + CROP_SIZE]
+                if crop.size > 0 and crop.mean() > OCCUPIED_MEAN_THRESH:
+                    count += 1
+        return count
 
     def find_occupied_slots(self, screen, anchor):
         ax, ay = anchor
