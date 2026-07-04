@@ -32,16 +32,19 @@ sys.path.insert(0, str(ROOT))
 from data_sources import Poe2ScoutSource
 
 
-# ── Filter highlight colors ──────────────────────────────────────
-# These are the poe2filter.com color ranges (HSV)
-FILTER_RANGES = [
-    ("purple",   np.array([130, 80, 150]), np.array([160, 255, 255])),  # S-tier
-    ("brown",    np.array([5, 80, 120]),   np.array([20, 255, 230])),   # Excellent unique
-    ("red",      np.array([170, 100, 100]),np.array([10, 255, 200])),   # A-tier
-    ("orange",   np.array([7, 80, 120]),   np.array([25, 255, 230])),   # Good tier
-    ("yellow",   np.array([25, 80, 150]),  np.array([40, 255, 255])),   # Currency
-    ("white",    np.array([0, 0, 180]),    np.array([180, 30, 255])),   # D-tier
+# Filter highlight colors (HSV)
+# These match poe2filter.com tier colors
+COLOR_RANGES = [
+    ("purple",  np.array([130, 80, 150]), np.array([160, 255, 255])),  # S-tier
+    ("brown",   np.array([5, 80, 120]),   np.array([20, 255, 230])),   # Excellent unique
+    ("red",     np.array([170, 100, 100]),np.array([10, 255, 200])),   # A-tier
+    ("orange",  np.array([7, 80, 120]),   np.array([25, 255, 230])),   # Good tier
+    ("yellow",  np.array([25, 80, 150]),  np.array([40, 255, 255])),   # Currency
 ]
+
+# Also detect white/bright text regions (E-tier, white text only)
+TEXT_LOWER = np.array([0, 0, 180])
+TEXT_UPPER = np.array([180, 50, 255])
 
 TMPDIR = Path(tempfile.gettempdir()) / "poe2_loot_ocr"
 TMPDIR.mkdir(exist_ok=True)
@@ -188,15 +191,14 @@ class GroundPriceScanner:
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         found_names = []
 
-        # Scan for each filter color
-        for name, lo, hi in FILTER_RANGES:
+        # Scan for colored highlights
+        for name, lo, hi in COLOR_RANGES:
             mask = cv2.inRange(hsv, lo, hi)
             contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             for cnt in contours:
                 x, y, w, h = cv2.boundingRect(cnt)
                 if w * h < 500:
                     continue
-                # Expand region to capture text around the color
                 ox = max(0, x - 30)
                 oy = max(0, y - 30)
                 ow = min(frame.shape[1] - ox, w + 60)
@@ -204,20 +206,48 @@ class GroundPriceScanner:
                 region = frame[oy:oy + oh, ox:ox + ow]
                 if region.size == 0:
                     continue
-
                 text = ocr_image(region)
-                if not text or len(text) < 3:
-                    continue
+                if text and len(text) >= 3:
+                    key = text.lower().strip()
+                    price = self.lookup(key)
+                    first_word = text.split()[0] if text.split() else text
+                    if price == 0 and first_word != text:
+                        price = self.lookup(first_word)
+                    self._items[key] = ((ox, oy, ow, oh), price)
+                    found_names.append(key)
 
-                price = self.lookup(text)
-                # Also try first "word" as item name (filter text sometimes includes tier info)
-                first_word = text.split()[0] if text.split() else text
-                if price == 0 and first_word != text:
-                    price = self.lookup(first_word)
-
+        # Also scan for white text (E-tier items, text-only labels)
+        text_mask = cv2.inRange(hsv, TEXT_LOWER, TEXT_UPPER)
+        # Keep only text-size connected components
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
+        text_mask = cv2.morphologyEx(text_mask, cv2.MORPH_CLOSE, kernel)
+        contours, _ = cv2.findContours(text_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        for cnt in contours:
+            x, y, w, h = cv2.boundingRect(cnt)
+            if w * h < 200:
+                continue
+            if w * h > 5000:
+                continue
+            # Restrict to lower portion of screen (ground items)
+            if y < frame.shape[0] * 0.5:
+                continue
+            ox = max(0, x - 10)
+            oy = max(0, y - 10)
+            ow = min(frame.shape[1] - ox, w + 20)
+            oh = min(frame.shape[0] - oy, h + 20)
+            region = frame[oy:oy + oh, ox:ox + ow]
+            if region.size == 0:
+                continue
+            text = ocr_image(region)
+            if text and len(text) >= 3:
                 key = text.lower().strip()
-                self._items[key] = ((ox, oy, ow, oh), price)
-                found_names.append(key)
+                if key not in self._items:
+                    price = self.lookup(key)
+                    first_word = text.split()[0] if text.split() else text
+                    if price == 0 and first_word != text:
+                        price = self.lookup(first_word)
+                    self._items[key] = ((ox, oy, ow, oh), price)
+                    found_names.append(key)
 
         # Remove items no longer visible
         to_remove = []
