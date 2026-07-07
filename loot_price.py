@@ -14,6 +14,7 @@ No game memory reading. Uses the poe2filter visual output as the trigger.
 from __future__ import annotations
 
 import os
+import subprocess
 import sys
 import time
 import tempfile
@@ -50,23 +51,33 @@ TMPDIR = Path(tempfile.gettempdir()) / "poe2_loot_ocr"
 TMPDIR.mkdir(exist_ok=True)
 OCR_WORKER = str(ROOT / "ocr_worker.py")
 
+_ocr_proc = None
+
+def _start_ocr():
+    global _ocr_proc
+    if _ocr_proc is None or _ocr_proc.poll() is not None:
+        _ocr_proc = subprocess.Popen(
+            [sys.executable, OCR_WORKER, 'ready'],
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL, text=True, bufsize=1
+        )
+        # Wait for ready signal
+        _ocr_proc.stdout.readline()
 
 def ocr_image(img: np.ndarray) -> str:
-    """Run EasyOCR via subprocess to avoid PyQt5 DLL conflict."""
+    """Run EasyOCR via persistent subprocess."""
     if img.size == 0 or img.shape[0] < 10 or img.shape[1] < 10:
         return ""
+    _start_ocr()
     path = TMPDIR / "loot_crop.png"
     cv2.imwrite(str(path), img)
     try:
-        import subprocess
-        r = subprocess.run([sys.executable, OCR_WORKER, "ocr", str(path)],
-                           capture_output=True, text=True, timeout=30)
-        if r.returncode == 0:
-            text = r.stdout.strip()
-            return text
-    except Exception as e:
-        pass
-    return ""
+        _ocr_proc.stdin.write(f"ocr {path}\n")
+        _ocr_proc.stdin.flush()
+        result = _ocr_proc.stdout.readline()
+        return result.strip()
+    except Exception:
+        return ""
 
 
 class LootOverlay(QWidget):
@@ -221,14 +232,16 @@ class GroundPriceScanner:
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
         text_mask = cv2.morphologyEx(text_mask, cv2.MORPH_CLOSE, kernel)
         contours, _ = cv2.findContours(text_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        text_candidates = 0
         for cnt in contours:
             x, y, w, h = cv2.boundingRect(cnt)
-            if w * h < 50 or w * h > 10000:
+            if w * h < 50 or w > 600 or h > 40 or w * h > 10000:
                 continue
-            ox = max(0, x - 10)
-            oy = max(0, y - 10)
-            ow = min(frame.shape[1] - ox, w + 20)
-            oh = min(frame.shape[0] - oy, h + 20)
+            text_candidates += 1
+            ox = max(0, x - 5)
+            oy = max(0, y - 5)
+            ow = min(frame.shape[1] - ox, w + 10)
+            oh = min(frame.shape[0] - oy, h + 10)
             region = frame[oy:oy + oh, ox:ox + ow]
             if region.size == 0:
                 continue
